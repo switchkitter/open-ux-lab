@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import AccountPage from "./pages/AccountPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
+import PathPage from "./pages/PathPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ReviewPage from "./pages/ReviewPage";
 import SkillsPage from "./pages/SkillsPage";
@@ -20,11 +21,12 @@ export default function App() {
 
   // Title and focus on every route change. On first load, keep the browser's default focus.
   const firstRender = useRef(true);
-  const routeKey = route.name === "lesson" ? `lesson/${route.id}` : route.name;
+  const routeKey = route.name === "lesson" || route.name === "path" ? `${route.name}/${route.id}` : route.name;
   useEffect(() => {
     const found = route.name === "lesson" ? findLesson(route.id) : undefined;
     const title =
       route.name === "lesson" && found ? found.lesson.title
+      : route.name === "path" ? (paths.find((p) => p.id === route.id)?.title ?? "")
       : route.name === "review" ? "Review"
       : route.name === "account" ? "Account"
       : route.name === "privacy" ? "Privacy"
@@ -40,7 +42,10 @@ export default function App() {
   }, [routeKey]);
 
   let page;
-  if (route.name === "lesson") {
+  if (route.name === "path") {
+    const path = paths.find((p) => p.id === route.id);
+    page = path ? <PathPage key={path.id} path={path} progress={progress} /> : <HomePage progress={progress} />;
+  } else if (route.name === "lesson") {
     const found = findLesson(route.id);
     page = found ? (
       <LessonPage key={found.lesson.id} lesson={found.lesson} path={found.path} progress={progress} update={update} />

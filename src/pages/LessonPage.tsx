@@ -52,8 +52,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   return (
     <>
       <div>
-        <a className="back" href={hrefFor({ name: "home" })}>
-          ← All lessons
+        <a className="back" href={hrefFor({ name: "path", id: path.id })}>
+          ← {path.title}
         </a>
         {/* Visual only: the eyebrow on each screen says "Exercise 1 of 2" in text. */}
         <div className="steps" aria-hidden="true">
@@ -149,8 +149,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
                 Next: {nextLesson.title}
               </a>
             )}
-            <a className="btn ghost" href={hrefFor({ name: "home" })}>
-              All lessons
+            <a className="btn ghost" href={hrefFor({ name: "path", id: path.id })}>
+              Back to {path.title}
             </a>
           </div>
         </section>

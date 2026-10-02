@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 
 /**
- * Tiny hash router: #/ , #/lesson/h1 , #/review , #/account , #/privacy , #/skills
+ * Tiny hash router: #/ , #/path/heuristics , #/lesson/h1 , #/review , #/account , #/privacy , #/skills
  * Swap for a real router when the app needs nested routes or server rendering.
  */
-export type Route = { name: "home" } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" };
+export type Route = { name: "home" } | { name: "path"; id: string } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" };
 
 export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, "").split("/").filter(Boolean);
+  if (parts[0] === "path" && parts[1]) return { name: "path", id: parts[1] };
   if (parts[0] === "lesson" && parts[1]) return { name: "lesson", id: parts[1] };
   if (parts[0] === "review") return { name: "review" };
   if (parts[0] === "account") return { name: "account" };
@@ -18,6 +19,8 @@ export function parseRoute(hash: string): Route {
 
 export function hrefFor(route: Route): string {
   switch (route.name) {
+    case "path":
+      return `#/path/${route.id}`;
     case "lesson":
       return `#/lesson/${route.id}`;
     case "review":

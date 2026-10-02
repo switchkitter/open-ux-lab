@@ -240,3 +240,25 @@ export const lessonIcons: Record<string, ReactNode> = {
     </>,
   ),
 };
+
+/** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
+export const pathIcons: Record<string, ReactNode> = {
+  // Nielsen's heuristics: a checklist
+  heuristics: icon(<path d="M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L7.5 4.5M3.5 12l1.5 1.5 2.5-3M3.5 18l1.5 1.5 2.5-3" />),
+  // Accessibility basics: a person with open arms
+  accessibility: icon(
+    <>
+      <circle cx="12" cy="4.5" r="1.8" />
+      <path d="M5 8.5l7 1.5 7-1.5M12 10v4.5l-3.5 6.5M12 14.5l3.5 6.5" />
+    </>,
+  ),
+  // Form design: a form page
+  forms: icon(
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="2.5" />
+      <path d="M8 8h8M8 12.5h8M8 17h4" />
+    </>,
+  ),
+  // Laws of UX: a light bulb
+  "laws-of-ux": icon(<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z" />),
+};

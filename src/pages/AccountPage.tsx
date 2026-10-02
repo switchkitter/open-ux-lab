@@ -13,7 +13,7 @@ export default function AccountPage({ status, syncNow, update }: Props) {
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← All lessons
+        ← Home
       </a>
       <section className="panel account">
         <div className="eyebrow">Account</div>

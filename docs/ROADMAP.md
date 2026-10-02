@@ -20,6 +20,7 @@
 - [x] Icons and scenes for Accessibility, Form design and Laws of UX (all 34 lessons)
 - [x] Lesson codes (H1, A3...) removed from the UI
 - [x] Sound effects for right and wrong answers and lesson completion, with a header toggle
+- [x] Home page shows a card per learning path; each path has its own page with its lessons
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)

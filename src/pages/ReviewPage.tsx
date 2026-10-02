@@ -46,7 +46,7 @@ export default function ReviewPage({ progress, update }: Props) {
         <p>{scheduleSummary(progress)}</p>
         <div className="actions">
           <a className="btn" href={hrefFor({ name: "home" })}>
-            All lessons
+            Home
           </a>
         </div>
       </section>
@@ -58,7 +58,7 @@ export default function ReviewPage({ progress, update }: Props) {
     <>
       <div>
         <a className="back" href={hrefFor({ name: "home" })}>
-          ← All lessons
+          ← Home
         </a>
       </div>
       <ExerciseCard

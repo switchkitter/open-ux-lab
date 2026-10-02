@@ -1,6 +1,7 @@
-import { lessonIcons } from "../art";
+import { pathIcons } from "../art";
 import { paths, plannedPaths } from "../content/paths";
 import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
+import { pathStatus } from "../lib/pathStatus";
 import { hrefFor } from "../lib/route";
 
 export default function HomePage({ progress }: { progress: Progress }) {
@@ -49,60 +50,54 @@ export default function HomePage({ progress }: { progress: Progress }) {
       <a className="panel skills-link" href={hrefFor({ name: "skills" })}>
         <span>
           <span className="skills-link-title">Your skill map</span>
-          <span className="skills-link-sub">See your strengths and gaps across all four paths.</span>
+          <span className="skills-link-sub">See your strengths and gaps across all paths.</span>
         </span>
         <span aria-hidden="true">→</span>
       </a>
 
-      {paths.map((path, pathIndex) => {
-        const done = path.lessons.filter((l) => progress.completedLessons[l.id]).length;
-        const nextId = path.lessons.find((l) => !progress.completedLessons[l.id])?.id;
-        return (
-          <section key={path.id}>
-            <div className="section-head">
-              <div>
-                <div className="eyebrow">Path {pathIndex + 1}</div>
-                <h2>{path.title}</h2>
-              </div>
-              <div className="meter">
-                <span>
-                  {done}/{path.lessons.length}
-                </span>
-                <span className="meter-track">
-                  <i style={{ width: `${(done / path.lessons.length) * 100}%` }} />
-                </span>
-              </div>
-            </div>
-            <ol className="path">
-              {path.lessons.map((lesson) => {
-                const status = progress.completedLessons[lesson.id] ? (
-                  <span className="status done">Done</span>
-                ) : lesson.id === nextId ? (
-                  <span className="status next">Up next</span>
-                ) : (
-                  <span className="status todo">{lesson.minutes} min</span>
-                );
-                return (
-                  <li key={lesson.id}>
-                    <a className="row" href={hrefFor({ name: "lesson", id: lesson.id })}>
-                      <span className={`lesson-tile ${progress.completedLessons[lesson.id] ? "done" : ""}`} aria-hidden="true">
-                        {lessonIcons[lesson.id] ?? lesson.code}
-                      </span>
-                      <span className="row-title">
-                        {lesson.title}
-                        <span className="row-sub">
-                          {lesson.subtitle}
-                        </span>
-                      </span>
-                      {status}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-          </section>
-        );
-      })}
+      <section aria-labelledby="paths-heading">
+        <h2 id="paths-heading" className="paths-heading">
+          Learning paths
+        </h2>
+        <ul className="path-cards">
+          {paths.map((path, i) => {
+            const st = pathStatus(path, progress);
+            return (
+              <li key={path.id}>
+                {/* Name the link by its title; progress and the next lesson are read as its description. */}
+                <a
+                  className={`path-card tone-${i % 3}`}
+                  href={hrefFor({ name: "path", id: path.id })}
+                  aria-labelledby={`card-${path.id}-title`}
+                  aria-describedby={`card-${path.id}-progress card-${path.id}-next`}
+                >
+                  <span className="path-icon" aria-hidden="true">
+                    {pathIcons[path.id]}
+                  </span>
+                  <span className="path-card-title" id={`card-${path.id}-title`}>
+                    {path.title}
+                  </span>
+                  <span className="path-card-desc">{path.description}</span>
+                  <span className="path-card-meta">
+                    {st.total} lessons · about {st.minutes} min
+                  </span>
+                  <span className="meter">
+                    <span id={`card-${path.id}-progress`}>
+                      {st.done} of {st.total} lessons done
+                    </span>
+                    <span className="meter-track" aria-hidden="true">
+                      <i style={{ width: `${(st.done / st.total) * 100}%` }} />
+                    </span>
+                  </span>
+                  <span className={`path-card-next ${st.state}`} id={`card-${path.id}-next`}>
+                    {st.state === "complete" ? "Completed" : st.state === "not-started" ? `Start with: ${st.next!.title}` : `Up next: ${st.next!.title}`}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
 
       {plannedPaths.length > 0 && (
         <section>
