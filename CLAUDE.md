@@ -5,7 +5,8 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 ## Status
 
 - **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Progress is stored in the browser (localStorage).
-- **Not verified yet:** this project was written outside a machine with npm access. On the first session, run `npm install`, `npm run typecheck`, `npm test` and `npm run build`, and fix anything that fails before adding features.
+- **Verified (2026-10-01):** `npm install`, `npm run typecheck`, `npm test` (15 tests) and `npm run build` all pass on Node 24.
+- **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
 
 ## Stack
 
