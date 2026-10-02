@@ -17,7 +17,6 @@ function Ext({ href, children }: { href: string; children: ReactNode }) {
 const FONTS = [
   { name: "Bricolage Grotesque", by: "The Bricolage Grotesque Project Authors", url: "https://github.com/ateliertriay/bricolage" },
   { name: "Atkinson Hyperlegible", by: "Braille Institute of America", url: "https://www.brailleinstitute.org/freefont/" },
-  { name: "JetBrains Mono", by: "The JetBrains Mono Project Authors", url: "https://github.com/JetBrains/JetBrainsMono" },
 ];
 
 const SOFTWARE = [
