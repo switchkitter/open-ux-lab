@@ -31,7 +31,16 @@ Always confirm a source's current license before adapting its text. When unsure,
 - [ ] 3–4 "In practice" bullets
 - [ ] One "Try it at work" field exercise
 - [ ] At least one https source
-- [ ] At least one compare exercise and one choice exercise
+- [ ] At least one compare exercise and one choice exercise (a spot-the-problem exercise is optional)
 - [ ] Every exercise has a unique, stable `id`
 - [ ] Every "why" explains the right answer and what's wrong with the alternatives
 - [ ] `npm test` passes
+
+## Exercise types
+
+- **Compare** ("Which is better?"): two mockups, one better. Good for visual problems such as contrast, spacing and hierarchy.
+- **Choice**: a question with 3–4 options. Options are shuffled on screen, so never refer to positions ("the first option", "all of the above").
+- **Spot the problem**: one mockup split into parts; the learner selects the part that breaks the principle.
+  - Only for problems that come across in words: labels, wording, error messages, control choice, link text, what an action does. Purely visual problems (contrast, alignment) can't be found with a screen reader, so use a compare exercise for those.
+  - Each part's `label` is everything a screen reader user hears for it, so it must include the part's visible text and describe what's there in neutral words ("Field labeled Email", "Small text link: continue"). Never hint at which part is wrong.
+  - Use 3–6 parts, with one clear problem. The `why` should also say briefly why the other parts are fine.

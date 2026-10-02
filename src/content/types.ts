@@ -42,7 +42,38 @@ export type ChoiceExercise = {
   why: string;
 };
 
-export type Exercise = CompareExercise | ChoiceExercise;
+/** One selectable part of a "spot the problem" mockup. */
+export type SpotPart = {
+  /** Unique within the exercise; `correct` refers to it. */
+  id: string;
+  /**
+   * Everything a screen reader user hears for this part, so include its visible text. Describe what's
+   * there in neutral words ("Field labeled Email", "Gray text inside reads ..."), never whether it's wrong.
+   */
+  label: string;
+  /** Trusted HTML using the .mk-* classes. */
+  html: string;
+};
+
+/**
+ * A single mockup split into parts; the learner selects the part that breaks a principle.
+ * Only use for problems that come across in words (labels, wording, structure, control choice),
+ * not purely visual ones like contrast, so the exercise works with a screen reader.
+ */
+export type SpotExercise = {
+  id: string;
+  type: "spot";
+  question: string;
+  /** Screen title shown above the parts; not selectable. */
+  title?: string;
+  /** Top to bottom. A nested array is a row of parts side by side. */
+  parts: (SpotPart | SpotPart[])[];
+  /** ID of the part with the problem. */
+  correct: string;
+  why: string;
+};
+
+export type Exercise = CompareExercise | ChoiceExercise | SpotExercise;
 
 export type Lesson = {
   id: string;

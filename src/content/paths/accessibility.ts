@@ -329,6 +329,36 @@ const lessons: Lesson[] = [
         correct: 3,
         why: "It names the field, says what's wrong and shows how to fix it, in text a screen reader can announce. “Error” and “field 3” leave people hunting for the problem, and a red border alone is invisible to screen reader users and hard to see for people with color blindness.",
       },
+      {
+        id: "a7-spot-placeholder",
+        type: "spot",
+        question: "Which field will people struggle with once they start typing?",
+        title: "Create your account",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Full name, with Ana Silva typed in",
+            html: `<div class="mk-label">Full name</div><div class="mk-in">Ana Silva</div>`,
+          },
+          {
+            id: "email",
+            label: "Field with no label above it. Gray text inside reads Email address",
+            html: `<div class="mk-in"><span class="mk-muted">Email address</span></div>`,
+          },
+          {
+            id: "password",
+            label: "Field labeled Password, with the hint At least 12 characters",
+            html: `<div class="mk-label">Password</div><div class="mk-muted">At least 12 characters</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Create account",
+            html: `<span class="mk-btn">Create account</span>`,
+          },
+        ],
+        correct: "email",
+        why: "The email field has no label, only placeholder text inside it. As soon as someone types, the only clue to what the field is for disappears, and some screen readers don't announce placeholders at all. The other fields keep a visible label above the input.",
+      },
     ],
   },
   {
@@ -376,6 +406,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Bigger, well-spaced targets prevent the mis-taps, and moving a destructive action away from a frequent one adds a safety margin. A confirmation only catches the mistake after it happens and slows down every intended delete. Color and tooltips don't make the targets any easier to hit.",
+      },
+      {
+        id: "a8-spot-click-here",
+        type: "spot",
+        question: "A screen reader user pulls up a list of every link on this HR page. Which part gives them a useless link?",
+        title: "Benefits",
+        parts: [
+          {
+            id: "intro",
+            label: "Paragraph: Open enrollment runs from 1 to 15 November.",
+            html: `<div>Open enrollment runs from 1 to 15 November.</div>`,
+          },
+          {
+            id: "guide",
+            label: "Link: Download the 2026 benefits guide (PDF, 2 MB)",
+            html: `<span class="mk-link">Download the 2026 benefits guide (PDF, 2 MB)</span>`,
+          },
+          {
+            id: "address",
+            label: "Sentence with a link: To update your home address, click here.",
+            html: `<div>To update your home address, <span class="mk-link">click here</span>.</div>`,
+          },
+          {
+            id: "contact",
+            label: "Link: Contact the HR team",
+            html: `<span class="mk-link">Contact the HR team</span>`,
+          },
+        ],
+        correct: "address",
+        why: "In a list of links, “click here” says nothing about where it goes, so screen reader users have to leave the list and read around it to find out. Link the words that describe the destination instead: “Update your home address”. The other links make sense on their own.",
       },
     ],
   },

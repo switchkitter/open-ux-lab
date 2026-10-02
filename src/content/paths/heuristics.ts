@@ -222,6 +222,43 @@ const lessons: Lesson[] = [
         correct: 2,
         why: "The format rule exists for the system, not the person. Accepting what people naturally type removes the error entirely, which beats explaining the rule or reporting the error better.",
       },
+      {
+        id: "h5-spot-delete",
+        type: "spot",
+        question: "People use this settings page every day to rename projects. Which part makes a costly mistake too easy?",
+        title: "Project settings",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Project name, containing Q4 launch plan",
+            html: `<div class="mk-label">Project name</div><div class="mk-in">Q4 launch plan</div>`,
+          },
+          {
+            id: "desc",
+            label: "Field labeled Description, containing Timeline and owners for the October launch",
+            html: `<div class="mk-label">Description</div><div class="mk-in">Timeline and owners for the October launch</div>`,
+          },
+          [
+            {
+              id: "save",
+              label: "Button: Save changes",
+              html: `<span class="mk-btn">Save changes</span>`,
+            },
+            {
+              id: "delete",
+              label: "Button right beside it, in the same style: Delete project",
+              html: `<span class="mk-btn">Delete project</span>`,
+            },
+          ],
+          {
+            id: "note",
+            label: "Small text: Last edited by Dana Kim, 2 hours ago",
+            html: `<div class="mk-muted">Last edited by Dana Kim, 2 hours ago</div>`,
+          },
+        ],
+        correct: "delete",
+        why: "Delete project sits right beside Save changes and looks the same, so a quick click on the everyday action can wipe out a whole project. Destructive actions belong away from frequent ones, styled differently, with a confirmation or an undo. The fields and the edit note are fine.",
+      },
     ],
   },
   {
@@ -397,6 +434,43 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Errors next to the field connect the problem to its location. A summary at the top can help on long forms, but it should link to the fields rather than replace inline messages.",
+      },
+      {
+        id: "h9-spot-error-code",
+        type: "spot",
+        question: "Someone's sign-in just failed. Which part fails to help them recover?",
+        title: "Sign in",
+        parts: [
+          {
+            id: "email",
+            label: "Field labeled Email, containing sam.lee@example.com",
+            html: `<div class="mk-label">Email</div><div class="mk-in">sam.lee@example.com</div>`,
+          },
+          {
+            id: "password",
+            label: "Field labeled Password, containing hidden characters",
+            html: `<div class="mk-label">Password</div><div class="mk-in">••••••••••</div>`,
+          },
+          {
+            id: "error",
+            label: "Red text: Error 0x80040154: AUTH_FAILED",
+            html: `<div class="mk-err">Error 0x80040154: AUTH_FAILED</div>`,
+          },
+          [
+            {
+              id: "submit",
+              label: "Button: Sign in",
+              html: `<span class="mk-btn">Sign in</span>`,
+            },
+            {
+              id: "forgot",
+              label: "Link: Forgot your password?",
+              html: `<span class="mk-link">Forgot your password?</span>`,
+            },
+          ],
+        ],
+        correct: "error",
+        why: "The message is a code written for developers. It doesn't say in plain words what went wrong, such as a wrong password or a locked account, or what to do next. Something like “That password doesn't match this email. Try again or reset your password” would. The Forgot your password link is exactly the kind of way out people need.",
       },
     ],
   },

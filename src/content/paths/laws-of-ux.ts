@@ -91,6 +91,38 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Fitts's Law tells you how to make a target easy to hit, so it also tells you how to make one a little harder. The safe, common choice should be the easy target, and the destructive one should be findable but not where a quick click lands. Tiny buttons slow everyone down, and a corner makes Delete faster to hit by accident.",
       },
+      {
+        id: "l2-spot-tiny-continue",
+        type: "spot",
+        question: "Almost everyone on this checkout step wants to continue. Which part works against them?",
+        title: "Review your order",
+        parts: [
+          {
+            id: "summary",
+            label: "Order summary: 2 items, $84.00, delivery Thursday 8 October",
+            html: `<div>2 items · $84.00</div><div class="mk-muted">Delivery Thursday 8 October</div>`,
+          },
+          [
+            {
+              id: "cancel",
+              label: "Large filled button: Cancel order",
+              html: `<span class="mk-btn">Cancel order</span>`,
+            },
+            {
+              id: "continue",
+              label: "Small text link: continue to payment",
+              html: `<span class="mk-link" style="font-size:11px">continue to payment</span>`,
+            },
+          ],
+          {
+            id: "note",
+            label: "Small text: Your card won't be charged until you confirm.",
+            html: `<div class="mk-muted">Your card won't be charged until you confirm.</div>`,
+          },
+        ],
+        correct: "continue",
+        why: "The action nearly everyone wants is a small link, while Cancel order gets the big, easy target. Fitts's Law points the other way: make the main action large and easy to hit, and keep the destructive one smaller and set apart.",
+      },
     ],
   },
   {
@@ -371,6 +403,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Hiding the cost doesn't remove the complexity; it moves it to the last step, where it surprises people and makes them abandon their carts. Simplify what can be simplified, but keep essential information visible. A tooltip or an on-request answer still hides it from most people.",
+      },
+      {
+        id: "l8-spot-utc-offset",
+        type: "spot",
+        question: "Which part pushes work onto people that the system could do itself?",
+        title: "Schedule a meeting",
+        parts: [
+          {
+            id: "title",
+            label: "Field labeled Meeting title, containing Weekly design review",
+            html: `<div class="mk-label">Meeting title</div><div class="mk-in">Weekly design review</div>`,
+          },
+          {
+            id: "when",
+            label: "Field labeled Date and time, containing Tue 13 Oct, 10:00 AM",
+            html: `<div class="mk-label">Date and time</div><div class="mk-in">Tue 13 Oct · 10:00 AM</div>`,
+          },
+          {
+            id: "tz",
+            label: "Field labeled Your time zone, with the hint Enter your UTC offset, for example -05:00. It's empty.",
+            html: `<div class="mk-label">Your time zone</div><div class="mk-muted">Enter your UTC offset, for example -05:00</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Send invite",
+            html: `<span class="mk-btn">Send invite</span>`,
+          },
+        ],
+        correct: "tz",
+        why: "The browser already knows the person's time zone, so the system can fill it in and let them change it if they need to. Asking for a UTC offset also makes people work out daylight saving time themselves, which is how meetings end up at the wrong hour.",
       },
     ],
   },

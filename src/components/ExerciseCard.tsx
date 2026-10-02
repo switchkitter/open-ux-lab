@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { Exercise } from "../content/types";
+import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
 import Mockup from "./Mockup";
 
@@ -26,7 +26,7 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
   // Keys stay as original indices, which is what exercise.correct refers to.
   const [order] = useState(() => (exercise.type === "choice" ? shuffledIndices(exercise.options.length) : []));
   const answered = picked !== null;
-  const correctKey = exercise.type === "compare" ? exercise.correct : String(exercise.correct);
+  const correctKey = exercise.type === "choice" ? String(exercise.correct) : exercise.correct;
   const isCorrect = picked === correctKey;
 
   // Move focus to the verdict so screen readers read it straight away; Tab then reaches the Next button.
@@ -46,8 +46,9 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
     !answered ? "" : key === correctKey ? "right" : key === picked ? "wrong" : "";
 
   // Right and wrong are shown in words as well as color.
+  const [mine, right] = exercise.type === "spot" ? ["Your pick", "The problem"] : ["Your answer", "Correct answer"];
   const verdict = (key: string) =>
-    !answered ? null : key === correctKey ? (key === picked ? "Your answer: correct" : "Correct answer") : key === picked ? "Your answer" : null;
+    !answered ? null : key === correctKey ? (key === picked ? `${mine}: correct` : right) : key === picked ? mine : null;
   const verdictMark = (key: string) => {
     const text = verdict(key);
     if (!text) return null;
@@ -58,6 +59,21 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
     );
   };
   const eyebrow = [code, position].filter(Boolean).join(" · ");
+
+  const spotPart = (part: SpotPart) => (
+    <button
+      key={part.id}
+      type="button"
+      className={`spot-part ${stateClass(part.id)}`}
+      disabled={answered}
+      onClick={() => pick(part.id)}
+      // The label already includes the part's visible text, so no aria-describedby (it would be read twice).
+      aria-label={`${part.label}${verdict(part.id) ? `, ${verdict(part.id)!.toLowerCase()}` : ""}`}
+    >
+      {verdictMark(part.id)}
+      <Mockup html={part.html} />
+    </button>
+  );
 
   return (
     <section>
@@ -84,6 +100,24 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
                 <Mockup id={`${uid}-${k}`} html={exercise[k]} />
               </button>
             ))}
+          </div>
+        </>
+      ) : exercise.type === "spot" ? (
+        <>
+          <div className="eyebrow">{eyebrow} · Spot the problem</div>
+          <h1 className="q">{exercise.question}</h1>
+          <p className="qhint">Select the part of the screen with the problem.</p>
+          <div className="mk spot" role="group" aria-label="Screen to check">
+            {exercise.title && <div className="mk-title">{exercise.title}</div>}
+            {exercise.parts.map((row, i) =>
+              Array.isArray(row) ? (
+                <div className="spot-row" key={i}>
+                  {row.map(spotPart)}
+                </div>
+              ) : (
+                spotPart(row)
+              ),
+            )}
           </div>
         </>
       ) : (

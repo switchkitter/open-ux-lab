@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import css from "../styles.css?raw";
 import { paths } from "./paths";
 import { site } from "./site";
+import type { Exercise, SpotPart } from "./types";
+
+const spotParts = (e: Exercise): SpotPart[] => (e.type === "spot" ? e.parts.flat() : []);
+
+/** All trusted mockup HTML in an exercise. */
+const mockupHtml = (e: Exercise): string[] =>
+  e.type === "compare" ? [e.a, e.b] : e.type === "spot" ? spotParts(e).map((p) => p.html) : [];
 
 /** Guards against content mistakes that would break the app. */
 describe("content integrity", () => {
@@ -39,8 +46,10 @@ describe("content integrity", () => {
       if (e.type === "choice") {
         expect(e.correct, e.id).toBeGreaterThanOrEqual(0);
         expect(e.correct, e.id).toBeLessThan(e.options.length);
-      } else {
+      } else if (e.type === "compare") {
         expect(["a", "b"]).toContain(e.correct);
+      } else {
+        expect(spotParts(e).map((p) => p.id), e.id).toContain(e.correct);
       }
       expect(e.why.length, e.id).toBeGreaterThan(20);
     }
@@ -48,8 +57,7 @@ describe("content integrity", () => {
 
   it("does not put scripts in mockup HTML", () => {
     for (const e of exercises) {
-      if (e.type !== "compare") continue;
-      for (const html of [e.a, e.b]) {
+      for (const html of mockupHtml(e)) {
         expect(/<script|on\w+=/i.test(html), e.id).toBe(false);
       }
     }
@@ -57,8 +65,7 @@ describe("content integrity", () => {
 
   it("only uses mockup classes that exist in styles.css", () => {
     for (const e of exercises) {
-      if (e.type !== "compare") continue;
-      for (const html of [e.a, e.b]) {
+      for (const html of mockupHtml(e)) {
         for (const [, classes] of html.matchAll(/class="([^"]*)"/g)) {
           for (const c of classes.split(/\s+/).filter((c) => c.startsWith("mk-"))) {
             expect(css.includes(`.${c} `) || css.includes(`.${c}{`), `${e.id}: .${c}`).toBe(true);
@@ -73,6 +80,24 @@ describe("content integrity", () => {
       if (e.type !== "compare") continue;
       const better = e.correct === "a" ? e.a : e.b;
       expect(better.includes("mk-faint"), e.id).toBe(false);
+    }
+  });
+
+  it("gives spot-the-problem parts unique IDs and a screen reader label", () => {
+    for (const e of exercises) {
+      const parts = spotParts(e);
+      if (!parts.length) continue;
+      expect(new Set(parts.map((p) => p.id)).size, e.id).toBe(parts.length);
+      expect(parts.length, e.id).toBeGreaterThanOrEqual(3);
+      for (const p of parts) expect(p.label.trim().length, `${e.id}/${p.id}`).toBeGreaterThan(3);
+    }
+  });
+
+  it("keeps spot-the-problem exercises to problems that come across in words", () => {
+    // Purely visual problems (like low contrast) can't be found with a screen reader; use compare instead.
+    for (const e of exercises) {
+      if (e.type !== "spot") continue;
+      for (const html of mockupHtml(e)) expect(html.includes("mk-faint"), e.id).toBe(false);
     }
   });
 

@@ -299,6 +299,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Many people use more than one device, so the control must allow several answers, and the hint tells people they can pick more than one. Radios and a dropdown force a single answer that would be wrong for most people. Four yes-or-no pages turn one quick question into four.",
       },
+      {
+        id: "f6-spot-two-option-select",
+        type: "spot",
+        question: "Which question uses the wrong kind of control?",
+        title: "Book a site visit",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Full name",
+            html: `<div class="mk-label">Full name</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "parking",
+            label: "Question: Will you need a parking space? Answered with a dropdown that says Select",
+            html: `<div class="mk-label">Will you need a parking space?</div><div class="mk-in">Select ▾</div>`,
+          },
+          {
+            id: "time",
+            label: "Question: Preferred time, with radio buttons for Morning and Afternoon",
+            html: `<div class="mk-label">Preferred time</div><div>○ Morning</div><div>○ Afternoon</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Continue",
+            html: `<span class="mk-btn">Continue</span>`,
+          },
+        ],
+        correct: "parking",
+        why: "A yes-or-no question hidden in a dropdown makes people open a menu just to see two answers. Radio buttons show both at once and take a single tap, which is exactly how the Preferred time question works.",
+      },
     ],
   },
   {
@@ -390,6 +420,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Checking on submit, or when people leave the field, judges the answer once it's finished. Checking from the first keystroke flags every half-typed address as wrong. Skipping the check means a typo quietly costs people their receipt or login, and waiting for a third attempt wastes the first two.",
+      },
+      {
+        id: "f8-spot-vague-error",
+        type: "spot",
+        question: "This form was submitted with a mistake. Which part lets the person down?",
+        title: "Register a guest",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Full name, containing Mark Okafor",
+            html: `<div class="mk-label">Full name</div><div class="mk-in">Mark Okafor</div>`,
+          },
+          {
+            id: "dob",
+            label: "Field labeled Date of birth, containing 31 02 1985, with red text: Invalid input",
+            html: `<div class="mk-label">Date of birth</div><div class="mk-err">Invalid input</div><div class="mk-in err">31 / 02 / 1985</div>`,
+          },
+          {
+            id: "email",
+            label: "Field labeled Email, containing mark@example.com",
+            html: `<div class="mk-label">Email</div><div class="mk-in">mark@example.com</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Save guest",
+            html: `<span class="mk-btn">Save guest</span>`,
+          },
+        ],
+        correct: "dob",
+        why: "“Invalid input” doesn't say what's wrong or how to fix it. The date doesn't exist, since February has no 31st, so the message should say something like “Date of birth must be a real date, like 27 3 1985”. The red text is in the right place; it's the words that fail.",
       },
     ],
   },

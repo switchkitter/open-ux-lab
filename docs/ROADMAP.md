@@ -11,7 +11,8 @@
 - [x] Accessibility basics path (W3C WAI): 8 lessons, 16 exercises
 - [x] Laws of UX path: 8 lessons, 16 exercises
 - [x] Form design path (GOV.UK, USWDS): 8 lessons, 16 exercises
-- [ ] Third exercise type: "spot the problem" (tap the area of a mockup that breaks a principle)
+- [x] Third exercise type: "spot the problem" (8 exercises, keyboard and screen reader accessible)
+- [ ] More spot-the-problem exercises (one per lesson)
 - [x] Shuffle option order in choice exercises
 
 ## 0.3 — Learning that sticks

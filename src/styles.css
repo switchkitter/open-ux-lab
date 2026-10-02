@@ -293,3 +293,17 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .opt .verdict { display: block; margin-top: 6px; }
 .review.quiet { background: transparent; }
 .feedback-note { margin: 8px 0 0; font-weight: 700; }
+
+/* Spot the problem: one mockup, each part a button */
+.mk.spot { margin-top: 16px; max-width: 520px; padding: 14px; gap: 6px; font-size: 14px; }
+.spot-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: stretch; }
+.spot-row .spot-part { flex: 0 1 auto; }
+.spot-part {
+  display: grid; gap: 4px; text-align: left; font: inherit; color: inherit; background: transparent;
+  border: 2px dashed var(--mk-line); border-radius: 8px; padding: 8px; cursor: pointer; min-width: 0;
+}
+.spot-part:hover:not(:disabled) { border-color: var(--accent); border-style: solid; }
+.spot-part:disabled { cursor: default; }
+.spot-part.right { border: 2px solid var(--good); background: var(--good-soft); }
+.spot-part.wrong { border: 2px solid var(--bad); background: var(--bad-soft); }
+.spot-part .mockup > * { margin: 0; }
