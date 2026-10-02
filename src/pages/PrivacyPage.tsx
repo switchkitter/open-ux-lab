@@ -61,7 +61,8 @@ export default function PrivacyPage() {
               <strong>Supabase</strong> stores your account and progress, on servers in the United States.
             </li>
             <li>
-              <strong>Brevo</strong> sends the sign-in code emails, so it handles your email address and those emails.
+              <strong>Brevo</strong> sends the sign-in code emails, so it handles your email address and those emails. Brevo
+              may record whether a sign-in email was opened, to monitor delivery; this is anonymized, and we don't use it.
             </li>
             <li>
               <strong>GitHub</strong> hosts the website.
