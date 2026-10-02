@@ -9,7 +9,7 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 - **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
 - **Checks:** `npm run typecheck`, `npm test` (75+ tests, including content integrity) and `npm run build` pass on Node 24; CI runs tests and build on every push. Accessibility audited with axe-core, keyboard and 320px reflow (Oct 2026); a manual VoiceOver pass is still to do.
-- **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
+- **Dependencies:** `npm audit` is clean (Vitest upgraded to 5 in Oct 2026). Vitest 5 needs Node 22.12+ or 24+.
 
 ## Stack
 
