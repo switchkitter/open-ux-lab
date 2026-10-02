@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import css from "../styles.css?raw";
+import { lessonIcons, lessonScenes } from "../art";
 import { paths } from "./paths";
 import { site } from "./site";
 import { skills } from "./skills";
@@ -107,6 +108,13 @@ describe("content integrity", () => {
     for (const skill of skills) {
       const count = lessons.filter((l) => (l.skills as readonly string[]).includes(skill.id)).length;
       expect(count, skill.id).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it("gives every lesson an icon and a scene", () => {
+    for (const l of lessons) {
+      expect(lessonIcons[l.id], `${l.id} icon`).toBeDefined();
+      expect(lessonScenes[l.id], `${l.id} scene`).toBeDefined();
     }
   });
 

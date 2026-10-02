@@ -41,7 +41,7 @@ export default function SkillsPage({ progress }: { progress: Progress }) {
                 <p className="skill-next">
                   {progress.completedLessons[s.next.id] ? "Practice again: " : "Next: "}
                   <a href={hrefFor({ name: "lesson", id: s.next.id })}>
-                    {s.next.code} {s.next.title}
+                    {s.next.title}
                   </a>
                 </p>
               ) : (

@@ -24,7 +24,7 @@ export default function App() {
   useEffect(() => {
     const found = route.name === "lesson" ? findLesson(route.id) : undefined;
     const title =
-      route.name === "lesson" && found ? `${found.lesson.code} ${found.lesson.title}`
+      route.name === "lesson" && found ? found.lesson.title
       : route.name === "review" ? "Review"
       : route.name === "account" ? "Account"
       : route.name === "privacy" ? "Privacy"

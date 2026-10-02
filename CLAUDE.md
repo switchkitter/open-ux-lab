@@ -36,7 +36,8 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
 - `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.
 - `src/pages/PrivacyPage.tsx`, `src/content/site.ts` — privacy notice and owner/contact details. Keep the notice true: any new data collection, provider or third-party request must update it (and `privacyUpdated`) in the same change.
-- `src/art/icons.tsx`, `src/art/scenes.tsx` — original lesson icons (24px line icons in currentColor) and animated SVG scenes, keyed by lesson ID. Heuristics (H1–H10) have both; other lessons fall back to their code in the list tile and show no scene. Scene rules: decorative and `aria-hidden`; theme classes only (no literal colors); base styles are the final frame and keyframes play once, ending within 5 seconds, so reduced motion shows the finished scene.
+- `src/art/` — original lesson icons (`icons.tsx`, 24px line icons in currentColor) and animated SVG scenes (`scenes*.tsx`, one file per path, shared helpers in `kit.tsx`), keyed by lesson ID and combined in `index.ts`. Every lesson must have both (a content test checks). Scene rules: decorative and `aria-hidden`; theme classes only (no literal colors); base styles are the final frame and keyframes play once, ending within 5 seconds, so reduced motion shows the finished scene.
+- `src/lib/sound.ts`, `src/lib/useSound.ts`, `src/components/SoundToggle.tsx` — feedback sounds synthesized with Web Audio (correct, wrong, lesson complete) and the header toggle. Sound rules: never the only cue (always repeats visible text), under 1 second, only in response to the learner's action, low volume, and switchable off (remembered per device). `sound.test.ts` checks length and volume.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)
@@ -47,6 +48,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 - Content from openly licensed sources (e.g. GOV.UK Design System, USWDS, W3C) may be adapted only if its license allows it, with attribution. Check the license first and set `license` on the source (a content test requires it for GOV.UK and USWDS links); the lesson page then shows the attribution.
 - Exercise mockups are small HTML snippets using the `.mk-*` classes (a content test fails if a class doesn't exist in `styles.css`). `.mk-say` shows what a screen reader announces; `.mk-faint` deliberately fails contrast and may only appear in the wrong design. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
 - Exercise IDs are stable keys for learners' review piles. Never rename or reuse an ID once shipped.
+- Lesson `code` (H1, A3...) is for authors only. Don't show it in the UI; use the lesson title.
 
 ## Writing style for lessons
 

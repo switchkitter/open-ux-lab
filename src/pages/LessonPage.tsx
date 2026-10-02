@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import type { LearningPath, Lesson } from "../content/types";
 import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
-import { lessonScenes } from "../art/scenes";
+import { lessonScenes } from "../art";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
 import { announceScreen } from "../lib/focus";
+import { play } from "../lib/useSound";
 import { hrefFor } from "../lib/route";
 
 type Props = {
@@ -32,11 +33,14 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
       return;
     }
     const where = step === doneStep ? "Complete" : `Exercise ${step} of ${total}`;
-    announceScreen(`${where} · ${lesson.code} ${lesson.title}`);
-  }, [step, doneStep, total, lesson.code, lesson.title]);
+    announceScreen(`${where} · ${lesson.title}`);
+  }, [step, doneStep, total, lesson.title]);
 
   function next() {
-    if (step === total) update((p) => recordActivity(completeLesson(p, lesson.id), new Date()));
+    if (step === total) {
+      update((p) => recordActivity(completeLesson(p, lesson.id), new Date()));
+      play("complete");
+    }
     setStep((s) => s + 1);
   }
 
@@ -61,7 +65,9 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
 
       {step === 0 && (
         <article className="lesson">
-          <div className="eyebrow">{lesson.code} · Lesson</div>
+          <div className="eyebrow">
+            {path.title} · Lesson {path.lessons.indexOf(lesson) + 1} of {path.lessons.length}
+          </div>
           <h1>{lesson.title}</h1>
           {lessonScenes[lesson.id] && <figure className="scene">{lessonScenes[lesson.id]}</figure>}
           <div className="prose">
@@ -114,7 +120,6 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
       {step >= 1 && step <= total && (
         <ExerciseCard
           key={lesson.exercises[step - 1].id}
-          code={lesson.code}
           position={`Exercise ${step} of ${total}`}
           exercise={lesson.exercises[step - 1]}
           nextLabel={step === total ? "Finish lesson" : "Next exercise"}
@@ -129,7 +134,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
 
       {step === doneStep && (
         <section className="panel done-card">
-          <div className="eyebrow">{lesson.code} complete</div>
+          <div className="eyebrow">Lesson complete</div>
           <h1 className="done-title">{lesson.title}: done</h1>
           <Burst>
             <div className="big">+{firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP</div>
@@ -141,7 +146,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           <div className="actions">
             {nextLesson && (
               <a className="btn" href={hrefFor({ name: "lesson", id: nextLesson.id })}>
-                Next: {nextLesson.code} {nextLesson.title}
+                Next: {nextLesson.title}
               </a>
             )}
             <a className="btn ghost" href={hrefFor({ name: "home" })}>

@@ -17,7 +17,9 @@
 
 ## Visual polish
 - [x] Icons and animated scenes for the heuristics path, lesson tiles, small UI motion
-- [ ] Icons and scenes for Accessibility, Form design and Laws of UX
+- [x] Icons and scenes for Accessibility, Form design and Laws of UX (all 34 lessons)
+- [x] Lesson codes (H1, A3...) removed from the UI
+- [x] Sound effects for right and wrong answers and lesson completion, with a header toggle
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)

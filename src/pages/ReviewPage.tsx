@@ -63,7 +63,7 @@ export default function ReviewPage({ progress, update }: Props) {
       </div>
       <ExerciseCard
         key={exercise.id}
-        code={lesson.code}
+        source={lesson.title}
         position={`Review ${index + 1} of ${queue.length}`}
         exercise={exercise}
         nextLabel={index === queue.length - 1 ? "Finish review" : "Next"}

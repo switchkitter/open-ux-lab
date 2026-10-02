@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { check, scene } from "./kit";
 
 /**
  * Lesson illustrations: original animated SVG scenes that act out each principle.
@@ -10,17 +11,7 @@ import type { ReactNode } from "react";
  *   (animations off) people see the finished scene.
  * - Colors come from theme tokens via classes, so scenes work in light and dark mode.
  */
-const scene = (name: string, children: ReactNode) => (
-  <svg className={`scene-svg scene-${name}`} viewBox="0 0 320 160" aria-hidden="true" focusable="false">
-    {children}
-  </svg>
-);
-
-const check = (cx: number, cy: number, r: number) => (
-  <path className="on-color" d={`M${cx - r * 0.45} ${cy}l${r * 0.3} ${r * 0.32} ${r * 0.6}-${r * 0.62}`} />
-);
-
-export const lessonScenes: Record<string, ReactNode> = {
+export const heuristicsScenes: Record<string, ReactNode> = {
   // H1: an upload progresses and confirms it finished.
   h1: scene(
     "h1",

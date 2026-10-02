@@ -1,5 +1,6 @@
 import type { Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
+import SoundToggle from "./SoundToggle";
 import type { SyncStatus } from "../lib/useCloudSync";
 
 type Props = { progress: Progress; totalLessons: number; syncStatus: SyncStatus };
@@ -22,21 +23,24 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
         <a className="brand" href="#/">
           Open UX <span>Lab</span>
         </a>
-        <div className="stats" role="group" aria-label="Your progress">
-          <span className="chip xp">
-            <b>{progress.xp}</b> XP
-          </span>
-          <span className="chip">
-            <b>{progress.streak}</b>-day streak
-          </span>
-          <span className="chip">
-            <b>{done}</b>/{totalLessons} lessons
-          </span>
-          {sync && (
-            <a className={`chip sync ${syncStatus.state}`} href={hrefFor({ name: "account" })}>
-              {sync}
-            </a>
-          )}
+        <div className="bar-right">
+          <div className="stats" role="group" aria-label="Your progress">
+            <span className="chip xp">
+              <b>{progress.xp}</b> XP
+            </span>
+            <span className="chip">
+              <b>{progress.streak}</b>-day streak
+            </span>
+            <span className="chip">
+              <b>{done}</b>/{totalLessons} lessons
+            </span>
+            {sync && (
+              <a className={`chip sync ${syncStatus.state}`} href={hrefFor({ name: "account" })}>
+                {sync}
+              </a>
+            )}
+          </div>
+          <SoundToggle />
         </div>
       </div>
     </header>

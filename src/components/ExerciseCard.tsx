@@ -1,11 +1,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
+import { play } from "../lib/useSound";
 import Mockup from "./Mockup";
 
 type Props = {
-  /** Shown in the eyebrow, e.g. "H1" */
-  code: string;
+  /** Which lesson the exercise comes from, shown in review where exercises are mixed. */
+  source?: string;
   /** Where this exercise sits, e.g. "Exercise 1 of 2". Shown as text so it isn't conveyed only by the progress bar. */
   position?: string;
   exercise: Exercise;
@@ -17,7 +18,7 @@ type Props = {
 };
 
 /** One exercise. Remount with key={exercise.id} to reset between exercises. */
-export default function ExerciseCard({ code, position, exercise, nextLabel, noteFor, onAnswer, onNext }: Props) {
+export default function ExerciseCard({ source, position, exercise, nextLabel, noteFor, onAnswer, onNext }: Props) {
   const [picked, setPicked] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
@@ -39,6 +40,8 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
     setPicked(key);
     // Work out the note before onAnswer updates progress, since it describes the state being changed.
     setNote(noteFor?.(key === correctKey) ?? null);
+    // Sound repeats the verdict that's also shown in text and color; it's never the only cue.
+    play(key === correctKey ? "correct" : "wrong");
     onAnswer(key === correctKey);
   }
 
@@ -58,7 +61,7 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, note
       </span>
     );
   };
-  const eyebrow = [code, position].filter(Boolean).join(" · ");
+  const eyebrow = [position, source].filter(Boolean).join(" · ");
 
   const spotPart = (part: SpotPart) => (
     <button

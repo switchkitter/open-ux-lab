@@ -1,4 +1,4 @@
-import { lessonIcons } from "../art/icons";
+import { lessonIcons } from "../art";
 import { paths, plannedPaths } from "../content/paths";
 import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
@@ -91,7 +91,6 @@ export default function HomePage({ progress }: { progress: Progress }) {
                       <span className="row-title">
                         {lesson.title}
                         <span className="row-sub">
-                          {lessonIcons[lesson.id] && <span className="row-code">{lesson.code}</span>}
                           {lesson.subtitle}
                         </span>
                       </span>
