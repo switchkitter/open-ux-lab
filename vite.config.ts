@@ -32,8 +32,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,svg,png,woff2}"],
-        // The app only ever loads Latin font subsets; don't store the others offline.
-        globIgnores: ["**/*cyrillic*", "**/*vietnamese*", "**/*greek*"],
+        // The app only ever loads Latin font subsets, and the link-preview image is only for social apps.
+        globIgnores: ["**/*cyrillic*", "**/*vietnamese*", "**/*greek*", "og-image.png"],
         cleanupOutdatedCaches: true,
       },
     }),

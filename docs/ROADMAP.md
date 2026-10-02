@@ -39,5 +39,7 @@
 - [x] Accessibility audit of the app itself (axe-core on every screen, keyboard walk-through, 320px reflow; Oct 2026)
 - [ ] Manual screen reader pass (NVDA or Narrator on Windows, VoiceOver on iPhone)
 - [x] License for code (MIT) and content (CC BY 4.0)
+- [x] Link preview (Open Graph image and tags)
+- [x] Sign-in emails from hello@openuxlab.com (Brevo domain authentication)
 - [ ] Attribution page
 - [ ] Analytics that respect privacy (e.g. Plausible)
