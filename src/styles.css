@@ -361,6 +361,12 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .scene-svg .stroke-bad-fill { fill: var(--mk-bg); stroke: var(--bad); stroke-width: 2; }
 .scene-svg .stroke-bg { fill: none; stroke: var(--bg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .scene-svg .on-color-fill { fill: var(--mk-bg); }
+.scene-svg .type-glyph { font: 800 64px var(--f-display); fill: var(--fg); }
+.scene-svg .type-glyph.small { font-size: 26px; }
+.scene-svg .type-glyph.big { font-size: 84px; }
+.scene-svg .icon-glyph { font: 22px var(--f-body); fill: var(--accent); }
+.scene-svg .guide { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 4; }
+.scene-svg .thin-2 { stroke-width: 2; }
 .scene-svg .on-color { fill: none; stroke: var(--mk-bg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .scene-svg .key-text { font: 600 16px var(--f-mono); fill: var(--fg); }
 .scene-svg .key-text.small { font-size: 11px; }

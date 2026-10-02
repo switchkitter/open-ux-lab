@@ -296,6 +296,58 @@ export const lessonIcons: Record<string, ReactNode> = {
       <path d="M8.8 16a3.2 3.2 0 0 1 6.4 0" />
     </>,
   ),
+
+  // ---- Visual design basics ----
+  // Visual hierarchy: a big bar above smaller ones
+  v1: icon(<path d="M4 6h16M4 12h10M4 17h7M4 21h5" />),
+  // Typography: the letter A with a baseline
+  v2: icon(<path d="M5 20l7-16 7 16M8 14h8M3 20h18" />),
+  // Spacing and alignment: blocks lined up on one edge
+  v3: icon(
+    <>
+      <path d="M4 3v18" />
+      <rect x="7" y="5" width="12" height="4" rx="1" />
+      <rect x="7" y="15" width="8" height="4" rx="1" />
+    </>,
+  ),
+  // Color with a purpose: a palette
+  v4: icon(
+    <>
+      <path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.6-.8 1.6-1.6 0-1.2-1.1-1.6-1.1-2.8 0-1 .8-1.6 1.8-1.6H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z" />
+      <circle cx="7.5" cy="11" r="1.2" fill="currentColor" />
+      <circle cx="10.5" cy="7" r="1.2" fill="currentColor" />
+      <circle cx="15" cy="7.5" r="1.2" fill="currentColor" />
+    </>,
+  ),
+  // Layout and grids: a layout grid
+  v5: icon(
+    <>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M3 9h18M9 9v12" />
+    </>,
+  ),
+  // Icons and imagery: a picture with a small shape
+  v6: icon(
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 16l5-4 4 3 3-2 6 4" />
+      <circle cx="16" cy="9.5" r="1.5" />
+    </>,
+  ),
+  // Buttons that look clickable: a button being pressed
+  v7: icon(
+    <>
+      <rect x="3" y="7" width="15" height="8" rx="4" />
+      <path d="M14 13l6.5 2.5-2.8 1.1-1.1 2.8z" />
+    </>,
+  ),
+  // Visual consistency and design systems: stacked components
+  v8: icon(
+    <>
+      <path d="M12 3l9 4.5-9 4.5-9-4.5z" />
+      <path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5" />
+    </>,
+  ),
 };
 
 /** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
@@ -325,6 +377,13 @@ export const pathIcons: Record<string, ReactNode> = {
       <path d="M15.5 15.5l5 5" />
       <circle cx="10.5" cy="8.8" r="1.8" />
       <path d="M7.5 13.5a3 3 0 0 1 6 0" />
+    </>,
+  ),
+  // Visual design basics: overlapping shapes
+  "visual-design": icon(
+    <>
+      <circle cx="9" cy="9" r="5.5" />
+      <rect x="10" y="10" width="11" height="11" rx="2" />
     </>,
   ),
 };

@@ -2,7 +2,7 @@
 
 Free UX practice: short lessons, then exercises where you pick the better design and see why. Built from trusted public sources, with original writing and art.
 
-Includes five learning paths (usability heuristics, accessibility, form design, Laws of UX and UX research methods), spaced review, a skill map, optional cross-device sync, and an installable app that works offline.
+Includes six learning paths (usability heuristics, accessibility, form design, Laws of UX, UX research methods and visual design basics), spaced review, a skill map, optional cross-device sync, and an installable app that works offline.
 
 ## Getting started
 

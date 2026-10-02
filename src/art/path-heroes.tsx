@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { researchHero } from "./hero-research";
 import { at, check, from, hero } from "./kit";
+import { visualHero } from "./scenes-visual";
 
 /**
  * Banner illustrations for learning paths, shown at the top of each path page. Each one gathers
@@ -231,4 +232,7 @@ export const pathHeroes: Record<string, ReactNode> = {
 
   // UX research methods: interview, usability test, survey results and synthesis.
   research: researchHero,
+
+  // Visual design basics: type specimen, layout grid, palette and components.
+  "visual-design": visualHero,
 };

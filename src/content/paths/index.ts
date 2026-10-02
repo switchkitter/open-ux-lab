@@ -4,8 +4,9 @@ import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
 import { lawsOfUxPath } from "./laws-of-ux";
 import { researchPath } from "./research";
+import { visualDesignPath } from "./visual-design";
 
-export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath];
 
 /** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
 export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [];
