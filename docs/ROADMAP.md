@@ -21,6 +21,7 @@
 - [x] Lesson codes (H1, A3...) removed from the UI
 - [x] Sound effects for right and wrong answers and lesson completion, with a header toggle
 - [x] Home page shows a card per learning path; each path has its own page with its lessons
+- [x] Animated banner illustration at the top of each path page
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)

@@ -363,6 +363,9 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .scene-svg .on-color { fill: none; stroke: var(--mk-bg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 .scene-svg .key-text { font: 600 16px var(--f-mono); fill: var(--fg); }
 .scene-svg .key-text.small { font-size: 11px; }
+.scene-svg .help-text.big { font-size: 22px; }
+.scene-svg .date-text.small { font-size: 13px; }
+.scene-svg .stroke-accent.thick { stroke-width: 8; }
 .scene-svg .label-text { font: 600 10px var(--f-mono); fill: var(--muted); }
 .scene-svg .on-accent-text { font: 700 10px var(--f-mono); fill: var(--accent-ink); }
 .scene-svg .on-good-text { font: 700 11px var(--f-mono); fill: var(--mk-bg); }
@@ -482,9 +485,10 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .path-card-next { font-size: 14px; font-weight: 700; color: var(--accent); }
 .path-card-next.complete { color: var(--good); }
 
-.path-hero { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-top: 14px; }
-.path-hero .path-icon { width: 64px; height: 64px; border-radius: 18px; }
-.path-hero .path-icon svg { width: 34px; height: 34px; }
+.path-hero { margin-top: 14px; }
+.path-banner { margin: 0 0 18px; border-radius: 18px; overflow: hidden; background: var(--accent-soft); }
+.path-banner.tone-1 { background: var(--good-soft); }
+.path-banner.tone-2 { background: var(--mark-soft); }
+.path-banner svg { display: block; width: 100%; height: auto; }
 .path-meter { margin-top: 14px; }
 .path-meter .meter-track { width: 180px; }
-@media (max-width: 520px) { .path-hero { grid-template-columns: 1fr; } }

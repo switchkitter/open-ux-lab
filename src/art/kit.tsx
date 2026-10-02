@@ -11,6 +11,13 @@ export const scene = (name: string, children: ReactNode) => (
   </svg>
 );
 
+/** A 640×240 path banner, decorative and hidden from assistive tech. Same classes and motion as scenes. */
+export const hero = (name: string, children: ReactNode) => (
+  <svg className={`scene-svg hero-svg hero-${name}`} viewBox="0 0 640 240" aria-hidden="true" focusable="false">
+    {children}
+  </svg>
+);
+
 /** A check mark drawn on top of a colored circle of radius r. */
 export const check = (cx: number, cy: number, r: number) => (
   <path className="on-color" d={`M${cx - r * 0.45} ${cy}l${r * 0.3} ${r * 0.32} ${r * 0.6}-${r * 0.62}`} />

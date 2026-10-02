@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import css from "../styles.css?raw";
-import { lessonIcons, lessonScenes } from "../art";
+import { lessonIcons, lessonScenes, pathHeroes, pathIcons } from "../art";
 import { paths } from "./paths";
 import { site } from "./site";
 import { skills } from "./skills";
@@ -115,6 +115,13 @@ describe("content integrity", () => {
     for (const l of lessons) {
       expect(lessonIcons[l.id], `${l.id} icon`).toBeDefined();
       expect(lessonScenes[l.id], `${l.id} scene`).toBeDefined();
+    }
+  });
+
+  it("gives every learning path an icon and a banner", () => {
+    for (const p of paths) {
+      expect(pathIcons[p.id], `${p.id} icon`).toBeDefined();
+      expect(pathHeroes[p.id], `${p.id} banner`).toBeDefined();
     }
   });
 

@@ -1,4 +1,5 @@
-import { pathIcons } from "../art";
+import { pathHeroes } from "../art";
+import { paths } from "../content/paths";
 import LessonList from "../components/LessonList";
 import type { LearningPath } from "../content/types";
 import { pathStatus } from "../lib/pathStatus";
@@ -22,9 +23,7 @@ export default function PathPage({ path, progress }: { path: LearningPath; progr
         ← Home
       </a>
       <section className="path-hero">
-        <span className="path-icon" aria-hidden="true">
-          {pathIcons[path.id]}
-        </span>
+        {pathHeroes[path.id] && <figure className={`path-banner tone-${paths.indexOf(path) % 3}`}>{pathHeroes[path.id]}</figure>}
         <div>
           <div className="eyebrow">
             Path · {s.total} lessons · about {s.minutes} min
