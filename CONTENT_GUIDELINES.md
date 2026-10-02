@@ -45,3 +45,9 @@ Always confirm a source's current license before adapting its text. When unsure,
   - Only for problems that come across in words: labels, wording, error messages, control choice, link text, what an action does. Purely visual problems (contrast, alignment) can't be found with a screen reader, so use a compare exercise for those.
   - Each part's `label` is everything a screen reader user hears for it, so it must include the part's visible text and describe what's there in neutral words ("Field labeled Email", "Small text link: continue"). Never hint at which part is wrong.
   - Use 3–6 parts, with one clear problem. The `why` should also say briefly why the other parts are fine.
+
+## Icons and illustrations
+
+- All art is original. Don't trace or recreate icons or illustrations from Uxcel, NN/g or any other product.
+- Lesson icons and scenes live in `src/art/`. Scenes act out the lesson's principle in a few seconds of motion and must read clearly as a still image too.
+- Art is decorative: never put information in a scene that isn't also in the lesson text.

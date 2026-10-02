@@ -15,6 +15,10 @@
 - [ ] More spot-the-problem exercises (one per lesson)
 - [x] Shuffle option order in choice exercises
 
+## Visual polish
+- [x] Icons and animated scenes for the heuristics path, lesson tiles, small UI motion
+- [ ] Icons and scenes for Accessibility, Form design and Laws of UX
+
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
 - [x] Skill map across paths (9 skills, #/skills)

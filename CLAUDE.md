@@ -36,6 +36,7 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
 - `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.
 - `src/pages/PrivacyPage.tsx`, `src/content/site.ts` — privacy notice and owner/contact details. Keep the notice true: any new data collection, provider or third-party request must update it (and `privacyUpdated`) in the same change.
+- `src/art/icons.tsx`, `src/art/scenes.tsx` — original lesson icons (24px line icons in currentColor) and animated SVG scenes, keyed by lesson ID. Heuristics (H1–H10) have both; other lessons fall back to their code in the list tile and show no scene. Scene rules: decorative and `aria-hidden`; theme classes only (no literal colors); base styles are the final frame and keyframes play once, ending within 5 seconds, so reduced motion shows the finished scene.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)

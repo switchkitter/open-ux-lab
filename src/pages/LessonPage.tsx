@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { LearningPath, Lesson } from "../content/types";
+import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
+import { lessonScenes } from "../art/scenes";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
 import { announceScreen } from "../lib/focus";
@@ -61,6 +63,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
         <article className="lesson">
           <div className="eyebrow">{lesson.code} · Lesson</div>
           <h1>{lesson.title}</h1>
+          {lessonScenes[lesson.id] && <figure className="scene">{lessonScenes[lesson.id]}</figure>}
           <div className="prose">
             {lesson.body.map((para, i) => (
               <p key={i}>{para}</p>
@@ -128,7 +131,9 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
         <section className="panel done-card">
           <div className="eyebrow">{lesson.code} complete</div>
           <h1 className="done-title">{lesson.title}: done</h1>
-          <div className="big">+{firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP</div>
+          <Burst>
+            <div className="big">+{firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP</div>
+          </Burst>
           <p>
             {firstTry} of {total} right on the first try.
             {firstTry < total && " Missed exercises are waiting in your review pile."}

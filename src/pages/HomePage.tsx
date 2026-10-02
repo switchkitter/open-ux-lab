@@ -1,3 +1,4 @@
+import { lessonIcons } from "../art/icons";
 import { paths, plannedPaths } from "../content/paths";
 import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
@@ -84,10 +85,15 @@ export default function HomePage({ progress }: { progress: Progress }) {
                 return (
                   <li key={lesson.id}>
                     <a className="row" href={hrefFor({ name: "lesson", id: lesson.id })}>
-                      <span className="code">{lesson.code}</span>
+                      <span className={`lesson-tile ${progress.completedLessons[lesson.id] ? "done" : ""}`} aria-hidden="true">
+                        {lessonIcons[lesson.id] ?? lesson.code}
+                      </span>
                       <span className="row-title">
                         {lesson.title}
-                        <span className="row-sub">{lesson.subtitle}</span>
+                        <span className="row-sub">
+                          {lessonIcons[lesson.id] && <span className="row-code">{lesson.code}</span>}
+                          {lesson.subtitle}
+                        </span>
                       </span>
                       {status}
                     </a>

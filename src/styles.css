@@ -328,3 +328,87 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .skills-link:hover { border-color: var(--accent); }
 .skills-link-title { display: block; font-family: var(--f-display); font-weight: 700; font-size: 19px; }
 .skills-link-sub { display: block; color: var(--muted); font-size: 15px; }
+
+/* ---------- Lesson art (src/art) ---------- */
+.lesson-tile {
+  width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; flex: none;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--f-mono); font-weight: 600; font-size: 13px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.row:hover .lesson-tile { transform: translateY(-2px); }
+.lesson-tile.done { background: var(--good-soft); color: var(--good); }
+.row .row-code { font-family: var(--f-mono); font-size: 12px; color: var(--accent); margin-right: 6px; }
+
+.scene { margin: 18px 0 0; border-radius: 16px; background: var(--accent-soft); overflow: hidden; }
+.scene-svg { display: block; width: 100%; height: auto; max-height: 240px; }
+
+/* Scene palette: theme tokens only */
+.scene-svg .card { fill: var(--mk-bg); stroke: var(--mk-line); stroke-width: 1.5; }
+.scene-svg .ink { fill: var(--line); }
+.scene-svg .muted { fill: var(--muted); }
+.scene-svg .fg { fill: var(--fg); }
+.scene-svg .bg-fill { fill: var(--bg); opacity: 0.85; }
+.scene-svg .accent { fill: var(--accent); }
+.scene-svg .accent-soft { fill: var(--accent-soft); }
+.scene-svg .accent-soft-strong { fill: var(--accent); opacity: 0.35; }
+.scene-svg .mark { fill: var(--mark); }
+.scene-svg .mark-soft { fill: var(--mark-soft); stroke: var(--mark); stroke-width: 1.5; }
+.scene-svg .good { fill: var(--good); }
+.scene-svg .bad { fill: var(--bad); }
+.scene-svg .stroke-muted { fill: none; stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.scene-svg .stroke-bad { fill: none; stroke: var(--bad); stroke-width: 2.5; }
+.scene-svg .stroke-good { fill: none; stroke: var(--good); stroke-width: 2.5; }
+.scene-svg .stroke-bad-fill { fill: var(--mk-bg); stroke: var(--bad); stroke-width: 2; }
+.scene-svg .stroke-bg { fill: none; stroke: var(--bg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.scene-svg .on-color { fill: none; stroke: var(--mk-bg); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.scene-svg .key-text { font: 600 16px var(--f-mono); fill: var(--fg); }
+.scene-svg .help-text { font: 700 11px var(--f-body); fill: var(--accent-ink); }
+
+/*
+ * Scene motion. Base styles are the FINAL frame; keyframes describe how it gets there.
+ * Everything plays once and finishes in under 3 seconds. The reduced-motion rule at the top of this
+ * file turns animations off, which leaves the final frame.
+ */
+.scene-svg * { transform-box: fill-box; transform-origin: center; }
+.scene-svg .d-early { animation-delay: 0.2s !important; }
+.scene-svg .d-mid { animation-delay: 0.6s !important; }
+.scene-svg .d-mid2 { animation-delay: 0.85s !important; }
+.scene-svg .d-late { animation-delay: 1.4s !important; }
+
+.scene-svg .a-fill { transform-origin: left center; animation: art-grow-x 1.4s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.scene-svg .a-type { transform-origin: left center; animation: art-grow-x 0.6s 0.1s steps(6) both; }
+.scene-svg .a-pop { animation: art-pop 0.5s ease-out both; }
+.scene-svg .a-rise { animation: art-rise 0.45s ease-out both; }
+.scene-svg .a-zoom { animation: art-zoom 0.4s ease-out both; }
+.scene-svg .a-toast { animation: art-toast 0.45s ease-out both; }
+.scene-svg .a-fade-out { opacity: 0; animation: art-fade-out 0.6s ease-in both; }
+.scene-h2 .a-fade-out { opacity: 0.3; }
+.scene-svg .a-slide-away { opacity: 0; transform: translateX(70px); animation: art-slide-away 0.6s 0.6s ease-in both; }
+.scene-svg .a-shift { animation: art-shift 0.7s ease-in-out both; }
+.scene-svg .a-press { animation: art-press 0.5s ease-in-out both; }
+.scene-svg .a-clutter { opacity: 0; animation: art-clutter 0.8s 0.8s ease-in both; }
+.scene-svg .a-tip { transform-box: view-box; transform-origin: 168px 55px; animation: art-zoom-big 0.45s ease-out both; }
+
+@keyframes art-grow-x { from { transform: scaleX(0); } }
+@keyframes art-pop { 0% { opacity: 0; transform: scale(0.4); } 70% { opacity: 1; transform: scale(1.08); } }
+@keyframes art-rise { from { opacity: 0; transform: translateY(10px); } }
+@keyframes art-zoom { from { opacity: 0; transform: scale(0.92); } }
+@keyframes art-zoom-big { from { opacity: 0; transform: scale(0.5); } }
+@keyframes art-toast { from { opacity: 0; transform: translateY(18px); } }
+@keyframes art-fade-out { from { opacity: 1; } }
+@keyframes art-slide-away { from { opacity: 1; transform: none; } }
+@keyframes art-shift { from { transform: translateX(-48px); } }
+@keyframes art-press { 40% { transform: translateY(3px); } }
+@keyframes art-clutter { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.8); } }
+
+/* ---------- Small UI motion ---------- */
+.feedback { animation: ui-rise 0.25s ease-out both; }
+.verdict.right > span[aria-hidden] { display: inline-block; animation: ui-pop 0.35s ease-out both; }
+.done-card .big { animation: ui-pop 0.5s ease-out both; }
+.burst { position: relative; display: inline-block; }
+.burst svg { position: absolute; inset: -30px -40px; width: calc(100% + 80px); height: calc(100% + 60px); pointer-events: none; overflow: visible; }
+.burst circle { transform-box: fill-box; transform-origin: center; opacity: 0; animation: ui-spark 0.9s 0.15s ease-out both; }
+@keyframes ui-rise { from { opacity: 0; transform: translateY(6px); } }
+@keyframes ui-pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } }
+@keyframes ui-spark { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.4); } }
