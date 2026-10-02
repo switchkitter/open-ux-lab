@@ -11,6 +11,7 @@ describe("routes", () => {
       { name: "skills" },
       { name: "account" },
       { name: "privacy" },
+      { name: "credits" },
     ];
     for (const r of routes) expect(parseRoute(hrefFor(r))).toEqual(r);
   });

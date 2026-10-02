@@ -120,7 +120,8 @@ export default function HomePage({ progress }: { progress: Progress }) {
         Lessons are licensed{" "}
         <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code is MIT.{" "}
         <a href="https://github.com/switchkitter/open-ux-lab">Source on GitHub</a>.{" "}
-        <a href={hrefFor({ name: "privacy" })}>Privacy</a>.
+        <a href={hrefFor({ name: "privacy" })}>Privacy</a>.{" "}
+        <a href={hrefFor({ name: "credits" })}>Sources and credits</a>.
       </p>
     </>
   );

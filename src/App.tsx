@@ -6,6 +6,7 @@ import { useProgress } from "./lib/useProgress";
 import { useRoute } from "./lib/route";
 import Header from "./components/Header";
 import AccountPage from "./pages/AccountPage";
+import CreditsPage from "./pages/CreditsPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
 import PathPage from "./pages/PathPage";
@@ -31,6 +32,7 @@ export default function App() {
       : route.name === "account" ? "Account"
       : route.name === "privacy" ? "Privacy"
       : route.name === "skills" ? "Your skills"
+      : route.name === "credits" ? "Sources and credits"
       : "";
     if (firstRender.current) {
       firstRender.current = false;
@@ -56,6 +58,8 @@ export default function App() {
     page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} update={update} />;
   } else if (route.name === "privacy") {
     page = <PrivacyPage />;
+  } else if (route.name === "credits") {
+    page = <CreditsPage />;
   } else if (route.name === "skills") {
     page = <SkillsPage progress={progress} />;
   } else if (route.name === "review") {

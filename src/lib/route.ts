@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 /**
- * Tiny hash router: #/ , #/path/heuristics , #/lesson/h1 , #/review , #/account , #/privacy , #/skills
+ * Tiny hash router: #/ , #/path/heuristics , #/lesson/h1 , #/review , #/account , #/privacy , #/skills , #/credits
  * Swap for a real router when the app needs nested routes or server rendering.
  */
-export type Route = { name: "home" } | { name: "path"; id: string } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" };
+export type Route = { name: "home" } | { name: "path"; id: string } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" } | { name: "credits" };
 
 export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, "").split("/").filter(Boolean);
@@ -14,6 +14,7 @@ export function parseRoute(hash: string): Route {
   if (parts[0] === "account") return { name: "account" };
   if (parts[0] === "privacy") return { name: "privacy" };
   if (parts[0] === "skills") return { name: "skills" };
+  if (parts[0] === "credits") return { name: "credits" };
   return { name: "home" };
 }
 
@@ -31,6 +32,8 @@ export function hrefFor(route: Route): string {
       return "#/privacy";
     case "skills":
       return "#/skills";
+    case "credits":
+      return "#/credits";
     default:
       return "#/";
   }

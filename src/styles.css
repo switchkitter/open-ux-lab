@@ -498,3 +498,9 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .update-bar-in { max-width: 760px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 10px 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 15px; }
 .update-actions { display: flex; gap: 8px; }
 .btn.small { padding: 6px 12px; font-size: 14px; }
+
+/* Credits */
+.credits .prose h2 { font-size: 22px; margin: 28px 0 8px; }
+.credits .prose h3 { font-size: 17px; margin: 18px 0 6px; }
+.credit-used { color: var(--muted); font-size: 14px; }
+.credits .prose ul + p { margin-top: 12px; }

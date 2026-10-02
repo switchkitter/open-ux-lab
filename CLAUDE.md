@@ -1,12 +1,14 @@
 # Open UX Lab
 
-A free, Uxcel-style UX learning app: short lessons followed by "pick the better design" exercises, with XP, streaks and a review pile for missed questions. The goal is to grow it into something good enough to share publicly.
+A free, Uxcel-style UX learning app: short lessons followed by exercises (pick the better design, multiple choice, spot the problem), with XP, streaks, spaced review and a skill map. It's live, installable as an app, and meant to be shared publicly.
 
 ## Status
 
-- **Built:** Spaced review (missed exercises come back after 1, 3, 7 days). Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Path 3, Form design (8 lessons, 16 exercises). Path 4, Laws of UX (8 lessons, 16 exercises). Plus 8 spot-the-problem exercises across the paths (76 exercises total). Progress is stored in the browser (localStorage).
+- **Content:** 4 learning paths, 34 lessons, 76 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8); every lesson has 2 exercises plus 8 spot-the-problem exercises across the paths.
+- **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, optional accounts with cross-device sync (Supabase, email codes), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
+- **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
-- **Verified (2026-10-01):** `npm install`, `npm run typecheck`, `npm test` (15 tests) and `npm run build` all pass on Node 24.
+- **Checks:** `npm run typecheck`, `npm test` (75+ tests, including content integrity) and `npm run build` pass on Node 24; CI runs tests and build on every push. Accessibility audited with axe-core, keyboard and 320px reflow (Oct 2026); a manual VoiceOver pass is still to do.
 - **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
 
 ## Stack
@@ -14,7 +16,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 - Vite + React 19 + TypeScript (strict)
 - Vitest for unit tests
 - Plain CSS with design tokens in `src/styles.css` (no CSS framework)
-- Tiny hash router in `src/lib/route.ts` (`#/`, `#/path/:id`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`, `#/skills`)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/path/:id`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`, `#/skills`, `#/credits`)
 
 ## Commands
 
@@ -41,6 +43,7 @@ Run `npm run typecheck` and `npm test` after every change.
 - Navigation: the home page shows one card per learning path (`HomePage`); each opens `#/path/:id` (`PathPage`: overview, progress, one main action, `LessonList`). Lessons link back to their path. `src/lib/pathStatus.ts` computes a path's progress and next lesson. Path icons (`pathIcons` in `src/art/icons.tsx`, home cards) and banners (`pathHeroes` in `src/art/path-heroes.tsx`, 640×240, top of the path page) follow the scene rules; a new path needs both (a content test checks).
 - PWA: `vite-plugin-pwa` in `vite.config.ts` (manifest, Workbox precache of the built app, `registerType: "prompt"`). `src/components/UpdatePrompt.tsx` registers the service worker, checks for updates when the app returns to the foreground, and shows an Update/Later bar inside the header. Icons in `public/icons/` (master `icon.svg`; PNGs exported from it), favicon `public/favicon.svg`. If you change the icon, re-export all PNG sizes.
 - Link previews: Open Graph and Twitter tags in `index.html` (absolute URLs to https://openuxlab.com) and `public/og-image.png` (1200×630, app fonts and colors). Update both if the name, tagline or domain changes.
+- `src/pages/CreditsPage.tsx`, `src/lib/credits.ts` — sources and credits page; source lists are generated from lesson data, so new sources appear automatically. Update the fonts/software lists there if those change.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)

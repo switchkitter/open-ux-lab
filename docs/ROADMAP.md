@@ -1,6 +1,6 @@
 # Roadmap
 
-## 0.1 — Foundation (current)
+## 0.1 — Foundation
 - [x] Heuristics path: 10 lessons, 20 exercises
 - [x] XP, daily streak, review pile
 - [x] Progress logic separated from storage
@@ -34,12 +34,12 @@
 ## 0.4 — Ready to share
 - [x] Privacy notice (#/privacy) and self-service account deletion
 - [x] Self-hosted fonts (no third-party requests)
-- [x] Accounts and synced progress (Supabase, email code sign-in, three-way merge) — code done; needs a Supabase project to switch on
+- [x] Accounts and synced progress (Supabase, email code sign-in, three-way merge), live
 - [ ] Content moved to Markdown/MDX files so non-developers can contribute
 - [x] Accessibility audit of the app itself (axe-core on every screen, keyboard walk-through, 320px reflow; Oct 2026)
 - [ ] Manual screen reader pass (NVDA or Narrator on Windows, VoiceOver on iPhone)
 - [x] License for code (MIT) and content (CC BY 4.0)
 - [x] Link preview (Open Graph image and tags)
 - [x] Sign-in emails from hello@openuxlab.com (Brevo domain authentication)
-- [ ] Attribution page
+- [x] Attribution page (Sources and credits, #/credits)
 - [ ] Analytics that respect privacy (e.g. Plausible)
