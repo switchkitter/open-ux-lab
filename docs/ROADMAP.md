@@ -12,7 +12,7 @@
 - [x] Laws of UX path: 8 lessons, 16 exercises
 - [x] Form design path (GOV.UK, USWDS): 8 lessons, 16 exercises
 - [x] Third exercise type: "spot the problem" (8 exercises, keyboard and screen reader accessible)
-- [ ] More spot-the-problem exercises (one per lesson)
+- [x] A spot-the-problem exercise in every lesson (34)
 - [x] Shuffle option order in choice exercises
 
 ## Visual polish

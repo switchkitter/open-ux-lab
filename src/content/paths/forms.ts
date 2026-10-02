@@ -68,6 +68,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "If nobody can name a real use, the question shouldn't be there at all. Making it optional, quicker or later still asks for sensitive information with no purpose, and it adds length and doubt to every application.",
       },
+      {
+        id: "f1-spot-unneeded-question",
+        type: "spot",
+        question: "This form gives away a free accessibility checklist. Which question doesn't belong?",
+        title: "Get the free checklist (PDF)",
+        parts: [
+          {
+            id: "email",
+            label: "Field labeled Email address",
+            html: `<div class="mk-label">Email address</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "name",
+            label: "Field labeled First name (optional)",
+            html: `<div class="mk-label">First name (optional)</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "dob",
+            label: "Field labeled Date of birth",
+            html: `<div class="mk-label">Date of birth</div><div class="mk-in">DD / MM / YYYY</div>`,
+          },
+          {
+            id: "send",
+            label: "Button: Send me the checklist",
+            html: `<span class="mk-btn">Send me the checklist</span>`,
+          },
+        ],
+        correct: "dob",
+        why: "Nothing about sending a checklist needs a date of birth, and asking for it makes people wonder what you'll do with it. If nobody can say who uses an answer, the question should go. The email is needed, and the optional first name is clearly marked.",
+      },
     ],
   },
   {
@@ -117,6 +147,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "One thing per page keeps each step simple, and skipping means people only see questions that apply to them. A progress bar doesn't make 40 questions shorter, two pages of 20 keep all the same problems, and accordions hide questions people still have to find and answer.",
       },
+      {
+        id: "f2-spot-no-change-link",
+        type: "spot",
+        question: "On this check-your-answers page, which part stops people fixing a mistake?",
+        title: "Check your answers",
+        parts: [
+          {
+            id: "name",
+            label: "Row: Name, Sofia Marín, with a Change link",
+            html: `<div class="mk-row"><span class="mk-label">Name</span><span>Sofia Marín</span><span class="mk-link">Change</span></div>`,
+          },
+          {
+            id: "dob",
+            label: "Row: Date of birth, 14 March 1990, with a Change link",
+            html: `<div class="mk-row"><span class="mk-label">Date of birth</span><span>14 March 1990</span><span class="mk-link">Change</span></div>`,
+          },
+          {
+            id: "passport",
+            label: "Row: Passport number, 502384917, with no Change link",
+            html: `<div class="mk-row"><span class="mk-label">Passport number</span><span>502384917</span></div>`,
+          },
+          {
+            id: "send",
+            label: "Button: Accept and send",
+            html: `<span class="mk-btn">Accept and send</span>`,
+          },
+        ],
+        correct: "passport",
+        why: "The passport number is the answer most likely to have a typo, and it's the only one people can't change from here. Every answer on a check-your-answers page needs a Change link back to its question. The other rows show how.",
+      },
     ],
   },
   {
@@ -162,6 +222,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "People read it before they type, it stays visible while they type, and linking it to the field means screen readers announce it too. Placeholder text disappears when typing starts, tooltips are often missed and awkward on touch screens, and an error message only helps after people have already got it wrong.",
       },
+      {
+        id: "f3-spot-wide-code",
+        type: "spot",
+        question: "Which field gives people the wrong clue about what to type?",
+        title: "Payment",
+        parts: [
+          {
+            id: "card",
+            label: "Field labeled Card number, about 20 characters wide",
+            html: `<div class="mk-label">Card number</div><div class="mk-in" style="width:14em">&nbsp;</div>`,
+          },
+          {
+            id: "expiry",
+            label: "Field labeled Expiry date, with the hint MM/YY, about 5 characters wide",
+            html: `<div class="mk-label">Expiry date</div><div class="mk-muted">MM/YY</div><div class="mk-in" style="width:5em">&nbsp;</div>`,
+          },
+          {
+            id: "code",
+            label: "Field labeled Security code, with the hint 3 digits on the back of your card, stretching the full width of the form",
+            html: `<div class="mk-label">Security code</div><div class="mk-muted">3 digits on the back of your card</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "pay",
+            label: "Button: Pay $84.00",
+            html: `<span class="mk-btn">Pay $84.00</span>`,
+          },
+        ],
+        correct: "code",
+        why: "A field as wide as the whole form suggests a long answer, but the security code is 3 digits. Sizing it to fit the answer gives people a quick visual clue. The card number and expiry fields are already sized to their content.",
+      },
     ],
   },
   {
@@ -206,6 +296,36 @@ const lessons: Lesson[] = [
         ],
         correct: 0,
         why: "Autocomplete lets the browser fill in details people have entered before, and input types bring up the right keyboard, such as a number pad for the phone. Splitting a phone number breaks pasting and international numbers, example values have to be deleted before typing, and a Clear all button only adds a way to lose work.",
+      },
+      {
+        id: "f4-spot-name-rules",
+        type: "spot",
+        question: "Which part will reject some people's real names?",
+        title: "Your details",
+        parts: [
+          {
+            id: "given",
+            label: "Field labeled Given names",
+            html: `<div class="mk-label">Given names</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "family",
+            label: "Field labeled Family name, with the hint Letters A to Z only, up to 12 characters",
+            html: `<div class="mk-label">Family name</div><div class="mk-muted">Letters A to Z only, up to 12 characters</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "email",
+            label: "Field labeled Email address",
+            html: `<div class="mk-label">Email address</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "next",
+            label: "Button: Continue",
+            html: `<span class="mk-btn">Continue</span>`,
+          },
+        ],
+        correct: "family",
+        why: "Many family names have accents, apostrophes, hyphens or spaces, like Díaz, O'Brien or Nguyen-Okafor, and plenty are longer than 12 letters. Rules like these tell people their own name is wrong. Accept any characters and allow long names. The other fields are fine.",
       },
     ],
   },
@@ -255,6 +375,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Calendars help when people choose a date near today and want to see the weekdays, like a delivery slot. Birth dates and document dates are already known, so typing them is quicker. A picker on every field for consistency makes the common case slower.",
+      },
+      {
+        id: "f5-spot-dob-calendar",
+        type: "spot",
+        question: "Which date field makes people do the most work?",
+        title: "Book a passport appointment",
+        parts: [
+          {
+            id: "dob",
+            label: "Field labeled Date of birth: a Select a date button that opens a calendar on today's month",
+            html: `<div class="mk-label">Date of birth</div><div class="mk-in">Select a date ▾</div><div class="mk-muted">Opens a calendar on October 2026</div>`,
+          },
+          {
+            id: "issued",
+            label: "Question: When was your current passport issued? Answered with Day, Month and Year boxes",
+            html: `<div class="mk-label">When was your current passport issued?</div><div class="mk-row"><span class="mk-in" style="width:3.2em">DD</span><span class="mk-in" style="width:3.2em">MM</span><span class="mk-in" style="width:4.6em">YYYY</span></div>`,
+          },
+          {
+            id: "appointment",
+            label: "Field labeled Appointment: a calendar showing the next two weeks, with weekdays",
+            html: `<div class="mk-label">Appointment</div><div class="mk-in">Calendar · next 2 weeks · Mon to Fri</div>`,
+          },
+          {
+            id: "book",
+            label: "Button: Book appointment",
+            html: `<span class="mk-btn">Book appointment</span>`,
+          },
+        ],
+        correct: "dob",
+        why: "Someone born in 1990 has to step back through hundreds of months to find their birthday, when typing it into day, month and year boxes would take seconds. The calendar is right for the appointment, a near-future date where weekdays matter, and the passport date already uses the boxes.",
       },
     ],
   },
@@ -379,6 +529,36 @@ const lessons: Lesson[] = [
         ],
         correct: 0,
         why: "Words in the label are clear to everyone, and one marker is easy to spot. Unexplained asterisks on every other field add noise to save one word, a lighter label lowers contrast and still relies on looks alone, and leaving it unmarked makes people fill in a field they could have skipped.",
+      },
+      {
+        id: "f7-spot-lone-asterisk",
+        type: "spot",
+        question: "Which part makes this form's rules unclear?",
+        title: "Contact sales",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Full name",
+            html: `<div class="mk-label">Full name</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "email",
+            label: "Field labeled Email address",
+            html: `<div class="mk-label">Email address</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "phone",
+            label: "Field labeled Phone number (optional)",
+            html: `<div class="mk-label">Phone number (optional)</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "job",
+            label: "Field labeled Job title, followed by a red asterisk. The asterisk isn't explained anywhere.",
+            html: `<div class="mk-label">Job title <span class="mk-err">*</span></div><div class="mk-in">&nbsp;</div>`,
+          },
+        ],
+        correct: "job",
+        why: "The form marks optional fields in words, so everything else is required. Then one field has an unexplained red asterisk, which makes people wonder whether the other fields are optional after all, and relies on a symbol and color. The other three labels are clear.",
       },
     ],
   },

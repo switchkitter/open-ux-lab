@@ -54,6 +54,31 @@ const lessons: Lesson[] = [
         correct: 2,
         why: "Disability is more common than teams assume, many people never disclose it, and the fixes also help someone with a broken wrist, an old phone or glare on the screen. A separate accessible version tends to fall behind the main site, and overlay widgets don't fix the underlying code. Legal risk is real, but leading with it frames accessibility as compliance rather than as serving users.",
       },
+      {
+        id: "a1-spot-no-captions",
+        type: "spot",
+        question: "This onboarding video is for every new employee. Which part leaves some of them out?",
+        title: "Your first week",
+        parts: [
+          {
+            id: "video",
+            label: "Video player: Welcome to the team, 6 minutes 40 seconds",
+            html: `<div class="mk-media">Video · Welcome to the team · 6:40</div>`,
+          },
+          {
+            id: "controls",
+            label: "Video controls: Play, Volume and Full screen buttons only",
+            html: `<div class="mk-row"><span class="mk-btn sec">▶ Play</span><span class="mk-btn sec">Volume</span><span class="mk-btn sec">Full screen</span></div>`,
+          },
+          {
+            id: "questions",
+            label: "Text: Questions? Ask your manager.",
+            html: `<div class="mk-muted">Questions? Ask your manager.</div>`,
+          },
+        ],
+        correct: "controls",
+        why: "There's no captions button and no transcript, so Deaf and hard-of-hearing employees miss the content, as does anyone watching in a noisy office or without sound. Captions and a transcript fix that. The video itself and the note about questions are fine.",
+      },
     ],
   },
   {
@@ -102,6 +127,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Empty alt text tells screen readers the image is decorative, so people reach the sign-in form sooner. A description makes everyone listen to something that adds nothing. Leaving out the attribute is worse: many screen readers then read the file name. Repeating the page title duplicates the heading.",
       },
+      {
+        id: "a2-spot-logo-filename",
+        type: "spot",
+        question: "A screen reader user is shopping. The boxes show what their screen reader announces. Which part fails them?",
+        title: "Ceramic mug",
+        parts: [
+          {
+            id: "logo",
+            label: "Logo image. Screen reader says: logo_final_v2.png, link",
+            html: `<div class="mk-say"><b>Screen reader</b>“logo_final_v2.png, link”</div>`,
+          },
+          {
+            id: "photo",
+            label: "Product photo. Screen reader says: Blue ceramic mug with a curved handle, 350 ml",
+            html: `<div class="mk-say"><b>Screen reader</b>“Blue ceramic mug with a curved handle, 350 ml”</div>`,
+          },
+          {
+            id: "price",
+            label: "Price: $18",
+            html: `<div class="mk-big">$18</div>`,
+          },
+          {
+            id: "add",
+            label: "Button: Add to cart",
+            html: `<span class="mk-btn">Add to cart</span>`,
+          },
+        ],
+        correct: "logo",
+        why: "The logo is a link to the home page, so its text alternative should name the company or say “Home”, not read out a file name. The product photo's alt text is a good example: it describes what a sighted shopper would learn from the picture.",
+      },
     ],
   },
   {
@@ -145,6 +200,36 @@ const lessons: Lesson[] = [
         options: ["3:1", "7:1", "4.5:1", "There is no minimum if the typeface is legible"],
         correct: 2,
         why: "Normal-size text needs 4.5:1 at level AA. 3:1 applies only to large text (about 24px, or 19px bold) and to interface parts such as icons and borders. 7:1 is the stricter AAA level. A legible typeface doesn't change the requirement.",
+      },
+      {
+        id: "a3-spot-contrast-ratios",
+        type: "spot",
+        question: "Each part shows its measured contrast ratio. Which one fails WCAG level AA?",
+        title: "Monthly report",
+        parts: [
+          {
+            id: "heading",
+            label: "Large bold heading: Monthly report. Contrast 12.6:1",
+            html: `<div class="mk-row"><span class="mk-title">Monthly report</span><span class="mk-pill">12.6:1</span></div>`,
+          },
+          {
+            id: "total",
+            label: "Large bold number, about 32 pixels: $84,200. Contrast 3.6:1",
+            html: `<div class="mk-row"><span class="mk-big">$84,200</span><span class="mk-pill">3.6:1 · large text</span></div>`,
+          },
+          {
+            id: "body",
+            label: "Body text, 16 pixels: Revenue grew 8% in September. Contrast 9.1:1",
+            html: `<div class="mk-row"><span>Revenue grew 8% in September.</span><span class="mk-pill">9.1:1</span></div>`,
+          },
+          {
+            id: "note",
+            label: "Body text, 16 pixels: Figures exclude refunds. Contrast 3.2:1",
+            html: `<div class="mk-row"><span>Figures exclude refunds.</span><span class="mk-pill">3.2:1 · 16px</span></div>`,
+          },
+        ],
+        correct: "note",
+        why: "Normal-size text needs at least 4.5:1, and this note has 3.2:1. The large $84,200 only needs 3:1 because it's large text, so its 3.6:1 passes. The heading and body text pass easily.",
       },
     ],
   },
@@ -190,6 +275,36 @@ const lessons: Lesson[] = [
         ],
         correct: 3,
         why: "Words in the label work for everyone, including screen reader users, who hear them with the field name. A brighter red or a different color still relies on color alone, and a tooltip hides the explanation where few people will find it.",
+      },
+      {
+        id: "a4-spot-red-border-only",
+        type: "spot",
+        question: "This form was submitted with problems. Which part relies on color alone?",
+        title: "Create an account",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Name, with a green border and the text Looks good",
+            html: `<div class="mk-label">Name</div><div class="mk-in" style="border-color:var(--good)">Priya Shah</div><div class="mk-up">✓ Looks good</div>`,
+          },
+          {
+            id: "email",
+            label: "Field labeled Email, with a red border and no message",
+            html: `<div class="mk-label">Email</div><div class="mk-in err">priya.shah@</div>`,
+          },
+          {
+            id: "password",
+            label: "Field labeled Password, with a red border and the message Use at least 12 characters",
+            html: `<div class="mk-label">Password</div><div class="mk-err">⚠ Use at least 12 characters</div><div class="mk-in err">••••••</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Create account",
+            html: `<span class="mk-btn">Create account</span>`,
+          },
+        ],
+        correct: "email",
+        why: "The email field signals its error only with a red border, which many color-blind people can't see and screen readers don't announce. It needs a message in words, like the password field has: an icon and text that say what's wrong and how to fix it.",
       },
     ],
   },
@@ -240,6 +355,36 @@ const lessons: Lesson[] = [
         correct: 0,
         why: "A native button comes with keyboard focus, Enter and Space activation, and the button role for free. A div has none of these, so each must be added by hand, and teams often miss one. Switching to a button element is the simpler fix. A hover state only helps mouse users.",
       },
+      {
+        id: "a5-spot-keyboard-trap",
+        type: "spot",
+        question: "These are the results of testing a form with only the keyboard. Which part fails keyboard users?",
+        title: "New task",
+        parts: [
+          {
+            id: "title",
+            label: "Text field: Title. Keyboard test: reached with Tab, typing works",
+            html: `<div class="mk-label">Title</div><div class="mk-in">&nbsp;</div><div class="mk-muted">Tab ✓ · typing ✓</div>`,
+          },
+          {
+            id: "priority",
+            label: "Custom dropdown: Priority. Keyboard test: skipped by Tab, Enter does nothing",
+            html: `<div class="mk-label">Priority</div><div class="mk-in">Normal ▾</div><div class="mk-muted">Tab ✗ skipped · Enter ✗</div>`,
+          },
+          {
+            id: "details",
+            label: "Link: View details. Keyboard test: reached with Tab, Enter opens it",
+            html: `<span class="mk-link">View details</span><div class="mk-muted">Tab ✓ · Enter ✓</div>`,
+          },
+          {
+            id: "save",
+            label: "Button: Save. Keyboard test: reached with Tab, Enter and Space work",
+            html: `<span class="mk-btn">Save</span><div class="mk-muted">Tab ✓ · Enter ✓ · Space ✓</div>`,
+          },
+        ],
+        correct: "priority",
+        why: "Keyboard users can't reach the Priority dropdown or open it, so they can't set a priority at all. Custom controls need focus and key handling, or better, a native select element that comes with both. The other controls pass the test.",
+      },
     ],
   },
   {
@@ -287,6 +432,36 @@ const lessons: Lesson[] = [
         ],
         correct: 2,
         why: "Heading levels describe the outline, and CSS controls their size. An h5 straight after the h1 tells screen reader users that sections are missing. A bold paragraph removes the heading from navigation entirely, and a second h1 blurs what the page is about.",
+      },
+      {
+        id: "a6-spot-skipped-level",
+        type: "spot",
+        question: "This is the heading outline of a billing page. Which heading breaks the structure?",
+        title: "Billing",
+        parts: [
+          {
+            id: "h1",
+            label: "Heading level 1: Billing",
+            html: `<div class="mk-row"><span class="mk-pill">H1</span><span class="mk-title">Billing</span></div>`,
+          },
+          {
+            id: "h2a",
+            label: "Heading level 2: Payment method",
+            html: `<div class="mk-row"><span class="mk-pill">H2</span><span>Payment method</span></div>`,
+          },
+          {
+            id: "h4",
+            label: "Heading level 4: Card details",
+            html: `<div class="mk-row" style="padding-left:24px"><span class="mk-pill">H4</span><span>Card details</span></div>`,
+          },
+          {
+            id: "h2b",
+            label: "Heading level 2: Invoices",
+            html: `<div class="mk-row"><span class="mk-pill">H2</span><span>Invoices</span></div>`,
+          },
+        ],
+        correct: "h4",
+        why: "Card details jumps from level 2 straight to level 4, so screen reader users hear that a level is missing and wonder what they skipped. It should be an h3 under Payment method, styled smaller with CSS if needed. The rest of the outline is in order.",
       },
     ],
   },

@@ -31,7 +31,7 @@ Always confirm a source's current license before adapting its text. When unsure,
 - [ ] 3–4 "In practice" bullets
 - [ ] One "Try it at work" field exercise
 - [ ] At least one https source
-- [ ] At least one compare exercise and one choice exercise (a spot-the-problem exercise is optional)
+- [ ] One compare, one choice and one spot-the-problem exercise
 - [ ] Every exercise has a unique, stable `id`
 - [ ] `skills` lists the skills the lesson builds (see `src/content/skills.ts`)
 - [ ] Every "why" explains the right answer and what's wrong with the alternatives

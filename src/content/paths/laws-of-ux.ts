@@ -48,6 +48,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "People already know how checkbox filters work from other products, so a replacement has to be worth the learning it demands. A tutorial overlay admits the new control isn't self-explanatory and is often dismissed unread, and letting each team choose breaks consistency inside your own product.",
       },
+      {
+        id: "l1-spot-hidden-cart",
+        type: "spot",
+        question: "Which part of this online store breaks what shoppers expect from every other store?",
+        title: "Deskly",
+        parts: [
+          {
+            id: "logo",
+            label: "Logo at the top left: Deskly",
+            html: `<span class="mk-title">Deskly</span>`,
+          },
+          {
+            id: "search",
+            label: "Search field at the top: Search products",
+            html: `<div class="mk-in">Search products</div>`,
+          },
+          {
+            id: "account",
+            label: "Links at the top right: Account and Help",
+            html: `<div class="mk-row"><span class="mk-link">Account</span><span class="mk-link">Help</span></div>`,
+          },
+          {
+            id: "cart",
+            label: "Link at the bottom of the page, in the footer: Purchases (3)",
+            html: `<div class="mk-muted">Footer · <span class="mk-link">Purchases (3)</span></div>`,
+          },
+        ],
+        correct: "cart",
+        why: "Shoppers expect the cart at the top right, called a cart or basket, because nearly every store puts it there. Hiding it in the footer under another name makes them hunt for it, and some will think their items are gone. The logo, search and account links are where people look for them.",
+      },
     ],
   },
   {
@@ -174,6 +204,31 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Showing only the setting most people change makes the common case quick, and the rest stay one click away for people who need them. Removing them hurts experts, sorting doesn't reduce the number of decisions, and tabs spread the same 25 choices out and add navigation on top.",
       },
+      {
+        id: "l3-spot-too-many-options",
+        type: "spot",
+        question: "Most people export with the default settings. Which part slows them down?",
+        title: "Export report",
+        parts: [
+          {
+            id: "format",
+            label: "Dropdown labeled Format, showing PDF",
+            html: `<div class="mk-label">Format</div><div class="mk-in">PDF ▾</div>`,
+          },
+          {
+            id: "options",
+            label: "Section: Options, with 18 checkboxes all shown at once",
+            html: `<div class="mk-label">Options</div><div class="mk-muted">☐ Header ☐ Footer ☐ Page numbers ☐ Logo ☐ Gridlines ☐ Notes … 18 checkboxes</div>`,
+          },
+          {
+            id: "export",
+            label: "Button: Export",
+            html: `<span class="mk-btn">Export</span>`,
+          },
+        ],
+        correct: "options",
+        why: "Eighteen equal checkboxes make everyone read and weigh options that most people never change, which slows the decision. Sensible defaults with the rest behind “More options” keep the common case quick. The format choice and the button are what most people need.",
+      },
     ],
   },
   {
@@ -223,6 +278,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "People recognize items in a visible menu rather than remembering them, so Miller's number doesn't set a limit. What matters is whether the menu is easy to scan: clear names and sensible groups. Cutting useful items, splitting the menu arbitrarily or hiding it all make navigation harder.",
+      },
+      {
+        id: "l4-spot-long-code",
+        type: "spot",
+        question: "People have to type this code on another device. Which part makes that harder than it needs to be?",
+        title: "Your sign-in code",
+        parts: [
+          {
+            id: "code",
+            label: "Code shown as one block of ten digits: 4827193650",
+            html: `<div class="mk-big">4827193650</div>`,
+          },
+          {
+            id: "expiry",
+            label: "Text: Expires in 10 minutes",
+            html: `<div class="mk-muted">Expires in 10 minutes</div>`,
+          },
+          {
+            id: "where",
+            label: "Text: Enter it on the sign-in screen",
+            html: `<div>Enter it on the sign-in screen</div>`,
+          },
+          {
+            id: "copy",
+            label: "Button: Copy code",
+            html: `<span class="mk-btn sec">Copy code</span>`,
+          },
+        ],
+        correct: "code",
+        why: "Ten digits in one block are hard to hold in mind while switching devices, so people lose their place and mistype. Showing the code in chunks, such as 482 719 3650, makes it far easier to read and copy. The expiry, instructions and copy button all help.",
       },
     ],
   },
@@ -274,6 +359,31 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Because the button sits between the two groups, people can't tell which one it belongs to, and some will leave changes unsaved. Putting it inside the section it acts on, or clearly at the end of everything, makes the relationship obvious. A new color doesn't fix an unclear relationship, and saving both only helps if people can tell that it does.",
       },
+      {
+        id: "l5-spot-floating-save",
+        type: "spot",
+        question: "Which part's position makes it unclear what it belongs to?",
+        title: "Settings",
+        parts: [
+          {
+            id: "profile",
+            label: "Section: Profile, with Name and Email fields",
+            html: `<div class="mk-title">Profile</div><div class="mk-label">Name</div><div class="mk-in">&nbsp;</div><div class="mk-label">Email</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "save",
+            label: "Button: Save, sitting alone in the gap between the Profile and Notifications sections",
+            html: `<span class="mk-btn">Save</span>`,
+          },
+          {
+            id: "notifications",
+            label: "Section: Notifications, with two checkboxes",
+            html: `<div class="mk-title">Notifications</div><div>☐ Email me weekly</div><div>☐ Email me when mentioned</div>`,
+          },
+        ],
+        correct: "save",
+        why: "Sitting halfway between two sections, the Save button could belong to either, so people can't tell what it saves and some leave changes unsaved. Putting it inside the section it acts on, or clearly at the end of everything, makes the grouping obvious. The two sections are clearly grouped themselves.",
+      },
     ],
   },
   {
@@ -322,6 +432,31 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Emphasis works by contrast with what's around it. When most cards shout, none of them stands out, and people learn to ignore the red. Keep the strong treatment for the few items that need action now.",
       },
+      {
+        id: "l6-spot-everything-bold",
+        type: "spot",
+        question: "Which part makes the main action impossible to pick out?",
+        title: "Edit article",
+        parts: [
+          {
+            id: "title",
+            label: "Field labeled Title, containing New office opening",
+            html: `<div class="mk-label">Title</div><div class="mk-in">New office opening</div>`,
+          },
+          {
+            id: "body",
+            label: "Text area with the article text",
+            html: `<div class="mk-in" style="height:40px">Our new Dublin office opens on…</div>`,
+          },
+          {
+            id: "toolbar",
+            label: "Toolbar: Save draft, Preview, Share, Duplicate and Publish, all in the same bold blue button style",
+            html: `<div class="mk-row"><span class="mk-btn">Save draft</span><span class="mk-btn">Preview</span><span class="mk-btn">Share</span><span class="mk-btn">Duplicate</span><span class="mk-btn">Publish</span></div>`,
+          },
+        ],
+        correct: "toolbar",
+        why: "When every button has the same bold treatment, nothing stands out, so people have to read all five to find Publish. Giving the main action the strong style and the others a quieter one makes the next step obvious at a glance. The fields are fine.",
+      },
     ],
   },
   {
@@ -366,6 +501,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "The failing bank connection is the low point people will remember and judge the whole product by. A nicer ending or prettier welcome screen can't make up for a moment where one in five people gets stuck.",
+      },
+      {
+        id: "l7-spot-flat-ending",
+        type: "spot",
+        question: "Which part will color how people remember this whole purchase?",
+        title: "Checkout",
+        parts: [
+          {
+            id: "cart",
+            label: "Step 1, Cart: product photos and a clear total",
+            html: `<div class="mk-muted">Step 1 · Cart</div><div>2 items · $84.00</div>`,
+          },
+          {
+            id: "delivery",
+            label: "Step 2, Delivery: address filled in with one tap",
+            html: `<div class="mk-muted">Step 2 · Delivery</div><div>Address filled in for you ✓</div>`,
+          },
+          {
+            id: "payment",
+            label: "Step 3, Payment: a one-tap pay button",
+            html: `<div class="mk-muted">Step 3 · Payment</div><span class="mk-btn">Pay with one tap</span>`,
+          },
+          {
+            id: "end",
+            label: "Last screen: the words Request processed., with no order number, delivery date or next step",
+            html: `<div class="mk-muted">Last screen</div><div>Request processed.</div>`,
+          },
+        ],
+        correct: "end",
+        why: "People judge an experience largely by how it ends, and this ending leaves them unsure whether the order went through or when it will arrive. A confirmation with the order number, delivery date and a next step ends on a confident note. The earlier steps are smooth.",
       },
     ],
   },

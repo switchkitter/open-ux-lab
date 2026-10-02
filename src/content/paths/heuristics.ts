@@ -47,6 +47,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "In-place feedback during the wait plus a quiet confirmation afterwards keeps people informed without interrupting them. A modal adds a click for no benefit, and a frozen page with no message looks broken.",
       },
+      {
+        id: "h1-spot-silent-upload",
+        type: "spot",
+        question: "Someone is uploading three files. Which part leaves them guessing about what's happening?",
+        title: "Uploads",
+        parts: [
+          {
+            id: "done",
+            label: "File row: budget-2026.xlsx, Uploaded, with a check mark",
+            html: `<div class="mk-row"><span>budget-2026.xlsx</span><span class="mk-up">✓ Uploaded</span></div>`,
+          },
+          {
+            id: "progress",
+            label: "File row: photos.zip, 64%, about 12 seconds left, with a progress bar",
+            html: `<div>photos.zip · 64% · about 12 seconds left</div><div class="mk-bar"><i style="width:64%"></i></div>`,
+          },
+          {
+            id: "silent",
+            label: "File row: contract.pdf. Nothing else is shown next to it.",
+            html: `<div>contract.pdf</div>`,
+          },
+          {
+            id: "add",
+            label: "Button: Add files",
+            html: `<span class="mk-btn sec">Add files</span>`,
+          },
+        ],
+        correct: "silent",
+        why: "contract.pdf shows no status at all, so people can't tell whether it's waiting, uploading, finished or failed, and many will upload it again. The other two rows say exactly where they stand: one is done, the other shows progress and time left.",
+      },
     ],
   },
   {
@@ -91,6 +121,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "The problem is the vocabulary itself. Renaming the field to the words staff already use removes the need for an explanation. A tooltip treats the symptom and still makes everyone read it.",
+      },
+      {
+        id: "h2-spot-system-units",
+        type: "spot",
+        question: "Hourly staff use this form to ask for time off. Which part uses the system's language instead of theirs?",
+        title: "Request time off",
+        parts: [
+          {
+            id: "start",
+            label: "Field labeled Start date, containing Mon 12 Oct",
+            html: `<div class="mk-label">Start date</div><div class="mk-in">Mon 12 Oct</div>`,
+          },
+          {
+            id: "duration",
+            label: "Field labeled Duration (in 15-minute units), containing 32",
+            html: `<div class="mk-label">Duration (in 15-minute units)</div><div class="mk-in">32</div>`,
+          },
+          {
+            id: "reason",
+            label: "Dropdown labeled Reason, showing Vacation",
+            html: `<div class="mk-label">Reason</div><div class="mk-in">Vacation ▾</div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Submit request",
+            html: `<span class="mk-btn">Submit request</span>`,
+          },
+        ],
+        correct: "duration",
+        why: "People think about time off in days and hours, not 15-minute units, so they have to do arithmetic (32 units is 8 hours) and some will get it wrong. Asking for hours or days, in the words staff use, removes the translation. The date, reason and button already speak their language.",
       },
     ],
   },
@@ -137,6 +197,31 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Back lets people correct earlier answers, and drafts make leaving safe. Removing Cancel traps people, which is the opposite of control.",
       },
+      {
+        id: "h3-spot-no-way-back",
+        type: "spot",
+        question: "Someone opened this by mistake while managing their subscription. Which part takes away their control?",
+        title: "Before you go…",
+        parts: [
+          {
+            id: "message",
+            label: "Text: We'll miss you. Your plan ends on 31 October.",
+            html: `<div>We'll miss you. Your plan ends on 31 October.</div>`,
+          },
+          {
+            id: "cancel",
+            label: "Button: Yes, cancel my plan",
+            html: `<span class="mk-btn danger">Yes, cancel my plan</span>`,
+          },
+          {
+            id: "keep",
+            label: "Small text: To keep your plan, call support between 9 AM and 5 PM.",
+            html: `<div class="mk-muted">To keep your plan, call support between 9 AM and 5 PM.</div>`,
+          },
+        ],
+        correct: "keep",
+        why: "The only way back out is a phone call during office hours, so someone who got here by accident is trapped. A clear “Keep my plan” button or a close option gives them an easy exit. The message and the cancel button are fine for people who really do want to cancel.",
+      },
     ],
   },
   {
@@ -181,6 +266,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent.",
+      },
+      {
+        id: "h4-spot-odd-actions",
+        type: "spot",
+        question: "Which part breaks the pattern the rest of this screen sets?",
+        title: "Team members",
+        parts: [
+          {
+            id: "ana",
+            label: "Row: Ana Silva, Admin, with links Edit and Remove",
+            html: `<div class="mk-row"><span>Ana Silva · Admin</span><span class="mk-link">Edit</span><span class="mk-link">Remove</span></div>`,
+          },
+          {
+            id: "ben",
+            label: "Row: Ben Cho, Editor, with links Edit and Remove",
+            html: `<div class="mk-row"><span>Ben Cho · Editor</span><span class="mk-link">Edit</span><span class="mk-link">Remove</span></div>`,
+          },
+          {
+            id: "cara",
+            label: "Row: Cara Díaz, Viewer, with links Modify and Delete user",
+            html: `<div class="mk-row"><span>Cara Díaz · Viewer</span><span class="mk-link">Modify</span><span class="mk-link">Delete user</span></div>`,
+          },
+          {
+            id: "invite",
+            label: "Button: Invite member",
+            html: `<span class="mk-btn">Invite member</span>`,
+          },
+        ],
+        correct: "cara",
+        why: "Cara's row uses different words for the same actions, so people stop to wonder whether “Delete user” does something different from “Remove”. Every row should use the same labels in the same places. The other rows and the invite button follow the pattern.",
       },
     ],
   },
@@ -309,6 +424,36 @@ const lessons: Lesson[] = [
         correct: 1,
         why: "Showing the choice where it's needed removes the memory burden. A Back link makes people leave the task to check, and an email arrives too late.",
       },
+      {
+        id: "h6-spot-remember-code",
+        type: "spot",
+        question: "Which part makes people remember something instead of choosing it?",
+        title: "Run a report",
+        parts: [
+          {
+            id: "range",
+            label: "Dropdown labeled Date range, showing Last 30 days",
+            html: `<div class="mk-label">Date range</div><div class="mk-in">Last 30 days ▾</div>`,
+          },
+          {
+            id: "dept",
+            label: "Field labeled Department code, with the hint Enter the 4-digit code from the HR handbook. It's empty.",
+            html: `<div class="mk-label">Department code</div><div class="mk-muted">Enter the 4-digit code from the HR handbook</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "format",
+            label: "Dropdown labeled Format, showing PDF",
+            html: `<div class="mk-label">Format</div><div class="mk-in">PDF ▾</div>`,
+          },
+          {
+            id: "run",
+            label: "Button: Run report",
+            html: `<span class="mk-btn">Run report</span>`,
+          },
+        ],
+        correct: "dept",
+        why: "People have to recall or look up a 4-digit code in a separate handbook, when the system could simply list the departments by name to choose from. The other fields already let people recognize the option they want.",
+      },
     ],
   },
   {
@@ -354,6 +499,36 @@ const lessons: Lesson[] = [
         correct: 2,
         why: "Showing shortcuts beside the normal controls teaches them gradually. Beginners still have the visible button, and experts learn the shortcut by seeing it.",
       },
+      {
+        id: "h7-spot-one-at-a-time",
+        type: "spot",
+        question: "Staff update hundreds of products every week. Which part makes their frequent work slow?",
+        title: "Products · 250 items",
+        parts: [
+          {
+            id: "search",
+            label: "Search field: Search products",
+            html: `<div class="mk-in">Search products</div>`,
+          },
+          {
+            id: "edit",
+            label: "Button: Edit, with the note Select one product at a time",
+            html: `<div class="mk-row"><span class="mk-btn sec">Edit</span><span class="mk-muted">Select one product at a time</span></div>`,
+          },
+          {
+            id: "row",
+            label: "Product row: Desk lamp, $39, In stock",
+            html: `<div>Desk lamp · $39 · In stock</div>`,
+          },
+          {
+            id: "add",
+            label: "Button: Add product",
+            html: `<span class="mk-btn">Add product</span>`,
+          },
+        ],
+        correct: "edit",
+        why: "Editing one product at a time is fine for beginners but painfully slow for people who change hundreds a week. Letting experts select many items and edit them together, or use shortcuts, speeds up the frequent case without getting in the way of novices. Search, the rows and Add product are fine.",
+      },
     ],
   },
   {
@@ -398,6 +573,36 @@ const lessons: Lesson[] = [
         ],
         correct: 2,
         why: "The heuristic is about relevance. A rich screen can be minimalist if everything on it serves the task, and a sparse one can fail if it hides what people need.",
+      },
+      {
+        id: "h8-spot-promo-clutter",
+        type: "spot",
+        question: "Which part competes with the one thing people came here to do?",
+        title: "Sign in",
+        parts: [
+          {
+            id: "email",
+            label: "Field labeled Email",
+            html: `<div class="mk-label">Email</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "password",
+            label: "Field labeled Password",
+            html: `<div class="mk-label">Password</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "promo",
+            label: "Banner: NEW! Try our AI assistant. 50% off Pro this week. Learn more. Watch video.",
+            html: `<div class="mk-row"><span class="mk-pill">NEW!</span><span>Try our AI assistant · 50% off Pro this week</span><span class="mk-link">Learn more</span><span class="mk-link">Watch video</span></div>`,
+          },
+          {
+            id: "submit",
+            label: "Button: Sign in",
+            html: `<span class="mk-btn">Sign in</span>`,
+          },
+        ],
+        correct: "promo",
+        why: "People come to this screen to sign in, and the promotion pulls their attention away with two extra links. It belongs after sign-in, if anywhere. The fields and the button are exactly what the task needs.",
       },
     ],
   },
@@ -525,6 +730,36 @@ const lessons: Lesson[] = [
         ],
         correct: 1,
         why: "Task-based titles match what people are trying to do and what they search for. Feature-based titles make people guess where their answer lives.",
+      },
+      {
+        id: "h10-spot-manual-link",
+        type: "spot",
+        question: "Which part offers help that's hard to use when it's needed?",
+        title: "Company details",
+        parts: [
+          {
+            id: "name",
+            label: "Field labeled Company name, with the hint As it appears on your invoices",
+            html: `<div class="mk-label">Company name</div><div class="mk-muted">As it appears on your invoices</div><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "vat",
+            label: "Field labeled VAT number, with a link: Read the tax guide (PDF, 120 pages)",
+            html: `<div class="mk-label">VAT number</div><span class="mk-link">Read the tax guide (PDF, 120 pages)</span><div class="mk-in">&nbsp;</div>`,
+          },
+          {
+            id: "country",
+            label: "Dropdown labeled Country, showing Ireland",
+            html: `<div class="mk-label">Country</div><div class="mk-in">Ireland ▾</div>`,
+          },
+          {
+            id: "save",
+            label: "Button: Save",
+            html: `<span class="mk-btn">Save</span>`,
+          },
+        ],
+        correct: "vat",
+        why: "Someone stuck on one field shouldn't have to search a 120-page PDF. A one-line hint in place, such as where to find the number and what it looks like, answers the question right where it comes up. The company name field shows how that's done.",
       },
     ],
   },
