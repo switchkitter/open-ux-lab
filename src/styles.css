@@ -492,3 +492,9 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .path-banner svg { display: block; width: 100%; height: auto; }
 .path-meter { margin-top: 14px; }
 .path-meter .meter-track { width: 180px; }
+
+/* New-version prompt, inside the sticky header */
+.update-bar { border-top: 1px solid var(--line); background: var(--accent-soft); }
+.update-bar-in { max-width: 760px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 10px 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; font-size: 15px; }
+.update-actions { display: flex; gap: 8px; }
+.btn.small { padding: 6px 12px; font-size: 14px; }

@@ -1,6 +1,7 @@
 import type { Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 import SoundToggle from "./SoundToggle";
+import UpdatePrompt from "./UpdatePrompt";
 import type { SyncStatus } from "../lib/useCloudSync";
 
 type Props = { progress: Progress; totalLessons: number; syncStatus: SyncStatus };
@@ -43,6 +44,7 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
           <SoundToggle />
         </div>
       </div>
+      <UpdatePrompt />
     </header>
   );
 }

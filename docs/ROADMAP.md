@@ -23,6 +23,9 @@
 - [x] Home page shows a card per learning path; each path has its own page with its lessons
 - [x] Animated banner illustration at the top of each path page
 
+## App
+- [x] Installable PWA: manifest, app icon, offline support, "new version" prompt
+
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
 - [x] Skill map across paths (9 skills, #/skills)
