@@ -13,7 +13,7 @@ const lessons: Lesson[] = [
     minutes: 4,
     skills: ["conventions"],
     body: [
-      "People spend most of their time in other products, not yours. Every site and app they use teaches them where the cart lives, what a magnifying glass means and how a date field behaves. When your product follows those habits, people can use what they already know. When it breaks them, they have to learn something new just to get started.",
+      "Your users learn how software works from all the other products they use every day, and yours is only a small part of that. Every site and app they use teaches them where the cart lives, what a magnifying glass means and how a date field behaves. When your product follows those habits, people can use what they already know. When it breaks them, they have to learn something new just to get started.",
       "This doesn't mean copying competitors pixel for pixel. Follow conventions for the basics people rely on, such as navigation, search, forms and checkout, and save your originality for places where it really helps the task. If you must change a familiar pattern, make the new one easy to discover, and give people time to adjust.",
     ],
     practice: [

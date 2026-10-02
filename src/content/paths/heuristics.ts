@@ -147,8 +147,8 @@ const lessons: Lesson[] = [
     minutes: 5,
     skills: ["conventions"],
     body: [
-      "People shouldn't have to wonder whether different words, styles or actions mean the same thing. Internal consistency means your product behaves the same way everywhere.",
-      "External consistency matters too. People spend most of their time in other products, so they arrive expecting the platform's conventions. Breaking them costs learning time.",
+      "If one screen says “Save” and the next says “Submit” for the same action, people stop to work out whether they do different things. Internal consistency means the same thing always looks, reads and behaves the same across your product.",
+      "External consistency matters too. Your users arrive already trained by every other app on their device, so they expect yours to follow the platform's conventions. Breaking them makes people relearn something before they can get on with their task.",
     ],
     practice: [
       "Use one word for one concept across the product: not Delete here and Remove there.",
@@ -364,7 +364,7 @@ const lessons: Lesson[] = [
     minutes: 5,
     skills: ["effort", "layout"],
     body: [
-      "Interfaces shouldn't contain information that is irrelevant or rarely needed. Each extra element competes with the ones that matter and lowers their visibility.",
+      "Every element on a screen competes for attention. Content that few people need, or that people need only now and then, still has a cost: it pushes the important parts down and makes them harder to spot.",
       "Minimalist doesn't mean flat or sparse for its own sake. It means the content and visual design support the person's main goals and nothing distracts from them.",
     ],
     practice: [
