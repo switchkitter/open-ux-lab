@@ -4,7 +4,7 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 
 ## Status
 
-- **Content:** 4 learning paths, 34 lessons, 102 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8); every lesson has 3 exercises: a compare, a multiple choice and a spot-the-problem.
+- **Content:** 5 learning paths, 42 lessons, 126 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8), UX research methods (8); every lesson has 3 exercises: a compare, a multiple choice and a spot-the-problem. 10 skills on the skill map.
 - **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, optional accounts with cross-device sync (Supabase, email codes), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
 - **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.

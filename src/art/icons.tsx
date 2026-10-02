@@ -239,6 +239,63 @@ export const lessonIcons: Record<string, ReactNode> = {
       <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" />
     </>,
   ),
+
+  // ---- UX research methods ----
+  // Choosing a research method: a compass
+  r1: icon(
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" />
+    </>,
+  ),
+  // Planning research: a clipboard plan
+  r2: icon(
+    <>
+      <rect x="5" y="4" width="14" height="17" rx="2" />
+      <path d="M9 4V3h6v1M8.5 10h7M8.5 14h5" />
+    </>,
+  ),
+  // Recruiting participants: a group of people
+  r3: icon(
+    <>
+      <circle cx="9" cy="8" r="3" />
+      <circle cx="17" cy="9" r="2.5" />
+      <path d="M3.5 19a5.5 5.5 0 0 1 11 0M15 19a4 4 0 0 1 6-3.5" />
+    </>,
+  ),
+  // User interviews: two speech bubbles
+  r4: icon(
+    <>
+      <path d="M4 4h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H9l-4 3v-3H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />
+      <path d="M18 9h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-1v3l-4-3h-3a2 2 0 0 1-2-2v-1" />
+    </>,
+  ),
+  // Usability testing: a screen and a pointer
+  r5: icon(
+    <>
+      <rect x="3" y="4" width="18" height="12" rx="2" />
+      <path d="M8 20h8M12 16v4M11 7.5l5 2-2 .8-.8 2z" />
+    </>,
+  ),
+  // Surveys: a form with options
+  r6: icon(
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <circle cx="8.5" cy="14.5" r="1.5" fill="currentColor" />
+      <path d="M12 8.5h4.5M12 14.5h4.5" />
+    </>,
+  ),
+  // Making sense of findings: a sticky note
+  r7: icon(<path d="M5 3h14v12l-4 4H5zM15 19v-4h4M8 8h8M8 12h5" />),
+  // Research ethics and consent: a shield protecting a person
+  r8: icon(
+    <>
+      <path d="M12 3l7.5 3v5.5c0 4.5-3.2 8-7.5 9.5-4.3-1.5-7.5-5-7.5-9.5V6z" />
+      <circle cx="12" cy="10" r="2" />
+      <path d="M8.8 16a3.2 3.2 0 0 1 6.4 0" />
+    </>,
+  ),
 };
 
 /** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
@@ -261,4 +318,13 @@ export const pathIcons: Record<string, ReactNode> = {
   ),
   // Laws of UX: a light bulb
   "laws-of-ux": icon(<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3z" />),
+  // UX research methods: a magnifying glass over a person
+  research: icon(
+    <>
+      <circle cx="10.5" cy="10.5" r="7" />
+      <path d="M15.5 15.5l5 5" />
+      <circle cx="10.5" cy="8.8" r="1.8" />
+      <path d="M7.5 13.5a3 3 0 0 1 6 0" />
+    </>,
+  ),
 };

@@ -3,6 +3,7 @@ import { accessibilityScenes } from "./scenes-accessibility";
 import { formsScenes } from "./scenes-forms";
 import { heuristicsScenes } from "./scenes";
 import { lawsScenes } from "./scenes-laws";
+import { researchScenes } from "./scenes-research";
 
 export { lessonIcons, pathIcons } from "./icons";
 export { pathHeroes } from "./path-heroes";
@@ -13,4 +14,5 @@ export const lessonScenes: Record<string, ReactNode> = {
   ...accessibilityScenes,
   ...formsScenes,
   ...lawsScenes,
+  ...researchScenes,
 };

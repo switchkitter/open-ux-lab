@@ -1,0 +1,535 @@
+import type { License, Lesson, LearningPath, Source } from "../types";
+
+// Lesson text is original. GOV.UK Service Manual pages are Open Government Licence v3.0 (checked
+// 2026-10-02); NN/g and Pew Research Center are summarized and linked only.
+const OGL: License = {
+  name: "the Open Government Licence v3.0",
+  url: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+};
+
+const manual = (slug: string, title: string): Source => ({
+  title: `GOV.UK Service Manual: ${title}`,
+  url: `https://www.gov.uk/service-manual/user-research/${slug}`,
+  license: OGL,
+});
+const nng = (slug: string, title: string): Source => ({ title: `NN/g: ${title}`, url: `https://www.nngroup.com/articles/${slug}/` });
+
+const line = (label: string, text: string) => `<div class="mk-row"><span class="mk-label">${label}</span><span>${text}</span></div>`;
+
+const lessons: Lesson[] = [
+  {
+    id: "r1",
+    code: "R1",
+    title: "Choosing a research method",
+    subtitle: "Match the method to the question",
+    minutes: 5,
+    skills: ["research"],
+    body: [
+      "Research methods answer different kinds of questions. Some show what people do, such as watching them use a product or reading analytics. Others capture what people say, such as interviews and surveys. The two often differ: someone may tell you they always read the terms and conditions, then scroll straight past them.",
+      "Methods also differ in whether they explain why or count how many. Qualitative methods, like interviews and usability tests with a handful of people, uncover problems and the reasons behind them. Quantitative methods, like analytics and large surveys, measure how often something happens. Start from the question you need answered, then pick a method that can answer it.",
+    ],
+    practice: [
+      "Write down the decision the research should inform before you choose a method.",
+      "To learn whether people can use something, watch them try. Don't ask whether they could.",
+      "Use numbers to find where a problem is and how big it is, and sessions with people to find out why.",
+      "Combine methods: analytics can show where people drop out, and a few sessions can show the reason.",
+    ],
+    fieldExercise:
+      "List the last three research activities your team ran. For each, write the question it answered and whether it measured what people said or what they did.",
+    sources: [
+      nng("which-ux-research-methods", "When to Use Which User-Experience Research Methods"),
+      manual("start-by-learning-user-needs", "Learning about users and their needs"),
+    ],
+    exercises: [
+      {
+        id: "r1-say-vs-do",
+        type: "compare",
+        question: "Your team wants to know whether people can find the new Export button. Which plan answers that?",
+        a: `<div class="mk"><div class="mk-title">Plan: survey 500 customers</div><div class="mk-muted">Question: Would you be able to find an Export button in the toolbar?</div><div class="mk-row"><span class="mk-pill">Yes</span><span class="mk-pill">No</span></div></div>`,
+        b: `<div class="mk"><div class="mk-title">Plan: watch 5 customers export a report</div><div class="mk-muted">Ask them to think aloud. Note where they look first and where they get stuck.</div></div>`,
+        correct: "b",
+        why: "B watches what people actually do, which is the only reliable way to learn whether they can find something. In A, people guess how they'd behave, and those guesses are often wrong: plenty will answer yes and then miss the button.",
+      },
+      {
+        id: "r1-why-not-how-many",
+        type: "choice",
+        question: "Analytics show that 40% of people abandon signup on step 3. What should you do next to understand why?",
+        options: [
+          "Run sessions where a few people go through signup while thinking aloud",
+          "Add more analytics events to step 3",
+          "Send a survey asking people to rate signup from 1 to 10",
+          "A/B test a different button color on step 3",
+        ],
+        correct: 0,
+        why: "Analytics already told you where and how many. Now you need the reason, which comes from watching people and hearing their thinking. More events and ratings still won't explain the cause, and a button color test guesses at a fix before you know the problem.",
+      },
+      {
+        id: "r1-spot-wrong-method",
+        type: "spot",
+        question: "Which part of this research plan can't answer the team's question?",
+        title: "Research plan",
+        parts: [
+          { id: "question", label: "Question: Why do new admins struggle to set up permissions?", html: line("Question", "Why do new admins struggle to set up permissions?") },
+          { id: "method", label: "Method: a survey asking How easy was it to set up permissions? on a scale of 1 to 5", html: line("Method", "Survey: “How easy was it to set up permissions?” 1–5") },
+          { id: "people", label: "Participants: 6 admins who set up permissions in the last month", html: line("Participants", "6 admins who set up permissions in the last month") },
+          { id: "timing", label: "Timing: sessions next week, findings shared on Friday", html: line("Timing", "Sessions next week, findings shared Friday") },
+        ],
+        correct: "method",
+        why: "A 1-to-5 rating can tell you how hard setup feels, but not why, which is the question. Interviews or watching admins set up permissions would show where and why they struggle. The participants and timing fit the question well.",
+      },
+    ],
+  },
+  {
+    id: "r2",
+    code: "R2",
+    title: "Planning research",
+    subtitle: "Start with what you need to learn",
+    minutes: 5,
+    skills: ["research"],
+    body: [
+      "Good research starts with what the team needs to learn, not with a method or a deadline. Research questions describe that, for example “How do office managers decide which supplier to reorder from?”. They're different from the questions you'll ask participants, which come later in a discussion guide.",
+      "Write research questions together with your team, so everyone agrees what matters most. Then turn them into a short plan: the objectives for this round, the method, who you need to talk to, how you'll meet their access needs, and when you'll share what you find. One page is enough. Its job is to keep the research focused on decisions the team actually has to make.",
+    ],
+    practice: [
+      "Write research questions as things you want to learn, and include the assumptions you want to test.",
+      "Link each round of research to a decision the team has to make next.",
+      "Agree the objectives as a team before choosing a method.",
+      "Leave breaks between sessions, and book time to analyze straight after.",
+    ],
+    fieldExercise:
+      "Ask three teammates what they most want to know about your users. Turn their answers into research questions, and note the decision each one would inform.",
+    sources: [
+      manual("capturing-research-questions", "Capturing research questions"),
+      manual("plan-round-of-user-research", "Plan a round of user research"),
+      manual("plan-user-research-for-your-service", "Plan user research for your service"),
+    ],
+    exercises: [
+      {
+        id: "r2-research-question",
+        type: "compare",
+        question: "Which research question will lead to more useful research?",
+        a: `<div class="mk"><div class="mk-label">Research question</div><div class="mk-title">Do users like the new dashboard?</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Research question</div><div class="mk-title">Which numbers do team leads check first each morning, and what do they do next?</div></div>`,
+        correct: "b",
+        why: "B asks about real behavior that tells the team what the dashboard should put first. A asks for an opinion with a yes-or-no answer, and knowing that people like or dislike it doesn't tell you what to change.",
+      },
+      {
+        id: "r2-first-step",
+        type: "choice",
+        question: "A stakeholder says, “Let's run a survey about the app.” What's the best first step?",
+        options: [
+          "Ask what decision the team needs to make and what it needs to learn to make it",
+          "Start writing survey questions straight away",
+          "Recruit as many participants as possible",
+          "Choose a survey tool",
+        ],
+        correct: 0,
+        why: "Knowing the decision and the questions behind it tells you whether a survey is even the right method. Writing questions, recruiting or picking a tool first commits you to a method before you know what you need to learn.",
+      },
+      {
+        id: "r2-spot-plan",
+        type: "spot",
+        question: "Which part of this plan will hurt the quality of the research?",
+        title: "Round 3: permit renewal",
+        parts: [
+          { id: "objective", label: "Objective: learn why people stop halfway through renewing a permit", html: line("Objective", "Learn why people stop halfway through renewing a permit") },
+          { id: "method", label: "Method: moderated usability sessions with a prototype", html: line("Method", "Moderated usability sessions with a prototype") },
+          { id: "people", label: "Participants: 8 people who renewed a permit in the past year, including at least one screen reader user", html: line("Participants", "8 people who renewed a permit in the past year, including at least one screen reader user") },
+          { id: "schedule", label: "Schedule: 8 back-to-back one-hour sessions in one day, with no breaks", html: line("Schedule", "8 back-to-back one-hour sessions in one day, no breaks") },
+          { id: "analysis", label: "Analysis: team review session the next morning", html: line("Analysis", "Team review the next morning") },
+        ],
+        correct: "schedule",
+        why: "Eight back-to-back hours leave no time for notes, late starts or a short rest, and the last sessions get a tired, rushed moderator. Plan no more than about six one-hour sessions a day with breaks between them. The objective, method, participants and quick analysis are all sound.",
+      },
+    ],
+  },
+  {
+    id: "r3",
+    code: "R3",
+    title: "Recruiting participants",
+    subtitle: "The right people, and enough of them",
+    minutes: 5,
+    skills: ["research"],
+    body: [
+      "Findings are only as good as the people you learn from. Recruit people who use the service, or soon will, in the situations that matter for your questions: new and experienced, confident and unsure, and people with access needs. Colleagues and friends are easy to reach, but they know too much and tend to tell you what you hope to hear.",
+      "Qualitative research needs fewer people than you might think. A round of usability testing with about five people finds most of the problems that group shares, and several small rounds teach you more than one big one. Use a short screener to find the right people, offer a fair incentive, and tell recruiters plainly that disabled people and people with low digital confidence are wanted, because recruiters often screen them out by default.",
+    ],
+    practice: [
+      "Describe who you need by what they do and their circumstances, not just by age or job title.",
+      "Write screener questions that don't give away the answer you're looking for.",
+      "Run several small rounds of about five people, rather than one large round.",
+      "Ask for disabled people and people with low digital skills, and plan for their access needs.",
+    ],
+    fieldExercise:
+      "Look at who took part in your team's last research. List the kinds of users who were missing, and how you could reach them next time.",
+    sources: [
+      manual("find-user-research-participants", "Finding participants for user research"),
+      manual("write-a-recruitment-brief", "Write a recruitment brief"),
+      nng("how-many-test-users", "How Many Test Users in a Usability Study?"),
+      nng("screening-questions-select-research-participants", "How to Use Screening Questions to Select the Right Participants"),
+    ],
+    exercises: [
+      {
+        id: "r3-screener",
+        type: "compare",
+        question: "A screener needs to find people who run payroll at work. Which question works better?",
+        a: `<div class="mk"><div class="mk-label">Do you run payroll for your company?</div><div>○ Yes</div><div>○ No</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Which of these do you do at work? Select all that apply.</div><div>☐ Run payroll</div><div>☐ Book travel</div><div>☐ Order supplies</div><div>☐ Hire staff</div><div>☐ None of these</div></div>`,
+        correct: "b",
+        why: "B hides the answer you want among other tasks, so people can't tell which one gets them into the study. A gives it away, and someone keen on the incentive can simply say yes.",
+      },
+      {
+        id: "r3-how-many",
+        type: "choice",
+        question: "You're testing a new checkout prototype and have budget for 15 sessions. What's the best way to use them?",
+        options: [
+          "Three rounds of five, fixing what you find between rounds",
+          "One round of 15 just before launch",
+          "15 colleagues from other teams this week",
+          "One round of five, then keep the rest for next year",
+        ],
+        correct: 0,
+        why: "Each round of about five people finds most of the shared problems, and fixing them before the next round lets you check the fixes and find the next layer of issues. One big round finds the same problems over and over, colleagues aren't real customers, and saving sessions for later delays learning you need now.",
+      },
+      {
+        id: "r3-spot-brief",
+        type: "spot",
+        question: "Which part of this recruitment brief will make the research less reliable?",
+        title: "Recruitment brief",
+        parts: [
+          { id: "who", label: "Participants: 6 people who filed a tax return in the past 2 years", html: line("Participants", "6 people who filed a tax return in the past 2 years") },
+          { id: "mix", label: "Mix: some who filed online, some who filed on paper", html: line("Mix", "Some who filed online, some on paper") },
+          { id: "exclude", label: "Exclude: anyone who uses a screen reader or other assistive technology, to keep sessions simple", html: line("Exclude", "Anyone who uses a screen reader or other assistive technology, to keep sessions simple") },
+          { id: "incentive", label: "Incentive: a $60 gift card for each one-hour session", html: line("Incentive", "$60 gift card per one-hour session") },
+        ],
+        correct: "exclude",
+        why: "Excluding people who use assistive technology hides exactly the problems that block them, and those people have to file taxes too. Plan for their access needs instead. The criteria, mix and incentive are all reasonable.",
+      },
+    ],
+  },
+  {
+    id: "r4",
+    code: "R4",
+    title: "User interviews",
+    subtitle: "Ask about real experiences, not opinions",
+    minutes: 5,
+    skills: ["research", "language"],
+    body: [
+      "Interviews help you understand people's lives, work and goals, and the problems they run into. The most useful answers describe real past events: “Tell me about the last time you booked travel for your team.” Questions about what people would do in the future, or whether they'd use a feature, invite polite guesses.",
+      "How you ask matters as much as what you ask. A leading question, such as “How useful is the new calendar?”, suggests the answer you want to hear. Open questions that start with how, what or tell me about let people answer in their own words. Prepare a discussion guide, but follow up on what people say, get comfortable with silence, and keep your own ideas for later.",
+    ],
+    practice: [
+      "Ask about specific recent experiences: “the last time you…”.",
+      "Use open, neutral questions. Avoid ones that suggest an answer or ask two things at once.",
+      "Follow up with “Can you tell me more?” or “What happened next?” rather than moving on.",
+      "Let people finish. A pause often leads to the most honest answer.",
+    ],
+    fieldExercise:
+      "Rewrite three questions from your team's last discussion guide so they ask about a real past experience instead of an opinion or a prediction.",
+    sources: [
+      manual("using-in-depth-interviews", "Using in-depth interviews"),
+      nng("user-interviews", "User Interviews 101"),
+      nng("leading-questions", "Avoid Leading Questions to Get Better Insights from Participants"),
+    ],
+    exercises: [
+      {
+        id: "r4-past-not-future",
+        type: "compare",
+        question: "Which interview question will give more reliable answers?",
+        a: `<div class="mk"><div class="mk-label">Interviewer</div><div>“Would you use a feature that splits bills with your housemates?”</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Interviewer</div><div>“Tell me about the last time you split a bill with your housemates. How did you do it?”</div></div>`,
+        correct: "b",
+        why: "B asks about something that really happened, so you hear what people actually do, with all the messy details. A asks people to predict their own behavior, and most will say yes to be helpful whether or not they'd ever use it.",
+      },
+      {
+        id: "r4-leading",
+        type: "choice",
+        question: "Which question is least likely to lead the participant?",
+        options: [
+          "“How easy was it to find the report?”",
+          "“What happened when you looked for the report?”",
+          "“Did you find the report confusing?”",
+          "“Wasn't the report easy to find with the new menu?”",
+        ],
+        correct: 1,
+        why: "It asks what happened without suggesting it was easy or hard. “How easy” assumes it was easy, “confusing” plants the idea that it was hard, and “Wasn't it easy…” all but asks the participant to agree.",
+      },
+      {
+        id: "r4-spot-guide",
+        type: "spot",
+        question: "Which part of this discussion guide will bias the answers?",
+        title: "Discussion guide",
+        parts: [
+          { id: "intro", label: "Intro: Thanks for joining. There are no right or wrong answers.", html: line("Intro", "Thanks for joining. There are no right or wrong answers.") },
+          { id: "q1", label: "Question 1: Tell me about your role and a typical week.", html: line("Q1", "Tell me about your role and a typical week.") },
+          { id: "q2", label: "Question 2: Don't you find the current reporting tool frustrating?", html: line("Q2", "Don't you find the current reporting tool frustrating?") },
+          { id: "q3", label: "Question 3: Walk me through the last report you created.", html: line("Q3", "Walk me through the last report you created.") },
+          { id: "wrap", label: "Wrap-up: Is there anything else you'd like to tell us?", html: line("Wrap-up", "Is there anything else you'd like to tell us?") },
+        ],
+        correct: "q2",
+        why: "“Don't you find it frustrating?” tells the participant what to feel, and many will agree to be polite. Asking them to walk through using it, like question 3, shows whether it frustrates them. The intro, the other questions and the wrap-up are open and neutral.",
+      },
+    ],
+  },
+  {
+    id: "r5",
+    code: "R5",
+    title: "Usability testing",
+    subtitle: "Watch people try, and don't help",
+    minutes: 5,
+    skills: ["research"],
+    body: [
+      "In a usability test, you watch people try to complete realistic tasks with your product or prototype while they think aloud. It shows whether people understand what to do and where they get stuck, which no amount of reviewing the design yourself can tell you.",
+      "Write tasks as goals people really have, in their words rather than your interface's labels: “You need next Thursday and Friday off. Arrange it.” rather than “Click Leave requests.” During the session, resist the urge to help. If someone asks what to do, turn it back to them: “What would you try?” Their struggle is the finding.",
+    ],
+    practice: [
+      "Write tasks as realistic goals, without naming buttons, menus or pages.",
+      "Ask people to think aloud, and gently remind them if they go quiet.",
+      "Don't help or explain during a task. Ask what they'd expect instead.",
+      "Test with about five people, fix what you find, then test again.",
+    ],
+    fieldExercise:
+      "Write three usability tasks for the main job your product does. Check that none of them mentions a button, menu or page name from your interface.",
+    sources: [
+      manual("using-moderated-usability-testing", "Using moderated usability testing"),
+      nng("usability-testing-101", "Usability (User) Testing 101"),
+      nng("thinking-aloud-the-1-usability-tool", "Thinking Aloud: The #1 Usability Tool"),
+    ],
+    exercises: [
+      {
+        id: "r5-task-wording",
+        type: "compare",
+        question: "Which task will tell you more about whether people can book time off?",
+        a: `<div class="mk"><div class="mk-label">Task 2</div><div>Click <b>Leave requests</b>, then <b>New request</b>, and submit 2 days.</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Task 2</div><div>You'd like next Thursday and Friday off. Use the system to arrange it.</div></div>`,
+        correct: "b",
+        why: "B gives a realistic goal and leaves people to find their own way, so you learn whether they can. A names every step, which turns the test into following instructions and hides the very problem you wanted to find.",
+      },
+      {
+        id: "r5-when-stuck",
+        type: "choice",
+        question: "A participant stops and asks, “Where do I go to change my password?” What's the best response?",
+        options: [
+          "“Where would you expect to find it?”",
+          "Point to the Settings menu so the session keeps moving",
+          "“It's under Settings, then Security.”",
+          "End the task and mark it as completed",
+        ],
+        correct: 0,
+        why: "Turning the question back keeps the test honest and tells you where they expected it to be, which is useful in itself. Pointing or telling them hides the problem you're there to find, and marking the task as completed would record a failure as a success.",
+      },
+      {
+        id: "r5-spot-script",
+        type: "spot",
+        question: "Which part of this session script undermines the test?",
+        title: "Session script",
+        parts: [
+          { id: "intro", label: "Before: explain that we're testing the website, not them", html: line("Before", "Explain that we're testing the website, not them") },
+          { id: "aloud", label: "Ask them to think aloud as they go", html: line("Think aloud", "Ask them to say what they're thinking as they go") },
+          { id: "task", label: "Task 2: Click the green Renew button on the dashboard to renew your permit", html: line("Task 2", "Click the green Renew button on the dashboard to renew your permit") },
+          { id: "after", label: "After each task: How did that go?", html: line("After each task", "“How did that go?”") },
+          { id: "end", label: "End: thank them and give the incentive", html: line("End", "Thank them and give the incentive") },
+        ],
+        correct: "task",
+        why: "Task 2 tells people exactly which button to press, so it can't show whether they'd find it on their own. “Your permit runs out next month. Renew it.” would. The introduction, think-aloud request, follow-up question and ending are all good practice.",
+      },
+    ],
+  },
+  {
+    id: "r6",
+    code: "R6",
+    title: "Surveys",
+    subtitle: "Good for counting, with good questions",
+    minutes: 5,
+    skills: ["research", "forms", "language"],
+    body: [
+      "Surveys are good at measuring how common something is across many people: how many use a feature, or how satisfied different groups are. They're poor at explaining why, and they only capture what people say, so pair them with interviews or observation when you need to understand behavior.",
+      "Every question shapes its answers. Ask one thing at a time, use neutral wording, give balanced answer scales, and include options like “Not applicable” or “Other” so nobody is forced into a wrong answer. Keep it short and try it on a few people first. A survey is a form, so everything from the Form design path applies.",
+    ],
+    practice: [
+      "Ask one thing per question. Split any question that asks about two things joined by “and”.",
+      "Use neutral wording and balanced scales, with as many negative options as positive ones.",
+      "Offer “Not applicable”, “Other” or “Prefer not to say” where they fit.",
+      "Try the survey with a few people and ask what they thought each question meant.",
+    ],
+    fieldExercise:
+      "Find a recent survey your company sent out. Mark any question that asks two things at once, leads toward an answer, or has an unbalanced scale.",
+    sources: [
+      nng("qualitative-surveys", "28 Tips for Creating Great Qualitative Surveys"),
+      { title: "Pew Research Center: Writing Survey Questions", url: "https://www.pewresearch.org/writing-survey-questions/" },
+    ],
+    exercises: [
+      {
+        id: "r6-balanced-scale",
+        type: "compare",
+        question: "Which answer scale gives fairer results?",
+        a: `<div class="mk"><div class="mk-label">How satisfied are you with support?</div><div>○ Extremely satisfied</div><div>○ Very satisfied</div><div>○ Satisfied</div><div>○ Somewhat satisfied</div><div>○ Dissatisfied</div></div>`,
+        b: `<div class="mk"><div class="mk-label">How satisfied are you with support?</div><div>○ Very satisfied</div><div>○ Satisfied</div><div>○ Neither satisfied nor dissatisfied</div><div>○ Dissatisfied</div><div>○ Very dissatisfied</div></div>`,
+        correct: "b",
+        why: "B is balanced: two positive options, a neutral middle and two negative options. A offers four shades of satisfied and one way to disagree, which pushes answers upward and makes support look better than it is.",
+      },
+      {
+        id: "r6-double-barreled",
+        type: "choice",
+        question: "What's wrong with the question “How satisfied are you with the speed and accuracy of our reports?”",
+        options: [
+          "It asks about two things at once, so one answer can't tell you which one people mean",
+          "It's too short to be useful",
+          "It should use a 10-point scale",
+          "Nothing, because combining questions keeps the survey short",
+        ],
+        correct: 0,
+        why: "Reports can be fast but wrong, or accurate but slow, and a single rating hides which. Split it into two questions. Length and the number of scale points aren't the problem, and a shorter survey isn't worth answers you can't interpret.",
+      },
+      {
+        id: "r6-spot-question",
+        type: "spot",
+        question: "Which survey question will give biased answers?",
+        title: "Customer survey",
+        parts: [
+          { id: "q1", label: "Question 1: How often do you use the mobile app? Options: Daily, Weekly, Monthly, Never", html: line("Q1", "How often do you use the mobile app? ○ Daily ○ Weekly ○ Monthly ○ Never") },
+          { id: "q2", label: "Question 2: Which features do you use? Select all that apply, including Other", html: line("Q2", "Which features do you use? Select all that apply, including Other") },
+          { id: "q3", label: "Question 3: Don't you agree the new design is easier to use? Options: Yes, No", html: line("Q3", "Don't you agree the new design is easier to use? ○ Yes ○ No") },
+          { id: "q4", label: "Question 4 (optional): Anything else you'd like to tell us?", html: line("Q4", "Anything else you'd like to tell us? (optional)") },
+        ],
+        correct: "q3",
+        why: "“Don't you agree…” pushes people toward yes, and the yes-or-no options leave no room for “about the same”. Asking “How does the new design compare with the old one?” with a balanced scale would be fair. The other questions are neutral and give people a way out.",
+      },
+    ],
+  },
+  {
+    id: "r7",
+    code: "R7",
+    title: "Making sense of findings",
+    subtitle: "From observations to decisions",
+    minutes: 5,
+    skills: ["research"],
+    body: [
+      "Research produces piles of notes, quotes and recordings, and analysis turns them into something the team can act on. Start with observations, exactly what people did or said, and keep them separate from interpretations of what it means. Mixing the two too early bakes your assumptions into the findings.",
+      "Analyze together, and soon after the sessions while they're fresh. Write one observation per sticky note, group similar notes into themes (an affinity map), then name the patterns and decide what they mean for the product. Share findings as clear problems ranked by how much they matter, each with its evidence and a next step, rather than a long transcript. GOV.UK suggests about an hour of analysis for every two hours of research.",
+    ],
+    practice: [
+      "Write observations, not interpretations: “Clicked Help three times”, not “Confused by the menu”.",
+      "Analyze as a team, as soon after the sessions as you can.",
+      "Group observations into patterns, and note how many participants each one affected.",
+      "Share each finding with its evidence, how serious it is, and a suggested next step.",
+    ],
+    fieldExercise:
+      "Take the notes from your team's last research session and sort them into two lists: what people actually did or said, and what someone concluded from it.",
+    sources: [
+      manual("analyse-a-research-session", "Analyse a research session"),
+      manual("sharing-user-research-findings", "Sharing user research findings"),
+      nng("affinity-diagram", "Affinity Diagramming for Sorting UX Findings and Ideas"),
+    ],
+    exercises: [
+      {
+        id: "r7-observation-note",
+        type: "compare",
+        question: "Which sticky note is better to bring to an analysis session?",
+        a: `<div class="mk"><div class="mk-pill">P3</div><div>Didn't like the dashboard.</div></div>`,
+        b: `<div class="mk"><div class="mk-pill">P3</div><div>Scrolled past the totals twice, then said “Where's this month's number?”</div></div>`,
+        correct: "b",
+        why: "B records exactly what happened, so the team can interpret it together and spot the same pattern with other participants. A is already a conclusion, and a vague one: it doesn't say what went wrong or give anyone evidence to work from.",
+      },
+      {
+        id: "r7-sharing",
+        type: "choice",
+        question: "Your usability round found 14 issues. What's the most useful way to share them with the team?",
+        options: [
+          "A short list of the top problems, each with evidence, how many people hit it and a suggested next step",
+          "The full transcript of every session",
+          "One slide saying that people found it confusing overall",
+          "All 14 issues in the order they happened",
+        ],
+        correct: 0,
+        why: "Ranked problems with evidence and next steps tell the team what to fix first and why to believe it. Transcripts and an unsorted list leave everyone to do the analysis themselves, and “confusing overall” gives them nothing to act on.",
+      },
+      {
+        id: "r7-spot-finding",
+        type: "spot",
+        question: "Which part of this finding doesn't belong in a research report?",
+        title: "Finding 1",
+        parts: [
+          { id: "finding", label: "Finding: 5 of 6 participants couldn't find where to download invoices", html: line("Finding", "5 of 6 participants couldn't find where to download invoices") },
+          { id: "evidence", label: "Evidence: 3 video clips of people searching the Settings page", html: line("Evidence", "3 clips of people searching the Settings page") },
+          { id: "severity", label: "Severity: High, it blocks a frequent task", html: line("Severity", "High: blocks a frequent task") },
+          { id: "cause", label: "Cause: users are lazy and don't read", html: line("Cause", "Users are lazy and don't read") },
+          { id: "next", label: "Next step: test moving Invoices into the main navigation", html: line("Next step", "Test moving Invoices into the main navigation") },
+        ],
+        correct: "cause",
+        why: "“Users are lazy” blames people instead of the design, isn't something anyone observed, and points to no fix. The evidence suggests a likely cause, invoices hidden under Settings, which the next step tests. The finding, evidence, severity and next step are all solid.",
+      },
+    ],
+  },
+  {
+    id: "r8",
+    code: "R8",
+    title: "Research ethics and consent",
+    subtitle: "Respect the people who help you",
+    minutes: 5,
+    skills: ["research", "accessibility"],
+    body: [
+      "People who take part in research are doing you a favor. Before each session, get their informed consent. They need to understand who's running the research and why, what will happen, what you'll record and collect, who will see it, how long you'll keep it, and that they're free to leave, or take back their consent, whenever they like without any penalty.",
+      "Collect only the personal data you need, keep it secure, and delete it when you said you would. In notes and shared findings, refer to people by a code rather than their name. And make the research itself accessible: ask about access needs beforehand, offer remote and in-person options, and adapt the session so everyone can take part fully.",
+    ],
+    practice: [
+      "Explain consent in plain words before the session, and check people understood.",
+      "Tell people whether the session is observed or recorded, and get their agreement.",
+      "Use participant codes (P1, P2…) instead of names in notes and reports.",
+      "Ask about access needs in advance and adapt the session to them.",
+    ],
+    fieldExercise:
+      "Read your team's consent form as if you were a participant. Check it says, in plain words, what you'll record, who will see it, how long you'll keep it, and how to withdraw.",
+    sources: [
+      manual("getting-users-consent-for-research", "Getting informed consent for user research"),
+      manual("managing-user-research-data-participant-privacy", "Managing user research data and participant privacy"),
+      manual("running-research-sessions-with-people-with-disabilities", "Running research sessions with disabled people"),
+    ],
+    exercises: [
+      {
+        id: "r8-consent",
+        type: "compare",
+        question: "Which way of starting a session gets informed consent?",
+        a: `<div class="mk"><div class="mk-label">Moderator</div><div>“Before we start, please sign this. It's just standard legal stuff.”</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Moderator</div><div>“We'll record your screen and voice so the design team can review it. Only they will see it, and we delete it after 3 months. You can stop at any time. Is that OK?”</div></div>`,
+        correct: "b",
+        why: "B explains in plain words what's recorded, who sees it, how long it's kept and that they can stop, then asks. A rushes people into signing something they haven't understood, which isn't informed consent, however standard the form is.",
+      },
+      {
+        id: "r8-sharing-clips",
+        type: "choice",
+        question: "A stakeholder wants highlight videos from last week's sessions for the company's public blog. What should you do?",
+        options: [
+          "Check what participants agreed to. If it was internal use only, don't publish them unless you get new consent",
+          "Publish them, since the participants were paid",
+          "Publish them with the participants' names removed",
+          "Publish only the clips where faces can't be seen",
+        ],
+        correct: 0,
+        why: "Consent covers a specific use, and publishing goes beyond what people agreed to if they were told only the team would see it. Being paid doesn't change that, and removing names or faces doesn't either: voices, screens and details can still identify someone.",
+      },
+      {
+        id: "r8-spot-notes",
+        type: "spot",
+        question: "These notes are shared with the whole product team. Which part shouldn't be there?",
+        title: "Session notes",
+        parts: [
+          { id: "session", label: "Session: 14 October, remote, 45 minutes", html: line("Session", "14 Oct · remote · 45 minutes") },
+          { id: "participant", label: "Participant: Maria Gonzalez, maria.g@example.com, nurse at St Luke's Hospital", html: line("Participant", "Maria Gonzalez · maria.g@example.com · nurse at St Luke's Hospital") },
+          { id: "observed", label: "Observed: couldn't find the shift swap button", html: line("Observed", "Couldn't find the shift swap button") },
+          { id: "quote", label: "Quote: I always end up texting my manager instead.", html: line("Quote", "“I always end up texting my manager instead.”") },
+        ],
+        correct: "participant",
+        why: "Notes shared with a whole team shouldn't identify the participant. Use a code like P3, and keep contact details somewhere secure that only the research team can reach. The session details, observation and quote are exactly what the team needs.",
+      },
+    ],
+  },
+];
+
+export const researchPath: LearningPath = {
+  id: "research",
+  title: "UX research methods",
+  description: "Choosing methods, planning, recruiting, interviews, usability testing, surveys, analysis and research ethics.",
+  status: "live",
+  lessons,
+};

@@ -13,6 +13,7 @@ export const skills = [
   { id: "control", name: "Control and efficiency", description: "Easy exits, shortcuts, and targets that are easy to hit." },
   { id: "accessibility", name: "Accessibility", description: "Products that work for disabled people and everyone else." },
   { id: "forms", name: "Forms", description: "Asking the right questions in the right way." },
+  { id: "research", name: "User research", description: "Learning what people need and whether a design works for them." },
 ] as const;
 
 export type SkillId = (typeof skills)[number]["id"];

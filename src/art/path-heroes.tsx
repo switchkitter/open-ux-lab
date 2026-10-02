@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { researchHero } from "./hero-research";
 import { at, check, from, hero } from "./kit";
 
 /**
@@ -227,4 +228,7 @@ export const pathHeroes: Record<string, ReactNode> = {
       <circle className="good a-pop" style={at(1.9)} cx="600" cy="164" r="6" />
     </>,
   ),
+
+  // UX research methods: interview, usability test, survey results and synthesis.
+  research: researchHero,
 };
