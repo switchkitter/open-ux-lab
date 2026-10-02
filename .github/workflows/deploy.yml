@@ -27,6 +27,11 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+        env:
+          # Repository variables (Settings > Secrets and variables > Actions > Variables).
+          # Unset means the site builds without cloud sync.
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_KEY: ${{ vars.SUPABASE_KEY }}
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'
         with:

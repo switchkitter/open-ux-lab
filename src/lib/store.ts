@@ -11,13 +11,17 @@ export interface ProgressStore {
 
 const KEY = "open-ux-lab:progress";
 
+/** Fills in missing fields so progress from storage or the server always has the current shape. */
+export function normalizeProgress(raw: unknown): Progress {
+  if (!raw || typeof raw !== "object") return emptyProgress();
+  return { ...emptyProgress(), ...(raw as Partial<Progress>), version: 1 };
+}
+
 export const localProgressStore: ProgressStore = {
   load() {
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return emptyProgress();
-      const parsed = JSON.parse(raw) as Partial<Progress>;
-      return { ...emptyProgress(), ...parsed, version: 1 };
+      return raw ? normalizeProgress(JSON.parse(raw)) : emptyProgress();
     } catch {
       return emptyProgress();
     }

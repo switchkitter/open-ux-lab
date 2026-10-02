@@ -14,7 +14,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 - Vite + React 19 + TypeScript (strict)
 - Vitest for unit tests
 - Plain CSS with design tokens in `src/styles.css` (no CSS framework)
-- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`, `#/account`)
 
 ## Commands
 
@@ -31,7 +31,9 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
 - `src/lib/progress.ts` — pure progress logic (XP, streaks, review). Keep it free of React and storage.
-- `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. A server-backed store should implement the same interface.
+- `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device.
+- `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
+- `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)

@@ -20,7 +20,7 @@
 - [ ] Progress export/import as a file
 
 ## 0.4 — Ready to share
-- [ ] Accounts and synced progress (e.g. Supabase) via a new ProgressStore
+- [x] Accounts and synced progress (Supabase, email code sign-in, three-way merge) — code done; needs a Supabase project to switch on
 - [ ] Content moved to Markdown/MDX files so non-developers can contribute
 - [ ] Accessibility audit of the app itself
 - [x] License for code (MIT) and content (CC BY 4.0)
