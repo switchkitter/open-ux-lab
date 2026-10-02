@@ -9,6 +9,8 @@
   --accent-ink: #ffffff;
   --accent-soft: #e2e6fa;
   --mark: #c98f00;
+  /* Gold for text: --mark is too light for text on light backgrounds. */
+  --mark-ink: #875f00;
   --mark-soft: #fbefc8;
   --good: #1d7349;
   --good-soft: #dcf0e4;
@@ -32,6 +34,7 @@
     --accent-ink: #0e1330;
     --accent-soft: #232a4e;
     --mark: #f0c04a;
+    --mark-ink: #f0c04a;
     --mark-soft: #3a3014;
     --good: #5bc48e;
     --good-soft: #15342a;
@@ -52,6 +55,7 @@
   --accent-ink: #0e1330;
   --accent-soft: #232a4e;
   --mark: #f0c04a;
+  --mark-ink: #f0c04a;
   --mark-soft: #3a3014;
   --good: #5bc48e;
   --good-soft: #15342a;
@@ -94,7 +98,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 .chip b { font-weight: 600; }
-.chip.xp b { color: var(--mark); }
+.chip.xp b { color: var(--mark-ink); }
 .chip.sync { color: var(--accent); text-decoration: none; }
 .chip.sync:hover { border-color: var(--accent); }
 .chip.sync.error { color: var(--bad); border-color: var(--bad); }
@@ -160,7 +164,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .lesson h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .prose { max-width: 64ch; margin-top: 18px; }
 .prose p { margin: 0 0 14px; }
-.prose h3 { font-size: 18px; margin: 22px 0 8px; }
+.prose h2, .prose h3 { font-size: 18px; margin: 22px 0 8px; }
 .prose ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .field { border-left: 3px solid var(--mark); background: var(--mark-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 22px; font-size: 15px; }
 .field b { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
@@ -170,7 +174,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .sources .license-note a { display: inline; margin: 0; }
 
 /* Exercises */
-.q { font-family: var(--f-display); font-size: 21px; font-weight: 700; max-width: 60ch; margin: 8px 0 0; }
+.q { font-family: var(--f-display); font-size: 21px; font-weight: 700; line-height: 1.3; max-width: 60ch; margin: 8px 0 0; }
 .qhint { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
 .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
 @media (max-width: 620px) { .pair { grid-template-columns: 1fr; } }
@@ -193,7 +197,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .feedback strong { display: block; margin-bottom: 4px; }
 .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
 .done-card p { margin: 8px 0 0; }
-.done-card .big { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--mark); font-variant-numeric: tabular-nums; }
+.done-card .big { font-family: var(--f-display); font-size: 44px; font-weight: 800; color: var(--mark-ink); font-variant-numeric: tabular-nums; }
 
 /* Mini UI mockups used inside exercises (classes are referenced from content files) */
 .mockup { min-width: 0; }
@@ -271,3 +275,19 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .btn.ghost.danger { background: transparent; color: var(--bad); border-color: var(--bad); }
 .privacy .prose h2 { font-size: 22px; margin: 26px 0 8px; }
 .privacy .prose ul + p, .privacy .prose p + ul { margin-top: 8px; }
+
+/* Audit fixes */
+.skip-link {
+  position: absolute; left: 16px; top: -100px; z-index: 10;
+  background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: 8px; font-weight: 700;
+}
+.skip-link:focus { top: calc(env(safe-area-inset-top, 0px) + 8px); }
+/* Headings and regions that receive focus from script don't need a ring: they aren't interactive. */
+[tabindex="-1"]:focus { outline: none; }
+.feedback:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.done-title { font-size: 26px; margin-top: 6px; }
+.choice .tag { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.verdict { font-family: var(--f-mono); font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.verdict.right { color: var(--good); }
+.verdict.wrong { color: var(--bad); }
+.opt .verdict { display: block; margin-top: 6px; }

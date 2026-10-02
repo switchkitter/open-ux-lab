@@ -58,6 +58,9 @@ See `CONTENT_GUIDELINES.md`. In short:
 - Tokens are defined on `:root` with dark-mode overrides (`prefers-color-scheme` and `[data-theme]`). Use tokens, never literal colors.
 - Fonts: Bricolage Grotesque (display), Atkinson Hyperlegible (body), JetBrains Mono (labels/codes), self-hosted via @fontsource. Don't add Google Fonts or other third-party requests (see the privacy notice).
 - The app must stay keyboard-accessible, readable at 400px wide, and meet WCAG AA contrast. This is a UX learning app, so it should model good UX.
+- Every screen has exactly one `h1` (exercise questions are the `h1` on exercise screens). After a route change or a lesson/review step, call `announceScreen()` from `src/lib/focus.ts`: it sets the tab title and moves focus to the `h1`.
+- Never show state by color alone: answer states use text labels ("Your answer", "Correct answer") as well as color. Use `--mark-ink` (not `--mark`) for gold text.
+- Links that open a new tab include visually hidden "(opens in a new tab)" text.
 
 ## Roadmap
 

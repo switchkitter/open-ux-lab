@@ -22,7 +22,7 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
         <a className="brand" href="#/">
           Open UX <span>Lab</span>
         </a>
-        <div className="stats" aria-label="Your progress">
+        <div className="stats" role="group" aria-label="Your progress">
           <span className="chip xp">
             <b>{progress.xp}</b> XP
           </span>

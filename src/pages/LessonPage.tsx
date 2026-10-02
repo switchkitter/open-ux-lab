@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { LearningPath, Lesson } from "../content/types";
 import ExerciseCard from "../components/ExerciseCard";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
+import { announceScreen } from "../lib/focus";
 import { hrefFor } from "../lib/route";
 
 type Props = {
@@ -20,9 +21,17 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   const total = lesson.exercises.length;
   const doneStep = total + 1;
 
+  // Each step replaces the whole screen, so announce it like a new page (the route change covers step 0).
+  const firstStep = useRef(true);
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [step]);
+    if (firstStep.current) {
+      firstStep.current = false;
+      return;
+    }
+    const where = step === doneStep ? "Complete" : `Exercise ${step} of ${total}`;
+    announceScreen(`${where} · ${lesson.code} ${lesson.title}`);
+  }, [step, doneStep, total, lesson.code, lesson.title]);
 
   function next() {
     if (step === total) update((p) => recordActivity(completeLesson(p, lesson.id), new Date()));
@@ -40,6 +49,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
         <a className="back" href={hrefFor({ name: "home" })}>
           ← All lessons
         </a>
+        {/* Visual only: the eyebrow on each screen says "Exercise 1 of 2" in text. */}
         <div className="steps" aria-hidden="true">
           {Array.from({ length: total + 2 }, (_, i) => (
             <i key={i} className={i <= step ? "on" : ""} />
@@ -55,7 +65,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
             {lesson.body.map((para, i) => (
               <p key={i}>{para}</p>
             ))}
-            <h3>In practice</h3>
+            <h2>In practice</h2>
             <ul>
               {lesson.practice.map((item, i) => (
                 <li key={i}>{item}</li>
@@ -69,7 +79,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
               Read more:{" "}
               {lesson.sources.map((s) => (
                 <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer">
-                  {s.title} ↗
+                  {s.title} <span aria-hidden="true">↗</span>
+                  <span className="visually-hidden"> (opens in a new tab)</span>
                 </a>
               ))}
               {licenses.length > 0 && (
@@ -80,6 +91,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
                       {i > 0 && " and "}
                       <a href={l.url} target="_blank" rel="noopener noreferrer">
                         {l.name}
+                        <span className="visually-hidden"> (opens in a new tab)</span>
                       </a>
                     </span>
                   ))}
@@ -100,6 +112,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
         <ExerciseCard
           key={lesson.exercises[step - 1].id}
           code={lesson.code}
+          position={`Exercise ${step} of ${total}`}
           exercise={lesson.exercises[step - 1]}
           nextLabel={step === total ? "Finish lesson" : "Next exercise"}
           onAnswer={(correct) => {
@@ -113,6 +126,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
       {step === doneStep && (
         <section className="panel done-card">
           <div className="eyebrow">{lesson.code} complete</div>
+          <h1 className="done-title">{lesson.title}: done</h1>
           <div className="big">+{firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP</div>
           <p>
             {firstTry} of {total} right on the first try.

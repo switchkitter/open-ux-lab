@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
 import { findExercise } from "../content/paths";
 import { recordActivity, recordReviewAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
+import { announceScreen } from "../lib/focus";
 import { hrefFor } from "../lib/route";
 
 type Props = { progress: Progress; update: UpdateProgress };
@@ -17,9 +18,15 @@ export default function ReviewPage({ progress, update }: Props) {
   const [index, setIndex] = useState(0);
   const [right, setRight] = useState(0);
 
+  const firstIndex = useRef(true);
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [index]);
+    if (firstIndex.current) {
+      firstIndex.current = false;
+      return;
+    }
+    announceScreen(index >= queue.length ? "Review complete" : `Review ${index + 1} of ${queue.length}`);
+  }, [index, queue.length]);
 
   function next() {
     if (index === queue.length - 1) update((p) => recordActivity(p, new Date()));
@@ -30,7 +37,8 @@ export default function ReviewPage({ progress, update }: Props) {
     const left = Object.keys(progress.review).length;
     return (
       <section className="panel done-card">
-        <div className="eyebrow">{queue.length === 0 ? "Nothing to review" : "Review complete"}</div>
+        <div className="eyebrow">Review</div>
+        <h1 className="done-title">{queue.length === 0 ? "Nothing to review" : "Review complete"}</h1>
         {queue.length > 0 && (
           <div className="big">
             {right}/{queue.length}
@@ -53,13 +61,11 @@ export default function ReviewPage({ progress, update }: Props) {
         <a className="back" href={hrefFor({ name: "home" })}>
           ← All lessons
         </a>
-        <div className="eyebrow review-count">
-          Review {index + 1} of {queue.length}
-        </div>
       </div>
       <ExerciseCard
         key={exercise.id}
         code={lesson.code}
+        position={`Review ${index + 1} of ${queue.length}`}
         exercise={exercise}
         nextLabel={index === queue.length - 1 ? "Finish review" : "Next"}
         onAnswer={(correct) => {
