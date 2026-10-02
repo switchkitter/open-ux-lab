@@ -28,3 +28,22 @@ create policy "Update own progress" on public.progress
   for update to authenticated
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
+
+-- Account deletion. The browser can't delete users directly, so this function runs with the owner's
+-- rights but only ever deletes the caller's own account. Their progress row goes with it (on delete cascade).
+create or replace function public.delete_my_account()
+returns void
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if auth.uid() is null then
+    raise exception 'Not signed in';
+  end if;
+  delete from auth.users where id = auth.uid();
+end;
+$$;
+
+revoke all on function public.delete_my_account() from public, anon;
+grant execute on function public.delete_my_account() to authenticated;

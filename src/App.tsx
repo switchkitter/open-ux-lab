@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import AccountPage from "./pages/AccountPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
+import PrivacyPage from "./pages/PrivacyPage";
 import ReviewPage from "./pages/ReviewPage";
 
 export default function App() {
@@ -23,7 +24,9 @@ export default function App() {
       <HomePage progress={progress} />
     );
   } else if (route.name === "account") {
-    page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} />;
+    page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} update={update} />;
+  } else if (route.name === "privacy") {
+    page = <PrivacyPage />;
   } else if (route.name === "review") {
     page = <ReviewPage progress={progress} update={update} />;
   } else {

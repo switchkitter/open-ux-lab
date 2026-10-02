@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import css from "../styles.css?raw";
 import { paths } from "./paths";
+import { site } from "./site";
 
 /** Guards against content mistakes that would break the app. */
 describe("content integrity", () => {
@@ -73,5 +74,9 @@ describe("content integrity", () => {
       const better = e.correct === "a" ? e.a : e.b;
       expect(better.includes("mk-faint"), e.id).toBe(false);
     }
+  });
+
+  it("has a contact email for the privacy page", () => {
+    expect(site.contactEmail).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   });
 });

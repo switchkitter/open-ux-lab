@@ -1,11 +1,15 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { sendSignInCode, signOut, verifySignInCode } from "../lib/cloud";
+import { deleteAccount, sendSignInCode, signOut, verifySignInCode } from "../lib/cloud";
+import { emptyProgress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 import type { SyncStatus } from "../lib/useCloudSync";
+import type { UpdateProgress } from "../lib/useProgress";
 
-type Props = { status: SyncStatus; syncNow: () => void };
+type Props = { status: SyncStatus; syncNow: () => void; update: UpdateProgress };
 
-export default function AccountPage({ status, syncNow }: Props) {
+export default function AccountPage({ status, syncNow, update }: Props) {
+  // Survives the switch to the signed-out view after an account is deleted.
+  const [notice, setNotice] = useState<string | null>(null);
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
@@ -20,10 +24,29 @@ export default function AccountPage({ status, syncNow }: Props) {
           </>
         )}
         {status.state === "checking" && <p role="status">Checking whether you're signed in…</p>}
+        {notice && status.state === "signed-out" && (
+          <p className="notice" role="status">
+            {notice}
+          </p>
+        )}
         {status.state === "signed-out" && <SignIn />}
         {(status.state === "syncing" || status.state === "synced" || status.state === "error") && (
-          <SignedIn status={status} syncNow={syncNow} />
+          <SignedIn
+            status={status}
+            syncNow={syncNow}
+            onDeleted={(clearedDevice) => {
+              if (clearedDevice) update(() => emptyProgress());
+              setNotice(
+                clearedDevice
+                  ? "Your account and synced progress have been deleted, and this browser's progress has been cleared."
+                  : "Your account and synced progress have been deleted. Progress saved in this browser is still here.",
+              );
+            }}
+          />
         )}
+        <p className="footnote">
+          <a href={hrefFor({ name: "privacy" })}>How we handle your data</a>
+        </p>
       </section>
     </>
   );
@@ -175,7 +198,13 @@ function SignIn() {
   );
 }
 
-function SignedIn({ status, syncNow }: { status: Extract<SyncStatus, { user: unknown }>; syncNow: () => void }) {
+type SignedInProps = {
+  status: Extract<SyncStatus, { user: unknown }>;
+  syncNow: () => void;
+  onDeleted: (clearedDevice: boolean) => void;
+};
+
+function SignedIn({ status, syncNow, onDeleted }: SignedInProps) {
   const [signOutError, setSignOutError] = useState<string | null>(null);
   return (
     <>
@@ -203,7 +232,83 @@ function SignedIn({ status, syncNow }: { status: Extract<SyncStatus, { user: unk
         </button>
       </div>
       <p className="footnote">Signing out keeps your progress on this device. It just stops syncing.</p>
+      <DeleteAccount userId={status.user.id} onDeleted={onDeleted} />
     </>
+  );
+}
+
+function DeleteAccount({ userId, onDeleted }: { userId: string; onDeleted: (clearedDevice: boolean) => void }) {
+  const [confirming, setConfirming] = useState(false);
+  const [clearDevice, setClearDevice] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const openRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (confirming) headingRef.current?.focus();
+  }, [confirming]);
+
+  async function confirmDelete() {
+    setBusy(true);
+    setError(null);
+    try {
+      await deleteAccount(userId);
+      onDeleted(clearDevice);
+    } catch (err) {
+      setError(friendly(err, "We couldn't delete your account. Check your connection and try again."));
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="danger-zone">
+      <h2>Delete your account</h2>
+      {!confirming ? (
+        <>
+          <p>This permanently deletes your email address and synced progress from our server.</p>
+          <div className="actions">
+            <button ref={openRef} className="btn ghost danger" type="button" onClick={() => setConfirming(true)}>
+              Delete account
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="confirm" role="group" aria-labelledby="delete-confirm-title">
+          <h3 id="delete-confirm-title" ref={headingRef} tabIndex={-1}>
+            Are you sure? This can't be undone.
+          </h3>
+          <p>Your email address and synced progress will be deleted. Other devices will stop syncing.</p>
+          <label className="check">
+            <input type="checkbox" checked={clearDevice} onChange={(e) => setClearDevice(e.target.checked)} />
+            Also clear the progress saved in this browser
+          </label>
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
+          <div className="actions">
+            <button className="btn danger" type="button" onClick={confirmDelete} disabled={busy}>
+              {busy ? "Deleting…" : "Yes, delete my account"}
+            </button>
+            <button
+              className="btn ghost"
+              type="button"
+              disabled={busy}
+              onClick={() => {
+                setConfirming(false);
+                setError(null);
+                // Return focus to where the person started.
+                requestAnimationFrame(() => openRef.current?.focus());
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

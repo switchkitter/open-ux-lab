@@ -8,9 +8,9 @@ const syncLabel: Record<SyncStatus["state"], string | null> = {
   off: null,
   checking: null,
   "signed-out": "Sign in to sync",
-  syncing: "Syncing…",
-  synced: "Synced",
-  error: "Not synced",
+  syncing: "Account: syncing…",
+  synced: "Account: synced",
+  error: "Account: not synced",
 };
 
 export default function Header({ progress, totalLessons, syncStatus }: Props) {

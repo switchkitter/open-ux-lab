@@ -94,9 +94,10 @@ export default function HomePage({ progress }: { progress: Progress }) {
       )}
 
       <p className="footnote">
-        Progress is saved in this browser only. Lessons are licensed{" "}
+        Lessons are licensed{" "}
         <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code is MIT.{" "}
-        <a href="https://github.com/switchkitter/open-ux-lab">Source on GitHub</a>.
+        <a href="https://github.com/switchkitter/open-ux-lab">Source on GitHub</a>.{" "}
+        <a href={hrefFor({ name: "privacy" })}>Privacy</a>.
       </p>
     </>
   );

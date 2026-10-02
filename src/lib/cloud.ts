@@ -65,6 +65,20 @@ export async function signOut(): Promise<void> {
   if (error) throw error;
 }
 
+/** Deletes the signed-in account and its synced progress on the server, then signs this browser out. */
+export async function deleteAccount(userId: string): Promise<void> {
+  const supabase = await client();
+  const { error } = await supabase.rpc("delete_my_account");
+  if (error) throw error;
+  try {
+    localStorage.removeItem(syncBaseKey(userId));
+  } catch {
+    // Nothing to clean up if storage is unavailable.
+  }
+  // The account no longer exists, so only clear the session stored in this browser.
+  await supabase.auth.signOut({ scope: "local" });
+}
+
 export function remoteProgress(userId: string): RemoteProgress {
   return {
     async load() {
@@ -86,8 +100,10 @@ export function remoteProgress(userId: string): RemoteProgress {
 }
 
 /** Per-account sync base in this browser, so switching accounts never mixes up bases. */
+const syncBaseKey = (userId: string) => `open-ux-lab:sync-base:${userId}`;
+
 export function localSyncBase(userId: string): SyncBase {
-  const storageKey = `open-ux-lab:sync-base:${userId}`;
+  const storageKey = syncBaseKey(userId);
   return {
     load() {
       try {

@@ -14,7 +14,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 - Vite + React 19 + TypeScript (strict)
 - Vitest for unit tests
 - Plain CSS with design tokens in `src/styles.css` (no CSS framework)
-- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`, `#/account`)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`)
 
 ## Commands
 
@@ -34,6 +34,7 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device.
 - `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
 - `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.
+- `src/pages/PrivacyPage.tsx`, `src/content/site.ts` — privacy notice and owner/contact details. Keep the notice true: any new data collection, provider or third-party request must update it (and `privacyUpdated`) in the same change.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)
@@ -55,7 +56,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 ## Design system
 
 - Tokens are defined on `:root` with dark-mode overrides (`prefers-color-scheme` and `[data-theme]`). Use tokens, never literal colors.
-- Fonts: Bricolage Grotesque (display), Atkinson Hyperlegible (body), JetBrains Mono (labels/codes).
+- Fonts: Bricolage Grotesque (display), Atkinson Hyperlegible (body), JetBrains Mono (labels/codes), self-hosted via @fontsource. Don't add Google Fonts or other third-party requests (see the privacy notice).
 - The app must stay keyboard-accessible, readable at 400px wide, and meet WCAG AA contrast. This is a UX learning app, so it should model good UX.
 
 ## Roadmap

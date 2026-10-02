@@ -16,7 +16,7 @@
   --bad-soft: #f7e1de;
   --mk-bg: #ffffff;
   --mk-line: #c6cdc8;
-  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   color-scheme: light;
@@ -259,3 +259,15 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
   position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+.notice { background: var(--good-soft); border-left: 4px solid var(--good); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+.danger-zone { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; display: grid; gap: 10px; }
+.danger-zone h2 { font-size: 20px; }
+.confirm { display: grid; gap: 10px; border: 2px solid var(--bad); border-radius: 10px; padding: 14px 16px; background: var(--bad-soft); }
+.confirm h3 { font-size: 18px; }
+.confirm h3:focus { outline: none; }
+.check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+.btn.danger { background: var(--bad); border-color: var(--bad); color: var(--bg); }
+.btn.ghost.danger { background: transparent; color: var(--bad); border-color: var(--bad); }
+.privacy .prose h2 { font-size: 22px; margin: 26px 0 8px; }
+.privacy .prose ul + p, .privacy .prose p + ul { margin-top: 8px; }
