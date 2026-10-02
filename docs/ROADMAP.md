@@ -12,7 +12,7 @@
 - [ ] Laws of UX path
 - [ ] Form design path (GOV.UK, USWDS)
 - [ ] Third exercise type: "spot the problem" (tap the area of a mockup that breaks a principle)
-- [ ] Shuffle option order in choice exercises
+- [x] Shuffle option order in choice exercises
 
 ## 0.3 — Learning that sticks
 - [ ] Spaced repetition with due dates instead of a simple review pile

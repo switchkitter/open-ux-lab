@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { Exercise } from "../content/types";
+import { shuffledIndices } from "../lib/shuffle";
 import Mockup from "./Mockup";
 
 type Props = {
@@ -16,6 +17,9 @@ export default function ExerciseCard({ code, exercise, nextLabel, onAnswer, onNe
   const [picked, setPicked] = useState<string | null>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const uid = useId();
+  // Choice options appear in a new random order each time, so learners can't memorize positions.
+  // Keys stay as original indices, which is what exercise.correct refers to.
+  const [order] = useState(() => (exercise.type === "choice" ? shuffledIndices(exercise.options.length) : []));
   const answered = picked !== null;
   const correctKey = exercise.type === "compare" ? exercise.correct : String(exercise.correct);
   const isCorrect = picked === correctKey;
@@ -62,7 +66,7 @@ export default function ExerciseCard({ code, exercise, nextLabel, onAnswer, onNe
           <div className="eyebrow">{code} · Question</div>
           <p className="q">{exercise.question}</p>
           <div className="opts">
-            {exercise.options.map((option, i) => (
+            {order.map((i) => (
               <button
                 key={i}
                 type="button"
@@ -70,7 +74,7 @@ export default function ExerciseCard({ code, exercise, nextLabel, onAnswer, onNe
                 disabled={answered}
                 onClick={() => pick(String(i))}
               >
-                {option}
+                {exercise.options[i]}
               </button>
             ))}
           </div>
