@@ -2,17 +2,12 @@ import type { Exercise, LearningPath, Lesson } from "../types";
 import { accessibilityPath } from "./accessibility";
 import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
+import { lawsOfUxPath } from "./laws-of-ux";
 
-export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath];
 
 /** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
-export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [
-  {
-    id: "laws-of-ux",
-    title: "Laws of UX",
-    description: "Fitts's Law, Hick's Law, Miller's Law and other psychology principles.",
-  },
-];
+export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [];
 
 export function findLesson(lessonId: string): { path: LearningPath; lesson: Lesson } | undefined {
   for (const path of paths) {

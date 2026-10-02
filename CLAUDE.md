@@ -4,7 +4,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 
 ## Status
 
-- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Path 3, Form design (8 lessons, 16 exercises). Progress is stored in the browser (localStorage).
+- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Path 3, Form design (8 lessons, 16 exercises). Path 4, Laws of UX (8 lessons, 16 exercises). Progress is stored in the browser (localStorage).
 - **Live:** https://switchkitter.github.io/open-ux-lab/ (repo switchkitter/open-ux-lab). Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
 - **Verified (2026-10-01):** `npm install`, `npm run typecheck`, `npm test` (15 tests) and `npm run build` all pass on Node 24.
 - **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
