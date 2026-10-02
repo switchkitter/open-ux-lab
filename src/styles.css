@@ -307,3 +307,24 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .spot-part.right { border: 2px solid var(--good); background: var(--good-soft); }
 .spot-part.wrong { border: 2px solid var(--bad); background: var(--bad-soft); }
 .spot-part .mockup > * { margin: 0; }
+
+/* Skill map */
+.page-title { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
+.skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.skill { display: grid; gap: 8px; align-content: start; }
+.skill-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.skill h2 { font-size: 19px; }
+.skill p { margin: 0; }
+.skill-desc { color: var(--muted); font-size: 15px; }
+.skill-bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.skill-bar i { display: block; height: 100%; background: var(--accent); transition: width 0.4s; }
+.skill-count { font-family: var(--f-mono); font-size: 13px; }
+.skill-next { font-size: 15px; }
+.level { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; border: 1px solid var(--line); color: var(--muted); }
+.level.strong { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.level.developing { background: var(--accent-soft); color: var(--fg); border-color: transparent; }
+.level.getting-started { background: var(--mark-soft); color: var(--fg); border-color: transparent; }
+.skills-link { display: flex; justify-content: space-between; align-items: center; gap: 16px; color: var(--fg); text-decoration: none; }
+.skills-link:hover { border-color: var(--accent); }
+.skills-link-title { display: block; font-family: var(--f-display); font-weight: 700; font-size: 19px; }
+.skills-link-sub { display: block; color: var(--muted); font-size: 15px; }

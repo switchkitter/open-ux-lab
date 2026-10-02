@@ -14,7 +14,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 - Vite + React 19 + TypeScript (strict)
 - Vitest for unit tests
 - Plain CSS with design tokens in `src/styles.css` (no CSS framework)
-- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`, `#/skills`)
 
 ## Commands
 
@@ -29,6 +29,7 @@ Run `npm run typecheck` and `npm test` after every change.
 
 - `src/content/types.ts` — content model (LearningPath → Lesson → Exercise). Exercise types: compare, choice, spot (see the Exercise types section of `CONTENT_GUIDELINES.md`)
 - `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
+- `src/content/skills.ts` — skills for the skill map. Every lesson lists its `skills`; `src/lib/skills.ts` computes progress per skill from `progress.seen` and the review pile. A content test requires each skill to have at least 3 lessons.
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
 - `src/lib/progress.ts` — pure progress logic (XP, streaks, spaced review with `REVIEW_INTERVALS`). Keep it free of React and storage. Review items are `{ step, due }`; `normalizeReviewItem` migrates older stored shapes, so never remove that migration.
 - `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device.

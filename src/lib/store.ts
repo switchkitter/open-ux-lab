@@ -17,7 +17,8 @@ export function normalizeProgress(raw: unknown): Progress {
   const p = { ...emptyProgress(), ...(raw as Partial<Progress>), version: 1 as const };
   const review: Record<string, ReviewItem> = {};
   for (const [id, item] of Object.entries(p.review ?? {})) review[id] = normalizeReviewItem(item);
-  return { ...p, review };
+  const seen = p.seen && typeof p.seen === "object" ? p.seen : {};
+  return { ...p, review, seen };
 }
 
 export const localProgressStore: ProgressStore = {

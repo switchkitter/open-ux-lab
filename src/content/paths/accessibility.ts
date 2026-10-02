@@ -13,6 +13,7 @@ const lessons: Lesson[] = [
     title: "Who accessibility is for",
     subtitle: "More people than you think, and the standard behind it",
     minutes: 5,
+    skills: ["accessibility"],
     body: [
       "An accessible product works for people with disabilities: someone who is blind and uses a screen reader, someone who can't use a mouse, someone who zooms text to read it, relies on captions, or needs plain language to follow a task. About 1 in 6 people worldwide live with a significant disability, and most people gain one as they age.",
       "The same fixes help far more people: captions in a noisy office, strong contrast in bright sun, keyboard shortcuts for power users, a big tap target for a parent holding a phone in one hand. The international standard is WCAG, which groups its requirements under four principles: content must be perceivable, operable, understandable and robust. Many laws and public-sector rules, such as Section 508 in the US and EN 301 549 in Europe, are based on WCAG level AA.",
@@ -61,6 +62,7 @@ const lessons: Lesson[] = [
     title: "Text alternatives",
     subtitle: "Describe images by their purpose",
     minutes: 5,
+    skills: ["accessibility", "language"],
     body: [
       "Screen readers can't see images. They read the image's alt text instead, and when there is none they often read the file name. Good alt text gives the same information or function the image gives a sighted person, in a short phrase.",
       "What to write depends on why the image is there. A photo that only adds mood gets empty alt text (alt=\"\") so screen readers skip it. An icon that works as a button needs a name for the action, not a description of the drawing. A chart needs its main point in the text alternative, with the full data available nearby.",
@@ -108,6 +110,7 @@ const lessons: Lesson[] = [
     title: "Color contrast",
     subtitle: "Text people can actually read",
     minutes: 5,
+    skills: ["accessibility", "layout"],
     body: [
       "Low-contrast text is the most common accessibility problem found on websites, and it affects far more than people with low vision. Pale gray text on white is hard to read on a cheap monitor, outdoors, or late in the day with tired eyes.",
       "WCAG measures contrast as a ratio between text and its background, from 1:1 (no contrast) to 21:1 (black on white). Level AA asks for at least 4.5:1 for normal text and 3:1 for large text (about 24px, or about 19px bold). Icons, input borders and focus indicators that people need in order to use the interface need 3:1 against what's around them.",
@@ -151,6 +154,7 @@ const lessons: Lesson[] = [
     title: "Don't rely on color alone",
     subtitle: "Always add a second cue",
     minutes: 4,
+    skills: ["accessibility", "layout"],
     body: [
       "About 1 in 12 men and 1 in 200 women have some form of color vision deficiency, most often trouble telling red from green. Screen reader users get no color at all. If color is the only thing that separates two states, some people can't tell them apart.",
       "Color is still useful. The rule is to pair it with something else, such as text, an icon, a pattern, position or an underline. Then color speeds things up for people who can see it, and nobody depends on it.",
@@ -195,6 +199,7 @@ const lessons: Lesson[] = [
     title: "Keyboard access and visible focus",
     subtitle: "Everything works without a mouse",
     minutes: 5,
+    skills: ["accessibility", "control"],
     body: [
       "Many people don't use a mouse: people with tremors or limited hand movement, blind people using screen readers, people using switch devices or voice control, and power users who prefer shortcuts. They all rely on the keyboard or on tools that act like one. Every link, button, field and menu must be reachable and usable with Tab, Shift+Tab, Enter, Space and the arrow keys.",
       "Keyboard users also need to see where they are. The focus indicator, usually an outline, does the job of their mouse pointer. Removing it with CSS (outline: none) and not replacing it leaves people guessing which control will respond when they press Enter.",
@@ -243,6 +248,7 @@ const lessons: Lesson[] = [
     title: "Headings and page structure",
     subtitle: "Let people skim with a screen reader",
     minutes: 5,
+    skills: ["accessibility", "layout"],
     body: [
       "Sighted people skim a page by its layout: big bold headings, a sidebar, a footer. Screen reader users skim too, by jumping from heading to heading or from region to region. That only works when the structure is in the code: real heading elements in a sensible order, and landmark regions such as header, nav, main and footer.",
       "Text that only looks like a heading, such as a bold paragraph styled large, is invisible to that kind of navigation. Headings that skip levels or are picked for their size make the outline confusing, like a table of contents with random numbering.",
@@ -290,6 +296,7 @@ const lessons: Lesson[] = [
     title: "Accessible forms",
     subtitle: "Labels, hints and errors everyone gets",
     minutes: 5,
+    skills: ["accessibility", "forms"],
     body: [
       "Every field needs a visible label that stays in place, connected to the field in code so screen readers announce it when the field gets focus. Placeholder text is not a label: it disappears as soon as someone types, it's usually too pale to read, and not every screen reader announces it.",
       "When something goes wrong, say what the problem is and how to fix it, in text next to the field. Then make sure screen reader users find out, by moving focus to an error summary or announcing the error. A red border on its own, or a single message at the top of a long page, is easy to miss.",
@@ -367,6 +374,7 @@ const lessons: Lesson[] = [
     title: "Links, buttons and targets",
     subtitle: "Clear names and room to tap",
     minutes: 5,
+    skills: ["accessibility", "language"],
     body: [
       "Screen reader users often bring up a list of every link or button on a page. In that list, ten links called “Read more” are useless. Each link and button should make sense on its own, or at least together with its sentence or table row.",
       "Controls also need to be big enough to hit. People with tremors, people on a bumpy train and anyone using a phone with one thumb all miss small targets. WCAG 2.2 level AA asks for targets of at least 24 by 24 CSS pixels, or enough space around smaller ones. Apple and Google recommend about 44 to 48 for touch.",

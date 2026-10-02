@@ -10,6 +10,10 @@ describe("mergeProgress", () => {
     expect(m.completedLessons).toEqual({ h1: true, a1: true });
   });
 
+  it("combines the exercises seen on each device", () => {
+    expect(mergeProgress(p({ seen: { a: true } }), p({ seen: { b: true } }), p({})).seen).toEqual({ a: true, b: true });
+  });
+
   it("takes the higher XP on a first sync, so shared history isn't double counted", () => {
     expect(mergeProgress(p({ xp: 120 }), p({ xp: 80 }), null).xp).toBe(120);
   });

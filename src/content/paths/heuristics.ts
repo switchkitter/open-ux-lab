@@ -10,6 +10,7 @@ const lessons: Lesson[] = [
     title: "Visibility of system status",
     subtitle: "Keep people informed, right away",
     minutes: 5,
+    skills: ["feedback"],
     body: [
       "People act with confidence when they can tell what the system is doing. Every action deserves a response, and every wait deserves an explanation. Silence makes people click again, refresh, or give up.",
       "Good status feedback answers three questions: did it work, what is happening now, and how long will it take. It also shows where the person is: the current page in the navigation, the current step in a flow, the unsaved state of a document.",
@@ -54,6 +55,7 @@ const lessons: Lesson[] = [
     title: "Match between the system and the real world",
     subtitle: "Speak the user's language",
     minutes: 5,
+    skills: ["language"],
     body: [
       "Interfaces should use the words, concepts and conventions people already know from their work and life, not the vocabulary of the database or the engineering team.",
       "This also covers order and metaphor. Information should appear in the order people expect, and icons or metaphors should map to real-world meaning the audience actually shares.",
@@ -98,6 +100,7 @@ const lessons: Lesson[] = [
     title: "User control and freedom",
     subtitle: "Clear exits and easy undo",
     minutes: 5,
+    skills: ["control"],
     body: [
       "People make mistakes and change their minds. They need a clearly marked way out of anything they got into by accident, without having to go through a long process.",
       "Undo is the strongest form of control. It lets people explore with less fear, and for frequent, reversible actions it usually beats asking “Are you sure?” every time.",
@@ -142,6 +145,7 @@ const lessons: Lesson[] = [
     title: "Consistency and standards",
     subtitle: "Same thing, same look, same place",
     minutes: 5,
+    skills: ["conventions"],
     body: [
       "People shouldn't have to wonder whether different words, styles or actions mean the same thing. Internal consistency means your product behaves the same way everywhere.",
       "External consistency matters too. People spend most of their time in other products, so they arrive expecting the platform's conventions. Breaking them costs learning time.",
@@ -186,6 +190,7 @@ const lessons: Lesson[] = [
     title: "Error prevention",
     subtitle: "Design so mistakes are hard to make",
     minutes: 5,
+    skills: ["errors"],
     body: [
       "Good error messages matter, but preventing the error in the first place is better. Look for conditions that set people up to fail and remove them.",
       "It helps to separate two kinds of error. Slips are wrong actions when the person knew the right one, such as a typo or a misclick. Mistakes come from a wrong understanding of how something works. Slips need constraints and forgiving input; mistakes need clearer design.",
@@ -267,6 +272,7 @@ const lessons: Lesson[] = [
     title: "Recognition rather than recall",
     subtitle: "Show options instead of testing memory",
     minutes: 5,
+    skills: ["effort"],
     body: [
       "Recognizing something you can see is much easier than remembering it from scratch. Interfaces should make objects, actions and options visible so people don't have to hold information in their heads.",
       "This applies across screens too. If people need something from step 2 on step 4, show it again on step 4.",
@@ -311,6 +317,7 @@ const lessons: Lesson[] = [
     title: "Flexibility and efficiency of use",
     subtitle: "Shortcuts for experts, simple paths for novices",
     minutes: 5,
+    skills: ["control"],
     body: [
       "A product used daily should get faster as people get better at it. Accelerators such as keyboard shortcuts, bulk actions and templates help experienced users without getting in the way of new ones.",
       "Flexibility can also mean personalization: letting people set defaults, save views, or reorder what they see most.",
@@ -355,6 +362,7 @@ const lessons: Lesson[] = [
     title: "Aesthetic and minimalist design",
     subtitle: "Every element competes for attention",
     minutes: 5,
+    skills: ["effort", "layout"],
     body: [
       "Interfaces shouldn't contain information that is irrelevant or rarely needed. Each extra element competes with the ones that matter and lowers their visibility.",
       "Minimalist doesn't mean flat or sparse for its own sake. It means the content and visual design support the person's main goals and nothing distracts from them.",
@@ -399,6 +407,7 @@ const lessons: Lesson[] = [
     title: "Help users recognize, diagnose, and recover from errors",
     subtitle: "Plain language, precise problem, a way forward",
     minutes: 5,
+    skills: ["feedback"],
     body: [
       "When errors happen, the message should say in plain language what went wrong and suggest a fix. Error codes and blame don't help anyone recover.",
       "Placement and visibility matter as much as wording. Show the message where the problem is, make it noticeable, and keep the person's input so they only fix what's wrong.",
@@ -480,6 +489,7 @@ const lessons: Lesson[] = [
     title: "Help and documentation",
     subtitle: "Help that is easy to find and act on",
     minutes: 5,
+    skills: ["language"],
     body: [
       "Ideally a product needs no explanation, but some tasks are complex. When help is needed, it should be easy to search, focused on the task, and list concrete steps.",
       "The best help often appears in context, right where the question comes up, instead of in a separate manual people have to go looking for.",

@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ReviewPage from "./pages/ReviewPage";
+import SkillsPage from "./pages/SkillsPage";
 
 export default function App() {
   const [progress, update] = useProgress();
@@ -27,6 +28,7 @@ export default function App() {
       : route.name === "review" ? "Review"
       : route.name === "account" ? "Account"
       : route.name === "privacy" ? "Privacy"
+      : route.name === "skills" ? "Your skills"
       : "";
     if (firstRender.current) {
       firstRender.current = false;
@@ -49,6 +51,8 @@ export default function App() {
     page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} update={update} />;
   } else if (route.name === "privacy") {
     page = <PrivacyPage />;
+  } else if (route.name === "skills") {
+    page = <SkillsPage progress={progress} />;
   } else if (route.name === "review") {
     page = <ReviewPage progress={progress} update={update} />;
   } else {

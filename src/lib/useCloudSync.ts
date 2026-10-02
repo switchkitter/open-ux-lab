@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cloudConfigured, localSyncBase, remoteProgress, watchUser, type CloudUser } from "./cloud";
 import { mergeProgress } from "./merge";
+import { backfillSeen } from "./skills";
 import type { Progress } from "./progress";
 import { sameProgress, syncProgress } from "./sync";
 import type { UpdateProgress } from "./useProgress";
@@ -41,7 +42,8 @@ export function useCloudSync(progress: Progress, update: UpdateProgress) {
     setStatus({ state: "syncing", user });
     try {
       const start = progressRef.current;
-      const merged = await syncProgress(start, remoteProgress(user.id), localSyncBase(user.id));
+      // Progress synced from a device that predates the skill map may need its answered exercises filled in.
+      const merged = backfillSeen(await syncProgress(start, remoteProgress(user.id), localSyncBase(user.id)));
       // Answers given while the request was in flight are merged in rather than overwritten.
       update((current) => (sameProgress(merged, current) ? current : current === start ? merged : mergeProgress(current, merged, start)));
       setStatus({ state: "synced", user, at: new Date() });

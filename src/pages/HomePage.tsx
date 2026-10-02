@@ -45,6 +45,14 @@ export default function HomePage({ progress }: { progress: Progress }) {
         </section>
       )}
 
+      <a className="panel skills-link" href={hrefFor({ name: "skills" })}>
+        <span>
+          <span className="skills-link-title">Your skill map</span>
+          <span className="skills-link-sub">See your strengths and gaps across all four paths.</span>
+        </span>
+        <span aria-hidden="true">→</span>
+      </a>
+
       {paths.map((path, pathIndex) => {
         const done = path.lessons.filter((l) => progress.completedLessons[l.id]).length;
         const nextId = path.lessons.find((l) => !progress.completedLessons[l.id])?.id;

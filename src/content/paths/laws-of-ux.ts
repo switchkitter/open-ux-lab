@@ -11,6 +11,7 @@ const lessons: Lesson[] = [
     title: "Jakob's Law",
     subtitle: "People expect your product to work like the ones they already use",
     minutes: 4,
+    skills: ["conventions"],
     body: [
       "People spend most of their time in other products, not yours. Every site and app they use teaches them where the cart lives, what a magnifying glass means and how a date field behaves. When your product follows those habits, people can use what they already know. When it breaks them, they have to learn something new just to get started.",
       "This doesn't mean copying competitors pixel for pixel. Follow conventions for the basics people rely on, such as navigation, search, forms and checkout, and save your originality for places where it really helps the task. If you must change a familiar pattern, make the new one easy to discover, and give people time to adjust.",
@@ -55,6 +56,7 @@ const lessons: Lesson[] = [
     title: "Fitts's Law",
     subtitle: "Big and close is easy to hit",
     minutes: 4,
+    skills: ["control", "errors"],
     body: [
       "The time it takes to point at something depends on how far away it is and how big it is. A large button near where your pointer or thumb already is takes a moment to hit. A small link across the screen takes longer and is easier to miss.",
       "This shapes where actions go and how big they are. Put the main action close to the content it acts on, make frequent targets large, and give small controls a clickable area bigger than their visible size. The same law works in reverse: a destructive action that's harder to hit by accident is often a good thing.",
@@ -131,6 +133,7 @@ const lessons: Lesson[] = [
     title: "Hick's Law",
     subtitle: "More choices, slower decisions",
     minutes: 4,
+    skills: ["effort"],
     body: [
       "The more options people have, and the harder they are to tell apart, the longer it takes to choose. Each extra option adds a little time, and a screen full of similar choices can stall people completely, or lead them to choose nothing at all.",
       "Hick's Law applies most to simple choices among options people understand, such as picking from a menu. The fix is not always fewer options; often it's fewer options at once. Recommend a choice, group options into categories, and show advanced settings only when people ask for them.",
@@ -179,6 +182,7 @@ const lessons: Lesson[] = [
     title: "Miller's Law and chunking",
     subtitle: "Memory is small, so group things",
     minutes: 5,
+    skills: ["effort"],
     body: [
       "In 1956, the psychologist George Miller observed that people can hold about seven items, give or take two, in short-term memory. Later research suggests the real limit is nearer four meaningful chunks. Either way, working memory is small, and everything people must remember while using your product takes up some of it.",
       "The number is often misused to claim menus should have at most seven items. Menus stay on screen, so people don't need to remember them. The useful lesson is chunking: grouping information into meaningful units. A phone number split into groups, or a long form split into sections, is far easier to read, check and remember than one long unbroken run.",
@@ -228,6 +232,7 @@ const lessons: Lesson[] = [
     title: "Proximity and common region",
     subtitle: "Grouping without words",
     minutes: 4,
+    skills: ["layout"],
     body: [
       "People see things that sit close together as related, and things inside the same boundary as a group. These two principles from Gestalt psychology, proximity and common region, are among the strongest tools in layout: they tell people what belongs with what before they read a word.",
       "They also cause many layout bugs. A label sitting halfway between two fields is ambiguous, and a button placed nearer the wrong section seems to belong to it. Spacing is information, not decoration, so make the space between groups clearly larger than the space within them.",
@@ -277,6 +282,7 @@ const lessons: Lesson[] = [
     title: "The Von Restorff effect",
     subtitle: "What stands out gets noticed",
     minutes: 4,
+    skills: ["layout"],
     body: [
       "When one item looks different from everything around it, people notice it and remember it. That's why a single highlighted plan on a pricing page, or one bold button at the end of a form, draws the eye.",
       "The effect only works when the difference is rare. If everything is bold, colorful or moving, nothing stands out and the page just feels noisy. The difference also shouldn't rely on color alone: people who can't see the color need another cue, such as a label, size or position.",
@@ -324,6 +330,7 @@ const lessons: Lesson[] = [
     title: "The peak-end rule",
     subtitle: "People remember the high points and the ending",
     minutes: 4,
+    skills: ["feedback"],
     body: [
       "People don't judge an experience by averaging every moment. They remember it mostly by its most intense point, good or bad, and by how it ended. A smooth checkout with a confusing error on the last step can be remembered as a bad experience, even though most of it went well.",
       "For design, this means finding the moments that matter most and making them great, and fixing the worst moments first, because bad peaks stay with people longest. Endings deserve special care: a clear confirmation, a sense of having finished, and an obvious next step.",
@@ -368,6 +375,7 @@ const lessons: Lesson[] = [
     title: "Tesler's Law",
     subtitle: "Complexity has to live somewhere",
     minutes: 4,
+    skills: ["effort"],
     body: [
       "Every task has some complexity that can't be removed: a payment needs an amount and a recipient, a flight search needs a destination and a date. Larry Tesler argued that the real question is who deals with that complexity: the people using the product, or the people building it.",
       "Good design moves as much of it as possible onto the system, with sensible defaults, automatic formatting and information the product already knows. But it doesn't pretend complexity away. Oversimplifying can hide what people need to make a decision, which just moves the complexity somewhere worse.",

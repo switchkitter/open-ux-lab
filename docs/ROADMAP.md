@@ -17,7 +17,7 @@
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
-- [ ] Skill map across paths
+- [x] Skill map across paths (9 skills, #/skills)
 - [ ] Progress export/import as a file
 
 ## 0.4 — Ready to share

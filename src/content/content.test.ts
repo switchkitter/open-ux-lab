@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import css from "../styles.css?raw";
 import { paths } from "./paths";
 import { site } from "./site";
+import { skills } from "./skills";
 import type { Exercise, SpotPart } from "./types";
 
 const spotParts = (e: Exercise): SpotPart[] => (e.type === "spot" ? e.parts.flat() : []);
@@ -98,6 +99,14 @@ describe("content integrity", () => {
     for (const e of exercises) {
       if (e.type !== "spot") continue;
       for (const html of mockupHtml(e)) expect(html.includes("mk-faint"), e.id).toBe(false);
+    }
+  });
+
+  it("tags every lesson with at least one skill, and every skill with at least three lessons", () => {
+    for (const l of lessons) expect(l.skills.length, l.id).toBeGreaterThan(0);
+    for (const skill of skills) {
+      const count = lessons.filter((l) => (l.skills as readonly string[]).includes(skill.id)).length;
+      expect(count, skill.id).toBeGreaterThanOrEqual(3);
     }
   });
 

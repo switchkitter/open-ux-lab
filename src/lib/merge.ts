@@ -14,6 +14,7 @@ export function mergeProgress(local: Progress, remote: Progress, base: Progress 
     xp: base ? Math.max(local.xp, remote.xp, local.xp + remote.xp - base.xp) : Math.max(local.xp, remote.xp),
     ...mergeStreak(local, remote),
     review: mergeReview(local.review, remote.review, base?.review ?? {}),
+    seen: { ...remote.seen, ...local.seen },
   };
 }
 

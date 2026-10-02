@@ -1,3 +1,5 @@
+import type { SkillId } from "./skills";
+
 /**
  * Content model for Open UX Lab.
  *
@@ -82,6 +84,8 @@ export type Lesson = {
   title: string;
   subtitle: string;
   minutes: number;
+  /** Skills this lesson builds, for the skill map (src/content/skills.ts). */
+  skills: SkillId[];
   body: string[];
   practice: string[];
   /** A small task the learner can try on a real product at work */

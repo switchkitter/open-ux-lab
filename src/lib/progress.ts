@@ -30,10 +30,12 @@ export type Progress = {
   /** Local calendar day of last activity, e.g. "2026-10-01" */
   lastActiveDay: string | null;
   review: Record<string, ReviewItem>;
+  /** Exercises answered at least once, for the skill map. Only ever grows. */
+  seen: Record<string, true>;
 };
 
 export function emptyProgress(): Progress {
-  return { version: 1, completedLessons: {}, xp: 0, streak: 0, lastActiveDay: null, review: {} };
+  return { version: 1, completedLessons: {}, xp: 0, streak: 0, lastActiveDay: null, review: {}, seen: {} };
 }
 
 export function dayKey(date: Date): string {
@@ -103,8 +105,9 @@ export function recordActivity(p: Progress, now: Date): Progress {
 
 /** Answer given inside a lesson. Wrong answers go to the review pile, due straight away. */
 export function recordLessonAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
-  if (correct) return { ...p, xp: p.xp + XP.correctFirstTry };
-  return { ...p, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
+  const seen = { ...p.seen, [exerciseId]: true as const };
+  if (correct) return { ...p, seen, xp: p.xp + XP.correctFirstTry };
+  return { ...p, seen, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
 }
 
 /**
@@ -113,15 +116,16 @@ export function recordLessonAnswer(p: Progress, exerciseId: string, correct: boo
  */
 export function recordReviewAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
   const review = { ...p.review };
+  const seen = { ...p.seen, [exerciseId]: true as const };
   const today = dayKey(now);
   if (!correct) {
     review[exerciseId] = { step: 0, due: addDays(today, 1) };
-    return { ...p, review };
+    return { ...p, seen, review };
   }
   const step = review[exerciseId]?.step ?? 0;
   if (step >= REVIEW_INTERVALS.length) delete review[exerciseId];
   else review[exerciseId] = { step: step + 1, due: addDays(today, REVIEW_INTERVALS[step]) };
-  return { ...p, xp: p.xp + XP.reviewCorrect, review };
+  return { ...p, seen, xp: p.xp + XP.reviewCorrect, review };
 }
 
 /**

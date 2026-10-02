@@ -31,6 +31,7 @@ const lessons: Lesson[] = [
     title: "Ask only what you need",
     subtitle: "The easiest question is the one you remove",
     minutes: 4,
+    skills: ["forms", "language"],
     body: [
       "Every question in a form costs the person filling it in: time, effort, and sometimes worry about why you want to know. Long forms get abandoned, and each extra field is another chance for a mistake. The surest way to make a question easy is to take it out.",
       "Before adding a question, find out who needs the answer, what they will do with it, and what happens if it's missing. GOV.UK calls this a question protocol. Questions with no clear owner or use come out. Questions that only apply to some people go behind an earlier question, so everyone else skips them.",
@@ -75,6 +76,7 @@ const lessons: Lesson[] = [
     title: "One thing per page",
     subtitle: "Small steps, then a chance to check",
     minutes: 5,
+    skills: ["forms", "effort"],
     body: [
       "A long single-page form looks efficient to the team but is hard to fill in: it's easy to lose your place, errors pile up, and on a phone the page never seems to end. Splitting a form so each page holds one thing (one question, one decision or one piece of information) keeps every step simple and lets you skip pages based on earlier answers.",
       "GOV.UK suggests starting with one thing per page and merging pages only when research shows it helps. Questions people answer as a unit, such as the lines of an address, can share a page. At the end, show a page where people can check all their answers and change any of them before they submit.",
@@ -123,6 +125,7 @@ const lessons: Lesson[] = [
     title: "Labels, hints and field sizes",
     subtitle: "Tell people what to enter and how",
     minutes: 4,
+    skills: ["forms", "language", "errors"],
     body: [
       "A label tells people what to enter; a hint tells them how. Put the label above the field and keep it short and specific. Use a hint for the format or for where to find the information. Hints hidden inside the field or behind a tooltip get missed, or vanish just when they're needed.",
       "The width of a field is a hint too. A postcode field that stretches across the screen suggests a long answer, and a narrow phone number field suggests the number won't fit. Size fields to the answer you expect, and accept answers the way people naturally type them, spaces and dashes included.",
@@ -167,6 +170,7 @@ const lessons: Lesson[] = [
     title: "Names and personal details",
     subtitle: "Fit the person, not the database",
     minutes: 5,
+    skills: ["forms", "language"],
     body: [
       "Names vary far more than most forms assume. Plenty of people don't have a “first” and “last” name in that order, some have a single name, and many names are longer than expected or include hyphens, apostrophes or accented letters. A form that rejects someone's name tells them the service isn't for them.",
       "Decide what you need the name for. One “Full name” field fits the widest range of names, but you can't reliably split it later. Separate fields help when you must sort or match records, but more names won't fit them. Either way, make fields long enough, accept any character, and say whether you need the name as written on an official document.",
@@ -211,6 +215,7 @@ const lessons: Lesson[] = [
     title: "Dates",
     subtitle: "Ask for them the way people know them",
     minutes: 4,
+    skills: ["forms", "errors"],
     body: [
       "For a date people remember or can look up, such as a date of birth or a passport issue date, three small text fields for day, month and year work best: people type a few digits and they're done. Scrolling a calendar back 40 years to find a birthday is slow and fiddly.",
       "Calendar pickers earn their place when people are choosing a date close to today and the day of the week matters, such as booking an appointment. Even then, let people type the date as well, so nobody is stuck if the calendar doesn't work for them.",
@@ -259,6 +264,7 @@ const lessons: Lesson[] = [
     title: "Radios, checkboxes and selects",
     subtitle: "Pick the control that shows the choice",
     minutes: 4,
+    skills: ["forms", "conventions"],
     body: [
       "Radio buttons show every option at once and allow one answer. Checkboxes show every option and allow several. A select (dropdown) hides the options until it's opened, which saves space but makes people open it, scroll and read before they can choose.",
       "GOV.UK found that some people find selects very hard to use, and recommends them only as a last resort. For a handful of options, radios are faster and clearer. For very long lists, such as countries, a text field that suggests matches as people type usually beats a long dropdown.",
@@ -337,6 +343,7 @@ const lessons: Lesson[] = [
     title: "Required and optional fields",
     subtitle: "Say it in words",
     minutes: 4,
+    skills: ["forms"],
     body: [
       "Many forms mark required fields with a red asterisk and never explain it. Some people don't know what it means, screen readers may read it as “star” or skip it, and when nearly every field has one, the mark stops telling anyone anything.",
       "Design systems differ on the fix. GOV.UK asks only for what's needed, so almost everything is required, and marks just the exceptions with “(optional)”. USWDS marks required fields with an asterisk, explains it at the top of the form, and also labels optional fields “(optional)”. Both agree on the essentials: use words, explain any symbol, and keep optional fields rare.",
@@ -381,6 +388,7 @@ const lessons: Lesson[] = [
     title: "Errors and validation",
     subtitle: "What went wrong, where, and how to fix it",
     minutes: 5,
+    skills: ["forms", "feedback"],
     body: [
       "When an answer can't be accepted, people need to know three things: that there's a problem, where it is, and how to fix it. GOV.UK does this in two parts: a summary at the top of the page that lists each problem and links to its field, and a message next to each field that has a problem.",
       "Timing matters too. Telling someone their email address is invalid while they're still typing it is like being interrupted mid-sentence. Check answers when people submit the page, or at the earliest when they leave a field, and keep the message there until the answer is fixed. Write messages that say what to do, such as “Enter a phone number with at least 10 digits”.",
