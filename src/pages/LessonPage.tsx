@@ -5,6 +5,7 @@ import ExerciseCard from "../components/ExerciseCard";
 import { lessonScenes } from "../art";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
+import { count } from "../lib/analytics";
 import { announceScreen } from "../lib/focus";
 import { play } from "../lib/useSound";
 import { hrefFor } from "../lib/route";
@@ -24,6 +25,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   const total = lesson.exercises.length;
   const doneStep = total + 1;
 
+  useEffect(() => count("lesson_opened", lesson.id), [lesson.id]);
+
   // Each step replaces the whole screen, so announce it like a new page (the route change covers step 0).
   const firstStep = useRef(true);
   useEffect(() => {
@@ -39,6 +42,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   function next() {
     if (step === total) {
       update((p) => recordActivity(completeLesson(p, lesson.id), new Date()));
+      count("lesson_completed", lesson.id);
       play("complete");
     }
     setStep((s) => s + 1);

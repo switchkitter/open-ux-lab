@@ -44,6 +44,7 @@ Run `npm run typecheck` and `npm test` after every change.
 - PWA: `vite-plugin-pwa` in `vite.config.ts` (manifest, Workbox precache of the built app, `registerType: "prompt"`). `src/components/UpdatePrompt.tsx` registers the service worker, checks for updates when the app returns to the foreground, and shows an Update/Later bar inside the header. Icons in `public/icons/` (master `icon.svg`; PNGs exported from it), favicon `public/favicon.svg`. If you change the icon, re-export all PNG sizes.
 - Link previews: Open Graph and Twitter tags in `index.html` (absolute URLs to https://openuxlab.com) and `public/og-image.png` (1200×630, app fonts and colors). Update both if the name, tagline or domain changes.
 - `src/pages/CreditsPage.tsx`, `src/lib/credits.ts` — sources and credits page; source lists are generated from lesson data, so new sources appear automatically. Update the fonts/software lists there if those change.
+- Analytics: `src/lib/analytics.ts` sends anonymous daily counts (`visit`, `lesson_opened`, `lesson_completed`, `exercise_right`, `exercise_wrong`, `review_completed`) to `track_event()` in Supabase (`usage_counts` table, no IDs, no reads through the API). Never add user, session or device IDs. Skipped in dev, with Global Privacy Control/Do Not Track, or when the learner opts out on the privacy page. Stats queries: `supabase/stats.sql`. New event names need the table's check constraint, the type and the privacy page updated together.
 - `src/components/`, `src/pages/` — UI
 
 ## Content rules (important — the app is meant to be shared)
@@ -66,7 +67,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 ## Design system
 
 - Tokens are defined on `:root` with dark-mode overrides (`prefers-color-scheme` and `[data-theme]`). Use tokens, never literal colors.
-- Fonts: Bricolage Grotesque (display), Atkinson Hyperlegible (body), JetBrains Mono (labels/codes), self-hosted via @fontsource. Don't add Google Fonts or other third-party requests (see the privacy notice).
+- Fonts: two typefaces only, Bricolage Grotesque (display: headings and big numbers) and Atkinson Hyperlegible (everything else, including labels, chips and text in illustrations), self-hosted via @fontsource. This follows the Visual design basics typography lesson; don't add a third. Don't add Google Fonts or other third-party requests (see the privacy notice).
 - The app must stay keyboard-accessible, readable at 400px wide, and meet WCAG AA contrast. This is a UX learning app, so it should model good UX.
 - Every screen has exactly one `h1` (exercise questions are the `h1` on exercise screens). After a route change or a lesson/review step, call `announceScreen()` from `src/lib/focus.ts`: it sets the tab title and moves focus to the `h1`.
 - Never show state by color alone: answer states use text labels ("Your answer", "Correct answer") as well as color. Use `--mark-ink` (not `--mark`) for gold text.

@@ -44,4 +44,4 @@
 - [x] Link preview (Open Graph image and tags)
 - [x] Sign-in emails from hello@openuxlab.com (Brevo domain authentication)
 - [x] Attribution page (Sources and credits, #/credits)
-- [ ] Analytics that respect privacy (e.g. Plausible)
+- [x] Privacy-respecting analytics: anonymous daily counts in Supabase, opt-out, GPC/DNT respected

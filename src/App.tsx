@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { findLesson, paths } from "./content/paths";
+import { count } from "./lib/analytics";
 import { announceScreen } from "./lib/focus";
 import { useCloudSync } from "./lib/useCloudSync";
 import { useProgress } from "./lib/useProgress";
@@ -19,6 +20,9 @@ export default function App() {
   const { status: syncStatus, syncNow } = useCloudSync(progress, update);
   const route = useRoute();
   const totalLessons = paths.reduce((n, p) => n + p.lessons.length, 0);
+
+  // One anonymous "visit" count per app load (see lib/analytics.ts).
+  useEffect(() => count("visit"), []);
 
   // Title and focus on every route change. On first load, keep the browser's default focus.
   const firstRender = useRef(true);

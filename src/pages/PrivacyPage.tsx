@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { site } from "../content/site";
+import { browserSaysDoNotTrack, loadOptOut, saveOptOut } from "../lib/analytics";
 import { hrefFor } from "../lib/route";
 
 /**
@@ -6,6 +8,8 @@ import { hrefFor } from "../lib/route";
  * provider, new fields), update this page and `site.privacyUpdated` in the same change.
  */
 export default function PrivacyPage() {
+  const [optedOut, setOptedOut] = useState(loadOptOut);
+  const browserOptOut = browserSaysDoNotTrack();
   const contact = <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>;
   return (
     <>
@@ -21,7 +25,8 @@ export default function PrivacyPage() {
             what data the app handles and why.
           </p>
           <p>
-            <strong>In short:</strong> you can use the app without giving us anything. If you create an account to sync your
+            <strong>In short:</strong> you can use the app without giving us any personal information. We keep anonymous
+            daily counts of things like lessons completed, which you can switch off. If you create an account to sync your
             progress, we store your email address and your progress, and use them only to sign you in and sync.
           </p>
 
@@ -31,7 +36,10 @@ export default function PrivacyPage() {
               Your progress (XP, streak, completed lessons, which exercises you've answered, and your review pile) is
               saved in your browser on your device. It isn't sent to us.
             </li>
-            <li>The app has no analytics, advertising or tracking, and doesn't load fonts or scripts from other companies.</li>
+            <li>
+              The app has no advertising, no tracking cookies and no personal tracking, and doesn't load fonts or scripts from
+              other companies. It does keep anonymous usage counts, explained below.
+            </li>
             <li>
               The site is hosted on GitHub Pages. Like most web hosts, GitHub records technical details such as your IP
               address when you load the site, to run and protect its service. See the{" "}
@@ -58,7 +66,7 @@ export default function PrivacyPage() {
           <h2>Who handles your data</h2>
           <ul>
             <li>
-              <strong>Supabase</strong> stores your account and progress, on servers in the United States.
+              <strong>Supabase</strong> stores your account and progress, and the anonymous usage counts, on servers in the United States.
             </li>
             <li>
               <strong>Brevo</strong> sends the sign-in code emails, so it handles your email address and those emails. Brevo
@@ -93,9 +101,34 @@ export default function PrivacyPage() {
             </li>
           </ul>
 
+          <h2>Anonymous usage counts</h2>
+          <p>
+            To see which lessons help and which confuse people, the app counts a few things: when it's opened, when a lesson
+            is opened or completed, when an exercise is answered right or wrong, and when a review is finished. Each count
+            stores only the date, what happened, and which lesson or exercise it was, added to a daily total. We don't store
+            who did it: no account, device ID, cookie or IP address is kept with these counts. Like any web service,
+            Supabase may briefly keep technical logs of requests, including IP addresses, for security.
+          </p>
+          {browserOptOut ? (
+            <p className="notice">Your browser asks sites not to track you, so this browser never sends usage counts.</p>
+          ) : (
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={optedOut}
+                onChange={(e) => {
+                  saveOptOut(e.target.checked);
+                  setOptedOut(e.target.checked);
+                }}
+              />
+              Don't send anonymous usage counts from this browser
+            </label>
+          )}
+          <p>Counts are also never sent if your browser uses Global Privacy Control or Do Not Track.</p>
+
           <h2>Data stored in your browser</h2>
           <p>
-            The app stores your progress and settings (such as whether sound effects are on) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
+            The app stores your progress and settings (such as whether sound effects are on, or whether to send usage counts) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
             needed for the app to work, so there's no cookie banner. Clearing this site's data in your browser removes them.
           </p>
 

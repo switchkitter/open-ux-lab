@@ -47,3 +47,32 @@ $$;
 
 revoke all on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
+
+-- Anonymous usage counts. One row per day, event and key (a lesson or exercise ID) with a count.
+-- No user, device, IP or timestamp is stored. Anyone can add to a count through track_event();
+-- nobody can read the table through the public API (no select policy), so stats are read in the
+-- Supabase dashboard (see supabase/stats.sql).
+create table if not exists public.usage_counts (
+  day date not null default current_date,
+  event text not null check (event in ('visit', 'lesson_opened', 'lesson_completed', 'exercise_right', 'exercise_wrong', 'review_completed')),
+  key text not null default '' check (length(key) <= 64),
+  count integer not null default 0,
+  primary key (day, event, key)
+);
+
+alter table public.usage_counts enable row level security;
+revoke all on public.usage_counts from anon, authenticated;
+
+create or replace function public.track_event(event_name text, event_key text default '')
+returns void
+language sql
+security definer
+set search_path = ''
+as $$
+  insert into public.usage_counts (day, event, key, count)
+  values (current_date, event_name, coalesce(left(event_key, 64), ''), 1)
+  on conflict (day, event, key) do update set count = public.usage_counts.count + 1;
+$$;
+
+revoke all on function public.track_event(text, text) from public;
+grant execute on function public.track_event(text, text) to anon, authenticated;

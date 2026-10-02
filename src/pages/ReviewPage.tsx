@@ -3,6 +3,7 @@ import ExerciseCard from "../components/ExerciseCard";
 import { findExercise } from "../content/paths";
 import { dueReviewIds, nextReview, recordActivity, recordReviewAnswer, reviewOutcome, whenLabel, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
+import { count } from "../lib/analytics";
 import { announceScreen } from "../lib/focus";
 import { hrefFor } from "../lib/route";
 
@@ -29,7 +30,10 @@ export default function ReviewPage({ progress, update }: Props) {
   }, [index, queue.length]);
 
   function next() {
-    if (index === queue.length - 1) update((p) => recordActivity(p, new Date()));
+    if (index === queue.length - 1) {
+      update((p) => recordActivity(p, new Date()));
+      count("review_completed");
+    }
     setIndex((i) => i + 1);
   }
 

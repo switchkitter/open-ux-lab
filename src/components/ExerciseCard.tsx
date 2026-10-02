@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
+import { count } from "../lib/analytics";
 import { play } from "../lib/useSound";
 import Mockup from "./Mockup";
 
@@ -42,6 +43,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
     setNote(noteFor?.(key === correctKey) ?? null);
     // Sound repeats the verdict that's also shown in text and color; it's never the only cue.
     play(key === correctKey ? "correct" : "wrong");
+    count(key === correctKey ? "exercise_right" : "exercise_wrong", exercise.id);
     onAnswer(key === correctKey);
   }
 
