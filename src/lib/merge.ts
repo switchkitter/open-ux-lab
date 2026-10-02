@@ -43,8 +43,8 @@ function mergeReview(
     const r = remote[id];
     const b = base[id];
     if (l && r) {
-      // Keep whichever side changed since the base; if both did, the more cautious count.
-      merged[id] = same(l, b) ? r : same(r, b) ? l : { correctInARow: Math.min(l.correctInARow, r.correctInARow) };
+      // Keep whichever side changed since the base; if both did, the more cautious one (lower step, sooner due).
+      merged[id] = same(l, b) ? r : same(r, b) ? l : cautious(l, r);
     } else {
       const only = (l ?? r)!;
       // Present on one side only. If it was in the base and that side hasn't touched it,
@@ -56,5 +56,10 @@ function mergeReview(
 }
 
 function same(a: ReviewItem | undefined, b: ReviewItem | undefined): boolean {
-  return !!a && !!b && a.correctInARow === b.correctInARow;
+  return !!a && !!b && a.step === b.step && a.due === b.due;
+}
+
+function cautious(a: ReviewItem, b: ReviewItem): ReviewItem {
+  if (a.step !== b.step) return a.step < b.step ? a : b;
+  return a.due <= b.due ? a : b;
 }

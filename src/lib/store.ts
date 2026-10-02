@@ -1,4 +1,4 @@
-import { emptyProgress, type Progress } from "./progress";
+import { emptyProgress, normalizeReviewItem, type Progress, type ReviewItem } from "./progress";
 
 /**
  * Where progress lives. Today it's the browser; later this can be swapped
@@ -14,7 +14,10 @@ const KEY = "open-ux-lab:progress";
 /** Fills in missing fields so progress from storage or the server always has the current shape. */
 export function normalizeProgress(raw: unknown): Progress {
   if (!raw || typeof raw !== "object") return emptyProgress();
-  return { ...emptyProgress(), ...(raw as Partial<Progress>), version: 1 };
+  const p = { ...emptyProgress(), ...(raw as Partial<Progress>), version: 1 as const };
+  const review: Record<string, ReviewItem> = {};
+  for (const [id, item] of Object.entries(p.review ?? {})) review[id] = normalizeReviewItem(item);
+  return { ...p, review };
 }
 
 export const localProgressStore: ProgressStore = {

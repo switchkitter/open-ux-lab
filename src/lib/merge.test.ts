@@ -20,34 +20,39 @@ describe("mergeProgress", () => {
   });
 
   it("is a no-op when nothing changed", () => {
-    const same = p({ xp: 40, completedLessons: { h1: true }, review: { x: { correctInARow: 1 } } });
+    const same = p({ xp: 40, completedLessons: { h1: true }, review: { x: { step: 1, due: "2026-10-01" } } });
     expect(mergeProgress(same, same, same)).toEqual(same);
   });
 
   describe("review pile", () => {
     it("keeps items missed on either device", () => {
-      const m = mergeProgress(p({ review: { x: { correctInARow: 0 } } }), p({ review: { y: { correctInARow: 0 } } }), p({}));
+      const m = mergeProgress(p({ review: { x: { step: 0, due: "2026-10-01" } } }), p({ review: { y: { step: 0, due: "2026-10-01" } } }), p({}));
       expect(Object.keys(m.review).sort()).toEqual(["x", "y"]);
     });
 
     it("drops an item cleared on one device instead of bringing it back", () => {
-      const base = p({ review: { x: { correctInARow: 1 } } });
+      const base = p({ review: { x: { step: 1, due: "2026-10-01" } } });
       const cleared = p({ review: {} });
       expect(mergeProgress(base, cleared, base).review).toEqual({});
       expect(mergeProgress(cleared, base, base).review).toEqual({});
     });
 
     it("keeps an item cleared on one device but missed again on the other", () => {
-      const base = p({ review: { x: { correctInARow: 1 } } });
-      const missedAgain = p({ review: { x: { correctInARow: 0 } } });
-      expect(mergeProgress(missedAgain, p({}), base).review).toEqual({ x: { correctInARow: 0 } });
+      const base = p({ review: { x: { step: 1, due: "2026-10-01" } } });
+      const missedAgain = p({ review: { x: { step: 0, due: "2026-10-01" } } });
+      expect(mergeProgress(missedAgain, p({}), base).review).toEqual({ x: { step: 0, due: "2026-10-01" } });
     });
 
     it("takes the side that changed, or the lower count if both did", () => {
-      const base = p({ review: { x: { correctInARow: 0 } } });
-      expect(mergeProgress(base, p({ review: { x: { correctInARow: 1 } } }), base).review.x).toEqual({ correctInARow: 1 });
-      const m = mergeProgress(p({ review: { x: { correctInARow: 1 } } }), p({ review: { x: { correctInARow: 0 } } }), p({}));
-      expect(m.review.x).toEqual({ correctInARow: 0 });
+      const base = p({ review: { x: { step: 0, due: "2026-10-01" } } });
+      expect(mergeProgress(base, p({ review: { x: { step: 1, due: "2026-10-01" } } }), base).review.x).toEqual({ step: 1, due: "2026-10-01" });
+      const m = mergeProgress(p({ review: { x: { step: 1, due: "2026-10-01" } } }), p({ review: { x: { step: 0, due: "2026-10-01" } } }), p({}));
+      expect(m.review.x).toEqual({ step: 0, due: "2026-10-01" });
+    });
+
+    it("prefers the sooner due date when both changed to the same step", () => {
+      const m = mergeProgress(p({ review: { x: { step: 1, due: "2026-10-04" } } }), p({ review: { x: { step: 1, due: "2026-10-02" } } }), p({}));
+      expect(m.review.x).toEqual({ step: 1, due: "2026-10-02" });
     });
   });
 

@@ -1,9 +1,13 @@
 import { paths, plannedPaths } from "../content/paths";
-import type { Progress } from "../lib/progress";
+import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 
 export default function HomePage({ progress }: { progress: Progress }) {
-  const reviewCount = Object.keys(progress.review).length;
+  const now = new Date();
+  const dueCount = dueReviewIds(progress, now).length;
+  const upcoming = nextReview(progress, now);
+  const plural = (n: number) => `${n} ${n === 1 ? "exercise" : "exercises"}`;
+  const intervals = REVIEW_INTERVALS.join(", then ");
 
   return (
     <>
@@ -16,17 +20,28 @@ export default function HomePage({ progress }: { progress: Progress }) {
         </p>
       </section>
 
-      {reviewCount > 0 && (
+      {dueCount > 0 && (
         <section className="panel review">
           <div>
-            <h2 className="review-title">
-              Review {reviewCount} missed {reviewCount === 1 ? "exercise" : "exercises"}
-            </h2>
-            <p>Get each one right twice and it leaves your review pile.</p>
+            <h2 className="review-title">{plural(dueCount)} to review today</h2>
+            <p>
+              Each time you get one right, it comes back later: after {intervals} days. Get it right once more after
+              that and it's cleared.
+            </p>
           </div>
           <a className="btn" href={hrefFor({ name: "review" })}>
             Start review
           </a>
+        </section>
+      )}
+      {dueCount === 0 && upcoming && (
+        <section className="panel review quiet">
+          <div>
+            <h2 className="review-title">Nothing to review today</h2>
+            <p>
+              Next review {whenLabel(upcoming.day, now)}: {plural(upcoming.count)}.
+            </p>
+          </div>
         </section>
       )}
 

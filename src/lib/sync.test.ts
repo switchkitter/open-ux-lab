@@ -54,7 +54,7 @@ describe("syncProgress", () => {
 
   it("carries a cleared review item across devices", async () => {
     // Phone and laptop both last synced with item x in review; the phone then cleared it.
-    const synced = p({ review: { x: { correctInARow: 1 } } });
+    const synced = p({ review: { x: { step: 1, due: "2026-10-01" } } });
     const { remote, state } = fakeRemote(synced);
     await syncProgress(p({ xp: 5 }), remote, memoryBase(synced)); // phone
     const laptop = await syncProgress(synced, remote, memoryBase(synced));

@@ -4,7 +4,7 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 
 ## Status
 
-- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Path 3, Form design (8 lessons, 16 exercises). Path 4, Laws of UX (8 lessons, 16 exercises). Progress is stored in the browser (localStorage).
+- **Built:** Spaced review (missed exercises come back after 1, 3, 7 days). Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Path 3, Form design (8 lessons, 16 exercises). Path 4, Laws of UX (8 lessons, 16 exercises). Progress is stored in the browser (localStorage).
 - **Live:** https://switchkitter.github.io/open-ux-lab/ (repo switchkitter/open-ux-lab). Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
 - **Verified (2026-10-01):** `npm install`, `npm run typecheck`, `npm test` (15 tests) and `npm run build` all pass on Node 24.
 - **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
@@ -30,7 +30,7 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/content/types.ts` — content model (LearningPath → Lesson → Exercise)
 - `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
-- `src/lib/progress.ts` — pure progress logic (XP, streaks, review). Keep it free of React and storage.
+- `src/lib/progress.ts` — pure progress logic (XP, streaks, spaced review with `REVIEW_INTERVALS`). Keep it free of React and storage. Review items are `{ step, due }`; `normalizeReviewItem` migrates older stored shapes, so never remove that migration.
 - `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device.
 - `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
 - `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.

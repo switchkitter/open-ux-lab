@@ -115,9 +115,10 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           position={`Exercise ${step} of ${total}`}
           exercise={lesson.exercises[step - 1]}
           nextLabel={step === total ? "Finish lesson" : "Next exercise"}
+          noteFor={(correct) => (correct ? null : "Added to your review pile, so you can practice it again.")}
           onAnswer={(correct) => {
             if (correct) setFirstTry((n) => n + 1);
-            update((p) => recordLessonAnswer(p, lesson.exercises[step - 1].id, correct));
+            update((p) => recordLessonAnswer(p, lesson.exercises[step - 1].id, correct, new Date()));
           }}
           onNext={next}
         />

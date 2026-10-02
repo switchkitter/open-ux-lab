@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
 import { findExercise } from "../content/paths";
-import { recordActivity, recordReviewAnswer, type Progress } from "../lib/progress";
+import { dueReviewIds, nextReview, recordActivity, recordReviewAnswer, reviewOutcome, whenLabel, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
 import { announceScreen } from "../lib/focus";
 import { hrefFor } from "../lib/route";
@@ -9,9 +9,9 @@ import { hrefFor } from "../lib/route";
 type Props = { progress: Progress; update: UpdateProgress };
 
 export default function ReviewPage({ progress, update }: Props) {
-  // Snapshot the queue when review starts so answering doesn't reshuffle it.
+  // Snapshot the due items when review starts so answering doesn't reshuffle the queue.
   const [queue] = useState(() =>
-    Object.keys(progress.review)
+    dueReviewIds(progress, new Date())
       .map(findExercise)
       .filter((x): x is NonNullable<typeof x> => Boolean(x)),
   );
@@ -34,7 +34,6 @@ export default function ReviewPage({ progress, update }: Props) {
   }
 
   if (queue.length === 0 || index >= queue.length) {
-    const left = Object.keys(progress.review).length;
     return (
       <section className="panel done-card">
         <div className="eyebrow">Review</div>
@@ -44,7 +43,7 @@ export default function ReviewPage({ progress, update }: Props) {
             {right}/{queue.length}
           </div>
         )}
-        <p>{left ? `${left} still in your review pile.` : "Your review pile is empty."}</p>
+        <p>{scheduleSummary(progress)}</p>
         <div className="actions">
           <a className="btn" href={hrefFor({ name: "home" })}>
             All lessons
@@ -68,12 +67,23 @@ export default function ReviewPage({ progress, update }: Props) {
         position={`Review ${index + 1} of ${queue.length}`}
         exercise={exercise}
         nextLabel={index === queue.length - 1 ? "Finish review" : "Next"}
+        noteFor={(correct) => reviewOutcome(progress, exercise.id, correct)}
         onAnswer={(correct) => {
           if (correct) setRight((n) => n + 1);
-          update((p) => recordReviewAnswer(p, exercise.id, correct));
+          update((p) => recordReviewAnswer(p, exercise.id, correct, new Date()));
         }}
         onNext={next}
       />
     </>
   );
+}
+
+function scheduleSummary(progress: Progress): string {
+  const now = new Date();
+  const dueNow = dueReviewIds(progress, now).length;
+  const upcoming = nextReview(progress, now);
+  if (dueNow) return `${dueNow} still due today.`;
+  if (!upcoming) return "Your review pile is empty.";
+  const total = Object.keys(progress.review).length;
+  return `Next review ${whenLabel(upcoming.day, now)} (${upcoming.count} ${upcoming.count === 1 ? "exercise" : "exercises"}). ${total} in your review pile in total.`;
 }

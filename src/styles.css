@@ -291,3 +291,5 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .verdict.right { color: var(--good); }
 .verdict.wrong { color: var(--bad); }
 .opt .verdict { display: block; margin-top: 6px; }
+.review.quiet { background: transparent; }
+.feedback-note { margin: 8px 0 0; font-weight: 700; }

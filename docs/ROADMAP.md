@@ -15,7 +15,7 @@
 - [x] Shuffle option order in choice exercises
 
 ## 0.3 — Learning that sticks
-- [ ] Spaced repetition with due dates instead of a simple review pile
+- [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
 - [ ] Skill map across paths
 - [ ] Progress export/import as a file
 

@@ -9,10 +9,18 @@ export const XP = {
   reviewCorrect: 5,
 } as const;
 
-/** Correct answers in a row needed to clear an item from review. */
-export const REVIEW_CLEAR_AFTER = 2;
+/**
+ * Spaced review: after each correct review, an item comes back after the next interval (in days).
+ * Correct once more after the last interval and it's cleared. A wrong answer starts it over.
+ */
+export const REVIEW_INTERVALS = [1, 3, 7] as const;
 
-export type ReviewItem = { correctInARow: number };
+export type ReviewItem = {
+  /** Correct reviews in a row so far (0 = just missed). */
+  step: number;
+  /** Local day it's next due, e.g. "2026-10-02". Due when this is today or earlier. */
+  due: string;
+};
 
 export type Progress = {
   version: 1;
@@ -35,6 +43,54 @@ export function dayKey(date: Date): string {
   return `${y}-${m}-${d}`;
 }
 
+/** Day key `days` after the given day key. */
+export function addDays(key: string, days: number): string {
+  const [y, m, d] = key.split("-").map(Number);
+  return dayKey(new Date(y, m - 1, d + days));
+}
+
+/** Whole days from today until the given day key (0 = today, negative = past). */
+export function daysUntil(key: string, now: Date): number {
+  const [y, m, d] = key.split("-").map(Number);
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.round((new Date(y, m - 1, d).getTime() - today.getTime()) / 86_400_000);
+}
+
+/** "today", "tomorrow" or "in 3 days". */
+export function whenLabel(key: string, now: Date): string {
+  const n = daysUntil(key, now);
+  return n <= 0 ? "today" : n === 1 ? "tomorrow" : `in ${n} days`;
+}
+
+/** What happens to an item after this review answer, in words, before recording it. */
+export function reviewOutcome(p: Progress, exerciseId: string, correct: boolean): string {
+  if (!correct) return "It'll come back tomorrow.";
+  const step = p.review[exerciseId]?.step ?? 0;
+  if (step >= REVIEW_INTERVALS.length) return "That's cleared from your review pile.";
+  const days = REVIEW_INTERVALS[step];
+  return `Next review ${days === 1 ? "tomorrow" : `in ${days} days`}.`;
+}
+
+export function isDue(item: ReviewItem, now: Date): boolean {
+  return item.due <= dayKey(now);
+}
+
+/** Exercise IDs due for review now, soonest first. */
+export function dueReviewIds(p: Progress, now: Date): string[] {
+  return Object.entries(p.review)
+    .filter(([, item]) => isDue(item, now))
+    .sort(([, a], [, b]) => (a.due < b.due ? -1 : a.due > b.due ? 1 : 0))
+    .map(([id]) => id);
+}
+
+/** The earliest upcoming review day and how many items are due then, or null if nothing is scheduled. */
+export function nextReview(p: Progress, now: Date): { day: string; count: number } | null {
+  const today = dayKey(now);
+  const upcoming = Object.values(p.review).filter((item) => item.due > today).map((item) => item.due).sort();
+  if (!upcoming.length) return null;
+  return { day: upcoming[0], count: upcoming.filter((d) => d === upcoming[0]).length };
+}
+
 /** Updates the daily streak. Call when the learner finishes a lesson or review. */
 export function recordActivity(p: Progress, now: Date): Progress {
   const today = dayKey(now);
@@ -45,23 +101,38 @@ export function recordActivity(p: Progress, now: Date): Progress {
   return { ...p, streak, lastActiveDay: today };
 }
 
-/** Answer given inside a lesson. Wrong answers go to the review pile. */
-export function recordLessonAnswer(p: Progress, exerciseId: string, correct: boolean): Progress {
+/** Answer given inside a lesson. Wrong answers go to the review pile, due straight away. */
+export function recordLessonAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
   if (correct) return { ...p, xp: p.xp + XP.correctFirstTry };
-  return { ...p, review: { ...p.review, [exerciseId]: { correctInARow: 0 } } };
+  return { ...p, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
 }
 
-/** Answer given in review mode. Items clear after REVIEW_CLEAR_AFTER correct answers in a row. */
-export function recordReviewAnswer(p: Progress, exerciseId: string, correct: boolean): Progress {
+/**
+ * Answer given in review mode. Correct moves the item to the next interval, or clears it after the
+ * last one. Wrong starts it over, due tomorrow (the learner has just seen the explanation).
+ */
+export function recordReviewAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
   const review = { ...p.review };
+  const today = dayKey(now);
   if (!correct) {
-    review[exerciseId] = { correctInARow: 0 };
+    review[exerciseId] = { step: 0, due: addDays(today, 1) };
     return { ...p, review };
   }
-  const next = (review[exerciseId]?.correctInARow ?? 0) + 1;
-  if (next >= REVIEW_CLEAR_AFTER) delete review[exerciseId];
-  else review[exerciseId] = { correctInARow: next };
+  const step = review[exerciseId]?.step ?? 0;
+  if (step >= REVIEW_INTERVALS.length) delete review[exerciseId];
+  else review[exerciseId] = { step: step + 1, due: addDays(today, REVIEW_INTERVALS[step]) };
   return { ...p, xp: p.xp + XP.reviewCorrect, review };
+}
+
+/**
+ * Brings a stored review item to the current shape. Older versions stored { correctInARow } with no
+ * due date; those become due straight away at the same step.
+ */
+export function normalizeReviewItem(raw: unknown): ReviewItem {
+  const item = (raw && typeof raw === "object" ? raw : {}) as Partial<ReviewItem> & { correctInARow?: number };
+  const step = typeof item.step === "number" ? item.step : typeof item.correctInARow === "number" ? item.correctInARow : 0;
+  const due = typeof item.due === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.due) ? item.due : "0000-00-00";
+  return { step: Math.max(0, Math.min(step, REVIEW_INTERVALS.length)), due };
 }
 
 /** Marks a lesson complete. XP for completion is only awarded once. */

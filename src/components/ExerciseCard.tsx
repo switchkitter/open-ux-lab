@@ -10,13 +10,16 @@ type Props = {
   position?: string;
   exercise: Exercise;
   nextLabel: string;
+  /** Extra line in the feedback, e.g. when this exercise comes back for review. Called once, on answer. */
+  noteFor?: (correct: boolean) => string | null;
   onAnswer: (correct: boolean) => void;
   onNext: () => void;
 };
 
 /** One exercise. Remount with key={exercise.id} to reset between exercises. */
-export default function ExerciseCard({ code, position, exercise, nextLabel, onAnswer, onNext }: Props) {
+export default function ExerciseCard({ code, position, exercise, nextLabel, noteFor, onAnswer, onNext }: Props) {
   const [picked, setPicked] = useState<string | null>(null);
+  const [note, setNote] = useState<string | null>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const uid = useId();
   // Choice options appear in a new random order each time, so learners can't memorize positions.
@@ -34,6 +37,8 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, onAn
   function pick(key: string) {
     if (answered) return;
     setPicked(key);
+    // Work out the note before onAnswer updates progress, since it describes the state being changed.
+    setNote(noteFor?.(key === correctKey) ?? null);
     onAnswer(key === correctKey);
   }
 
@@ -107,6 +112,7 @@ export default function ExerciseCard({ code, position, exercise, nextLabel, onAn
           <div className={`feedback ${isCorrect ? "good" : "bad"}`} ref={feedbackRef} tabIndex={-1}>
             <strong>{isCorrect ? "Right." : "Not quite."}</strong>
             {exercise.why}
+            {note && <p className="feedback-note">{note}</p>}
           </div>
           <div className="actions">
             <button className="btn" type="button" onClick={onNext}>
