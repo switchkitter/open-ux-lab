@@ -1,9 +1,10 @@
 import { useSyncExternalStore } from "react";
-import { loadSoundEnabled, playSound, saveSoundEnabled, type SoundName } from "./sound";
+import { keepAudioAwake, loadSoundEnabled, playSound, saveSoundEnabled, type SoundName } from "./sound";
 
 // One shared setting for the whole app, so the header toggle and exercises always agree.
 let enabled = loadSoundEnabled();
 const listeners = new Set<() => void>();
+keepAudioAwake(() => enabled);
 
 export function setSoundEnabled(on: boolean) {
   enabled = on;
