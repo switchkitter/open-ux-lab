@@ -6,7 +6,7 @@ Free UX practice: short lessons and "pick the better design" exercises, built fr
 
 Requires Node.js 20 or newer.
 
-Live site: https://switchkitter.github.io/open-ux-lab/
+Live site: https://openuxlab.com
 
 ```bash
 npm install
