@@ -1,0 +1,59 @@
+# Open UX Lab
+
+A free, Uxcel-style UX learning app: short lessons followed by "pick the better design" exercises, with XP, streaks and a review pile for missed questions. The goal is to grow it into something good enough to share publicly.
+
+## Status
+
+- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Progress is stored in the browser (localStorage).
+- **Not verified yet:** this project was written outside a machine with npm access. On the first session, run `npm install`, `npm run typecheck`, `npm test` and `npm run build`, and fix anything that fails before adding features.
+
+## Stack
+
+- Vite + React 19 + TypeScript (strict)
+- Vitest for unit tests
+- Plain CSS with design tokens in `src/styles.css` (no CSS framework)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/lesson/:id`, `#/review`)
+
+## Commands
+
+- `npm run dev` — local dev server
+- `npm test` — run tests once
+- `npm run typecheck` — TypeScript check
+- `npm run build` — typecheck + production build
+
+Run `npm run typecheck` and `npm test` after every change.
+
+## Layout
+
+- `src/content/types.ts` — content model (LearningPath → Lesson → Exercise)
+- `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
+- `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
+- `src/lib/progress.ts` — pure progress logic (XP, streaks, review). Keep it free of React and storage.
+- `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. A server-backed store should implement the same interface.
+- `src/components/`, `src/pages/` — UI
+
+## Content rules (important — the app is meant to be shared)
+
+See `CONTENT_GUIDELINES.md`. In short:
+- Write all lesson text, questions and explanations in original words. Never paste or closely paraphrase paragraphs from sources such as NN/g, IxDF, Laws of UX or Baymard.
+- Every lesson links to at least one trusted source for depth.
+- Content from openly licensed sources (e.g. GOV.UK Design System, USWDS, W3C) may be adapted only if its license allows it, with attribution. Check the license first and note it in the lesson's sources.
+- Exercise mockups are small HTML snippets using the `.mk-*` classes. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
+- Exercise IDs are stable keys for learners' review piles. Never rename or reuse an ID once shipped.
+
+## Writing style for lessons
+
+- Plain, direct sentences. Second person where it helps ("you"), active voice.
+- Concrete examples from real products: enterprise tools, forms, dashboards, checkout.
+- Explanations ("why") say why the right answer is right AND what's wrong with the alternative.
+- Distractors should be plausible things a real team might do, not jokes.
+
+## Design system
+
+- Tokens are defined on `:root` with dark-mode overrides (`prefers-color-scheme` and `[data-theme]`). Use tokens, never literal colors.
+- Fonts: Bricolage Grotesque (display), Atkinson Hyperlegible (body), JetBrains Mono (labels/codes).
+- The app must stay keyboard-accessible, readable at 400px wide, and meet WCAG AA contrast. This is a UX learning app, so it should model good UX.
+
+## Roadmap
+
+See `docs/ROADMAP.md`.

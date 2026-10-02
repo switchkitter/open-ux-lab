@@ -1,0 +1,455 @@
+import type { Lesson, LearningPath } from "../types";
+
+const NNG = "https://www.nngroup.com/articles/ten-usability-heuristics/";
+const nng = { title: "NN/g: 10 Usability Heuristics", url: NNG };
+
+const lessons: Lesson[] = [
+  {
+    id: "h1",
+    code: "H1",
+    title: "Visibility of system status",
+    subtitle: "Keep people informed, right away",
+    minutes: 5,
+    body: [
+      "People act with confidence when they can tell what the system is doing. Every action deserves a response, and every wait deserves an explanation. Silence makes people click again, refresh, or give up.",
+      "Good status feedback answers three questions: did it work, what is happening now, and how long will it take. It also shows where the person is: the current page in the navigation, the current step in a flow, the unsaved state of a document.",
+    ],
+    practice: [
+      "Respond to every click or tap within about a tenth of a second, even if only by changing the button state.",
+      "For waits longer than a second or two, show progress. For long waits, show how much is left.",
+      "Confirm completed actions in place (a “Saved” label, a toast) instead of leaving people to guess.",
+      "Show location: highlight the current nav item and number the steps of a multi-step form.",
+    ],
+    fieldExercise:
+      "Open any form in a product you work on and submit it on a throttled connection. Write down every moment where nothing visibly changes for more than a second.",
+    sources: [nng, { title: "NN/g: Visibility of System Status", url: "https://www.nngroup.com/articles/visibility-system-status/" }],
+    exercises: [
+      {
+        id: "h1-upload-progress",
+        type: "compare",
+        question: "A user just clicked Upload on a 40 MB file. Which screen serves them better?",
+        a: `<div class="mk"><div class="mk-title">Upload report</div><div class="mk-in">quarterly-report.pdf</div><div class="mk-row"><span class="mk-btn dim">Upload</span></div></div>`,
+        b: `<div class="mk"><div class="mk-title">Upload report</div><div class="mk-muted">quarterly-report.pdf · 62% · about 8 sec left</div><div class="mk-bar"><i style="width:62%"></i></div><div class="mk-row"><span class="mk-btn sec">Cancel upload</span></div></div>`,
+        correct: "b",
+        why: "B says what is happening, how far along it is, and how long is left, and it offers a way out. A only greys out the button, so people can't tell whether the upload started, stalled, or failed.",
+      },
+      {
+        id: "h1-save-feedback",
+        type: "choice",
+        question: "Saving a timesheet takes about 4 seconds. What is the best feedback?",
+        options: [
+          "Nothing until it finishes, then reload the page",
+          "Change the button to “Saving…” with a spinner, then show “Saved at 3:42 PM”",
+          "A modal dialog that says “Your data has been saved successfully” with an OK button",
+          "Disable the whole page until the save completes",
+        ],
+        correct: 1,
+        why: "In-place feedback during the wait plus a quiet confirmation afterwards keeps people informed without interrupting them. A modal adds a click for no benefit, and a frozen page with no message looks broken.",
+      },
+    ],
+  },
+  {
+    id: "h2",
+    code: "H2",
+    title: "Match between the system and the real world",
+    subtitle: "Speak the user's language",
+    minutes: 5,
+    body: [
+      "Interfaces should use the words, concepts and conventions people already know from their work and life, not the vocabulary of the database or the engineering team.",
+      "This also covers order and metaphor. Information should appear in the order people expect, and icons or metaphors should map to real-world meaning the audience actually shares.",
+    ],
+    practice: [
+      "Label things with the terms your users say out loud. Listen in interviews and support calls for their words.",
+      "Hide internal IDs, codes and system states unless people genuinely use them.",
+      "Follow the real-world sequence of a task: a shipping form asks for name, then street, then city.",
+      "Test icons without labels. If people can't name them, add a label.",
+    ],
+    fieldExercise:
+      "Pick one screen and list every label on it. Circle any word a new user wouldn't use when describing the task to a coworker.",
+    sources: [nng],
+    exercises: [
+      {
+        id: "h2-date-field",
+        type: "compare",
+        question: "Which field is easier for an office manager scheduling a meeting room?",
+        a: `<div class="mk"><div class="mk-label">booking_start_ts (Unix epoch, UTC)</div><div class="mk-in">1791993600</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Start date and time</div><div class="mk-row"><span class="mk-in">Mon, Oct 12, 2026</span><span class="mk-in">9:00 AM</span></div><div class="mk-muted">Mountain Time</div></div>`,
+        correct: "b",
+        why: "B uses the date format and time zone people think in. A exposes how the system stores the value, which forces people to translate in their heads and invites errors.",
+      },
+      {
+        id: "h2-field-label",
+        type: "choice",
+        question: "A timesheet app for hourly staff labels a field “Billable unit allocation (decimal)”. What's the best fix?",
+        options: [
+          "Add a tooltip that explains what a billable unit is",
+          "Rename it “Hours worked” with an example like “7.5”",
+          "Keep the label but add a validation error for non-decimals",
+          "Move the field to an Advanced section",
+        ],
+        correct: 1,
+        why: "The problem is the vocabulary itself. Renaming the field to the words staff already use removes the need for an explanation. A tooltip treats the symptom and still makes everyone read it.",
+      },
+    ],
+  },
+  {
+    id: "h3",
+    code: "H3",
+    title: "User control and freedom",
+    subtitle: "Clear exits and easy undo",
+    minutes: 5,
+    body: [
+      "People make mistakes and change their minds. They need a clearly marked way out of anything they got into by accident, without having to go through a long process.",
+      "Undo is the strongest form of control. It lets people explore with less fear, and for frequent, reversible actions it usually beats asking “Are you sure?” every time.",
+    ],
+    practice: [
+      "Give every flow a visible Back and Cancel, and say what Cancel will discard.",
+      "Prefer undo over confirmation dialogs for actions people do often and can safely reverse.",
+      "Let people leave a long form and come back later with their work saved as a draft.",
+      "Make it easy to exit modes, overlays and full-screen views with Esc or a close button.",
+    ],
+    fieldExercise:
+      "Walk through your product's longest task. At each step, note whether you could back out without losing work.",
+    sources: [nng],
+    exercises: [
+      {
+        id: "h3-undo-vs-confirm",
+        type: "compare",
+        question: "People archive dozens of messages a day. Which pattern supports them better?",
+        a: `<div class="mk"><div class="mk-title">Archive this conversation?</div><div class="mk-muted">This action can be reversed later from the Archive folder.</div><div class="mk-row"><span class="mk-btn sec">Cancel</span><span class="mk-btn">Archive</span></div></div>`,
+        b: `<div class="mk"><div class="mk-muted">Inbox · 41 conversations</div><div class="mk-toast"><span>Conversation archived</span><u>Undo</u></div></div>`,
+        correct: "b",
+        why: "For a frequent, reversible action, undo keeps people moving and still rescues the occasional mistake. A confirmation on every archive adds a click each time, and people soon click through it without reading.",
+      },
+      {
+        id: "h3-wizard-back",
+        type: "choice",
+        question: "A five-step onboarding wizard has no Back button, and Cancel throws away everything. What's the best improvement?",
+        options: [
+          "Add a warning on step 1 that Cancel discards progress",
+          "Add Back on every step and save progress as a draft people can resume",
+          "Remove the Cancel button so nobody loses work",
+          "Combine all five steps into one long page",
+        ],
+        correct: 1,
+        why: "Back lets people correct earlier answers, and drafts make leaving safe. Removing Cancel traps people, which is the opposite of control.",
+      },
+    ],
+  },
+  {
+    id: "h4",
+    code: "H4",
+    title: "Consistency and standards",
+    subtitle: "Same thing, same look, same place",
+    minutes: 5,
+    body: [
+      "People shouldn't have to wonder whether different words, styles or actions mean the same thing. Internal consistency means your product behaves the same way everywhere.",
+      "External consistency matters too. People spend most of their time in other products, so they arrive expecting the platform's conventions. Breaking them costs learning time.",
+    ],
+    practice: [
+      "Use one word for one concept across the product: not Delete here and Remove there.",
+      "Keep primary and secondary buttons in the same order and style on every screen.",
+      "Follow platform conventions: the logo links home, a magnifier means search, underlined text is a link.",
+      "Capture patterns in a design system so consistency doesn't depend on memory.",
+    ],
+    fieldExercise:
+      "Screenshot every dialog in one product and line them up. Compare button labels, order and styling.",
+    sources: [nng, { title: "Laws of UX: Jakob's Law", url: "https://lawsofux.com/jakobs-law/" }],
+    exercises: [
+      {
+        id: "h4-dialog-conventions",
+        type: "compare",
+        question: "Which dialog follows common conventions?",
+        a: `<div class="mk"><div class="mk-title">Edit profile</div><div class="mk-in">Reece</div><div class="mk-row"><span class="mk-btn danger">Abort</span><span class="mk-link">proceed</span></div></div>`,
+        b: `<div class="mk"><div class="mk-title">Edit profile</div><div class="mk-in">Reece</div><div class="mk-row"><span class="mk-btn sec">Cancel</span><span class="mk-btn">Save</span></div></div>`,
+        correct: "b",
+        why: "B uses the familiar labels and gives the main action the main button style. A styles the escape route like the important action and hides the real action as a link, which reverses what people expect.",
+      },
+      {
+        id: "h4-logo-home",
+        type: "choice",
+        question: "Your app's logo in the top-left corner does nothing when clicked. What does this mainly break?",
+        options: [
+          "Internal consistency",
+          "External consistency with web conventions",
+          "Aesthetic and minimalist design",
+          "Error prevention",
+        ],
+        correct: 1,
+        why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent.",
+      },
+    ],
+  },
+  {
+    id: "h5",
+    code: "H5",
+    title: "Error prevention",
+    subtitle: "Design so mistakes are hard to make",
+    minutes: 5,
+    body: [
+      "Good error messages matter, but preventing the error in the first place is better. Look for conditions that set people up to fail and remove them.",
+      "It helps to separate two kinds of error. Slips are wrong actions when the person knew the right one, such as a typo or a misclick. Mistakes come from a wrong understanding of how something works. Slips need constraints and forgiving input; mistakes need clearer design.",
+    ],
+    practice: [
+      "Use constraints: disable impossible dates, offer choices instead of free text where the options are fixed.",
+      "Accept input in any reasonable format and clean it up yourself (spaces in phone numbers, dashes in IDs).",
+      "Set safe defaults and separate destructive actions from common ones.",
+      "For serious, irreversible actions, ask for a deliberate confirmation such as typing the project name.",
+    ],
+    fieldExercise:
+      "Find the most common validation error in your product's logs or support tickets. Ask whether the design could make it impossible.",
+    sources: [nng, { title: "NN/g: Preventing User Errors (slips)", url: "https://www.nngroup.com/articles/slips/" }],
+    exercises: [
+      {
+        id: "h5-danger-zone",
+        type: "compare",
+        question: "Which settings panel better prevents someone from deleting a project by accident?",
+        a: `<div class="mk"><div class="mk-title">Project settings</div><div class="mk-row"><span class="mk-btn">Save</span><span class="mk-btn">Delete project</span></div></div>`,
+        b: `<div class="mk"><div class="mk-title">Project settings</div><div class="mk-row"><span class="mk-btn">Save</span></div><div class="mk-label">Danger zone</div><div class="mk-muted">Type <b>apollo-site</b> to permanently delete this project.</div><div class="mk-row"><span class="mk-in">apollo-si</span><span class="mk-btn danger dim">Delete</span></div></div>`,
+        correct: "b",
+        why: "B separates the destructive action from the everyday one and requires a deliberate step before something permanent. In A, Delete sits next to Save in the same style, a setup for a costly slip.",
+      },
+      {
+        id: "h5-forgiving-input",
+        type: "choice",
+        question: "A form rejects phone numbers typed with spaces or dashes. What's the best fix?",
+        options: [
+          "Add hint text: “Digits only, no spaces”",
+          "Show a clearer error after submit",
+          "Accept any format and strip the extra characters in code",
+          "Split the field into three boxes",
+        ],
+        correct: 2,
+        why: "The format rule exists for the system, not the person. Accepting what people naturally type removes the error entirely, which beats explaining the rule or reporting the error better.",
+      },
+    ],
+  },
+  {
+    id: "h6",
+    code: "H6",
+    title: "Recognition rather than recall",
+    subtitle: "Show options instead of testing memory",
+    minutes: 5,
+    body: [
+      "Recognizing something you can see is much easier than remembering it from scratch. Interfaces should make objects, actions and options visible so people don't have to hold information in their heads.",
+      "This applies across screens too. If people need something from step 2 on step 4, show it again on step 4.",
+    ],
+    practice: [
+      "Show recent items, recent searches and suggestions instead of blank inputs.",
+      "Keep relevant information visible when it is needed, such as order details at payment.",
+      "Use visible menus and labelled icons rather than hidden gestures or memorized commands.",
+      "Offer previews and examples so people can recognize the right choice.",
+    ],
+    fieldExercise:
+      "Look for any screen that asks people to type something the system already knows. Each one is a recall burden you can remove.",
+    sources: [nng, { title: "NN/g: Memory Recognition and Recall", url: "https://www.nngroup.com/articles/recognition-and-recall/" }],
+    exercises: [
+      {
+        id: "h6-recent-items",
+        type: "compare",
+        question: "A manager wants to reopen a review they worked on yesterday. Which screen helps more?",
+        a: `<div class="mk"><div class="mk-label">Find a review</div><div class="mk-in">Enter review ID</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Find a review</div><div class="mk-in">Search by name</div><div class="mk-label">Recently opened</div><div class="mk-muted">Jordan Lee · Q3 review · yesterday</div><div class="mk-muted">Priya Shah · Q3 review · Mon</div></div>`,
+        correct: "b",
+        why: "B lets the manager recognize the review in a list instead of remembering an ID. Search by name also works with what people naturally remember.",
+      },
+      {
+        id: "h6-checkout-summary",
+        type: "choice",
+        question: "On a checkout's payment step, people keep asking which shipping option they chose. What's the best fix?",
+        options: [
+          "Add a Back link to the shipping step",
+          "Show a summary of the chosen shipping option on the payment step",
+          "Send a confirmation email with the shipping choice",
+          "Make the shipping step bigger so people remember it",
+        ],
+        correct: 1,
+        why: "Showing the choice where it's needed removes the memory burden. A Back link makes people leave the task to check, and an email arrives too late.",
+      },
+    ],
+  },
+  {
+    id: "h7",
+    code: "H7",
+    title: "Flexibility and efficiency of use",
+    subtitle: "Shortcuts for experts, simple paths for novices",
+    minutes: 5,
+    body: [
+      "A product used daily should get faster as people get better at it. Accelerators such as keyboard shortcuts, bulk actions and templates help experienced users without getting in the way of new ones.",
+      "Flexibility can also mean personalization: letting people set defaults, save views, or reorder what they see most.",
+    ],
+    practice: [
+      "Add keyboard shortcuts for frequent actions and show them in menus and tooltips.",
+      "Support bulk selection and bulk edit for repetitive work.",
+      "Offer “copy from last time”, templates and saved filters.",
+      "Keep the simple path visible so beginners never need the shortcuts.",
+    ],
+    fieldExercise:
+      "Ask an expert user to do their most repeated task while you watch. Count the clicks. Any step repeated per row is a candidate for a bulk action.",
+    sources: [nng],
+    exercises: [
+      {
+        id: "h7-bulk-grid",
+        type: "compare",
+        question: "An accountant reviews 200 timesheet rows every Friday. Which grid suits them?",
+        a: `<div class="mk"><div class="mk-row"><span class="mk-muted">☐ Select all</span><span class="mk-btn">Approve 12 selected</span></div><div class="mk-muted">Mon · 8.0 h · Site visit</div><div class="mk-muted">Tue · 7.5 h · Design review</div><div class="mk-row"><span class="mk-kbd">A</span><span class="mk-muted">approve</span><span class="mk-kbd">J</span><span class="mk-kbd">K</span><span class="mk-muted">next/prev</span></div></div>`,
+        b: `<div class="mk"><div class="mk-muted">Mon · 8.0 h · Site visit <span class="mk-link">Open</span></div><div class="mk-muted">Tue · 7.5 h · Design review <span class="mk-link">Open</span></div><div class="mk-muted">Open each row to approve it.</div></div>`,
+        correct: "a",
+        why: "A keeps the simple path (click Approve) while adding bulk selection and keyboard shortcuts for heavy use. B forces 200 open-approve-close cycles.",
+      },
+      {
+        id: "h7-visible-shortcuts",
+        type: "choice",
+        question: "Which accelerator is least likely to confuse first-time users?",
+        options: [
+          "A shortcut that only works if you know it, with no hint anywhere",
+          "Hidden swipe gestures that delete rows",
+          "Keyboard shortcuts shown next to the matching menu items",
+          "Replacing buttons with shortcuts to save space",
+        ],
+        correct: 2,
+        why: "Showing shortcuts beside the normal controls teaches them gradually. Beginners still have the visible button, and experts learn the shortcut by seeing it.",
+      },
+    ],
+  },
+  {
+    id: "h8",
+    code: "H8",
+    title: "Aesthetic and minimalist design",
+    subtitle: "Every element competes for attention",
+    minutes: 5,
+    body: [
+      "Interfaces shouldn't contain information that is irrelevant or rarely needed. Each extra element competes with the ones that matter and lowers their visibility.",
+      "Minimalist doesn't mean flat or sparse for its own sake. It means the content and visual design support the person's main goals and nothing distracts from them.",
+    ],
+    practice: [
+      "Decide what the one job of each screen is and give it the most visual weight.",
+      "Move rarely used details behind progressive disclosure.",
+      "Cut decorative color and badges that don't carry meaning.",
+      "Write shorter copy: remove introductions and repeated explanations.",
+    ],
+    fieldExercise:
+      "Take a busy dashboard and mark each element as “used weekly”, “used rarely” or “never”. Propose where the rarely and never items should go.",
+    sources: [nng],
+    exercises: [
+      {
+        id: "h8-focused-card",
+        type: "compare",
+        question: "A store manager opens this card to check whether sales are on track. Which works better?",
+        a: `<div class="mk"><div class="mk-label">Sales this week</div><div class="mk-big">$48,210</div><div class="mk-up">▲ 6% vs last week</div><div class="mk-link">See breakdown</div></div>`,
+        b: `<div class="mk"><div class="mk-grid"><div class="mk-cell"><b>$48,210</b>Sales <span class="mk-pill">NEW</span></div><div class="mk-cell"><b>1,204</b>Orders</div><div class="mk-cell"><b>3.1%</b>Conv.</div><div class="mk-cell"><b>$40.04</b>AOV</div><div class="mk-cell"><b>212</b>Returns</div><div class="mk-cell"><b>18</b>SKUs <span class="mk-pill">HOT</span></div></div></div>`,
+        correct: "a",
+        why: "A answers the manager's question at a glance and links to the detail. B gives every metric equal weight, so the one that matters has to be hunted for.",
+      },
+      {
+        id: "h8-minimalist-meaning",
+        type: "choice",
+        question: "What does “minimalist” mean in this heuristic?",
+        options: [
+          "Using a flat visual style",
+          "Showing as few pixels as possible",
+          "Leaving out content and decoration that don't support the user's goal",
+          "Using only one or two colors",
+        ],
+        correct: 2,
+        why: "The heuristic is about relevance. A rich screen can be minimalist if everything on it serves the task, and a sparse one can fail if it hides what people need.",
+      },
+    ],
+  },
+  {
+    id: "h9",
+    code: "H9",
+    title: "Help users recognize, diagnose, and recover from errors",
+    subtitle: "Plain language, precise problem, a way forward",
+    minutes: 5,
+    body: [
+      "When errors happen, the message should say in plain language what went wrong and suggest a fix. Error codes and blame don't help anyone recover.",
+      "Placement and visibility matter as much as wording. Show the message where the problem is, make it noticeable, and keep the person's input so they only fix what's wrong.",
+    ],
+    practice: [
+      "Name the specific problem and the specific fix.",
+      "Show field errors next to the field, and highlight the field itself.",
+      "Keep what people typed. Never clear a form because one field failed.",
+      "Avoid blaming language and vague words like “invalid” or “illegal”.",
+    ],
+    fieldExercise:
+      "Trigger five errors in your product on purpose. Rate each message: does it say what happened, why, and what to do next?",
+    sources: [nng, { title: "NN/g: Error-Message Guidelines", url: "https://www.nngroup.com/articles/error-message-guidelines/" }],
+    exercises: [
+      {
+        id: "h9-existing-account",
+        type: "compare",
+        question: "Someone signs up with an email that already has an account. Which message helps them recover?",
+        a: `<div class="mk"><div class="mk-label">Email</div><div class="mk-in err">reece@example.com</div><div class="mk-err">This email already has an account.</div><div class="mk-row"><span class="mk-link">Sign in instead</span><span class="mk-link">Reset password</span></div></div>`,
+        b: `<div class="mk"><div class="mk-err">Error 409: Invalid input.</div><div class="mk-label">Email</div><div class="mk-in">&nbsp;</div></div>`,
+        correct: "a",
+        why: "A explains the actual situation at the field and gives two ways forward, and it keeps the email. B uses a code, says nothing specific, and clears the input.",
+      },
+      {
+        id: "h9-error-placement",
+        type: "choice",
+        question: "Where should a form field's validation error usually appear?",
+        options: [
+          "Only in a banner at the top of the page",
+          "Next to the field, with the field highlighted",
+          "In a pop-up dialog after submit",
+          "In the browser console",
+        ],
+        correct: 1,
+        why: "Errors next to the field connect the problem to its location. A summary at the top can help on long forms, but it should link to the fields rather than replace inline messages.",
+      },
+    ],
+  },
+  {
+    id: "h10",
+    code: "H10",
+    title: "Help and documentation",
+    subtitle: "Help that is easy to find and act on",
+    minutes: 5,
+    body: [
+      "Ideally a product needs no explanation, but some tasks are complex. When help is needed, it should be easy to search, focused on the task, and list concrete steps.",
+      "The best help often appears in context, right where the question comes up, instead of in a separate manual people have to go looking for.",
+    ],
+    practice: [
+      "Put short explanations next to complex fields and settings.",
+      "Write help as task steps (“To export a report…”) rather than feature descriptions.",
+      "Make documentation searchable and use the words people search with.",
+      "Use onboarding sparingly and let people skip and revisit it.",
+    ],
+    fieldExercise:
+      "Read your product's top five support tickets. For each, decide whether a one-line in-context hint would have prevented it.",
+    sources: [nng],
+    exercises: [
+      {
+        id: "h10-contextual-help",
+        type: "compare",
+        question: "A setting called “Accrual method” confuses new admins. Which help works better?",
+        a: `<div class="mk"><div class="mk-label">Accrual method</div><div class="mk-in">Per pay period ▾</div><div class="mk-muted">How leave builds up. “Per pay period” adds hours each paycheck; “Annual” adds them all on Jan 1.</div></div>`,
+        b: `<div class="mk"><div class="mk-label">Accrual method</div><div class="mk-in">Per pay period ▾</div><div class="mk-muted">For details, see the Administrator Guide (PDF, 86 pages).</div></div>`,
+        correct: "a",
+        why: "A answers the question in the moment, with concrete meaning for each option. B sends people away to a long document to find one paragraph.",
+      },
+      {
+        id: "h10-task-titles",
+        type: "choice",
+        question: "Which help article title is most useful?",
+        options: [
+          "Reports module overview",
+          "How to export a report to Excel",
+          "Advanced report configuration parameters",
+          "Reports FAQ",
+        ],
+        correct: 1,
+        why: "Task-based titles match what people are trying to do and what they search for. Feature-based titles make people guess where their answer lives.",
+      },
+    ],
+  },
+];
+
+export const heuristicsPath: LearningPath = {
+  id: "heuristics",
+  title: "Nielsen's 10 usability heuristics",
+  description: "The classic checklist for evaluating any interface.",
+  status: "live",
+  lessons,
+};
