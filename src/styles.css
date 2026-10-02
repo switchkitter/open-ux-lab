@@ -163,6 +163,8 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .field b { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
 .sources { margin-top: 22px; font-size: 14px; color: var(--muted); }
 .sources a { display: inline-block; margin-right: 12px; }
+.sources .license-note { margin: 8px 0 0; font-size: 13px; }
+.sources .license-note a { display: inline; margin: 0; }
 
 /* Exercises */
 .q { font-family: var(--f-display); font-size: 21px; font-weight: 700; max-width: 60ch; margin: 8px 0 0; }
@@ -225,6 +227,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .mk-dot.good { background: var(--good); }
 .mk-dot.bad { background: var(--bad); }
 .mk-dot.warn { background: var(--mark); }
+.mk-errsum { display: grid; gap: 4px; border: 3px solid var(--bad); border-radius: 5px; padding: 8px 10px; }
 .mk-media { display: grid; place-items: center; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 5px; background: var(--mk-line); color: var(--fg); font-size: 12px; text-align: center; padding: 8px; }
 
 @media (prefers-reduced-motion: reduce) {

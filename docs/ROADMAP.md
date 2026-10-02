@@ -10,7 +10,7 @@
 ## 0.2 — More content
 - [x] Accessibility basics path (W3C WAI): 8 lessons, 16 exercises
 - [ ] Laws of UX path
-- [ ] Form design path (GOV.UK, USWDS)
+- [x] Form design path (GOV.UK, USWDS): 8 lessons, 16 exercises
 - [ ] Third exercise type: "spot the problem" (tap the area of a mockup that breaks a principle)
 - [x] Shuffle option order in choice exercises
 

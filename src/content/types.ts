@@ -7,9 +7,16 @@
  * - Mockup HTML is authored by us and rendered as trusted markup. Never put user input in it.
  */
 
+export type License = {
+  name: string;
+  url: string;
+};
+
 export type Source = {
   title: string;
   url: string;
+  /** Set for openly licensed sources (GOV.UK, USWDS, ...) so the lesson can show attribution. */
+  license?: License;
 };
 
 /** Two mini UI mockups; the learner picks the better one. */

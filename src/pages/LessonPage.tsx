@@ -29,6 +29,9 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
     setStep((s) => s + 1);
   }
 
+  const licenses = lesson.sources
+    .flatMap((s) => s.license ?? [])
+    .filter((l, i, all) => all.findIndex((x) => x.url === l.url) === i);
   const nextLesson = path.lessons.find((l) => l.id !== lesson.id && !progress.completedLessons[l.id]);
 
   return (
@@ -69,6 +72,20 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
                   {s.title} ↗
                 </a>
               ))}
+              {licenses.length > 0 && (
+                <p className="license-note">
+                  Linked guidance is published under{" "}
+                  {licenses.map((l, i) => (
+                    <span key={l.url}>
+                      {i > 0 && " and "}
+                      <a href={l.url} target="_blank" rel="noopener noreferrer">
+                        {l.name}
+                      </a>
+                    </span>
+                  ))}
+                  . This lesson's text is our own summary.
+                </p>
+              )}
             </div>
           </div>
           <div className="actions">

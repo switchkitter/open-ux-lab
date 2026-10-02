@@ -1,8 +1,9 @@
 import type { Exercise, LearningPath, Lesson } from "../types";
 import { accessibilityPath } from "./accessibility";
+import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
 
-export const paths: LearningPath[] = [heuristicsPath, accessibilityPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath];
 
 /** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
 export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [
@@ -10,11 +11,6 @@ export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] 
     id: "laws-of-ux",
     title: "Laws of UX",
     description: "Fitts's Law, Hick's Law, Miller's Law and other psychology principles.",
-  },
-  {
-    id: "forms",
-    title: "Form design",
-    description: "Labels, validation and question order, drawing on GOV.UK and USWDS research.",
   },
 ];
 

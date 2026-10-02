@@ -24,6 +24,15 @@ describe("content integrity", () => {
     }
   });
 
+  it("records the license of openly licensed sources (needed for attribution)", () => {
+    const openHosts = ["design-system.service.gov.uk", "www.gov.uk", "designsystem.digital.gov"];
+    for (const l of lessons) {
+      for (const s of l.sources) {
+        if (openHosts.includes(new URL(s.url).hostname)) expect(s.license, `${l.id}: ${s.url}`).toBeDefined();
+      }
+    }
+  });
+
   it("has a valid correct answer for every exercise", () => {
     for (const e of exercises) {
       if (e.type === "choice") {
