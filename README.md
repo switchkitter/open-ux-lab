@@ -6,6 +6,8 @@ Free UX practice: short lessons and "pick the better design" exercises, built fr
 
 Requires Node.js 20 or newer.
 
+Live site: https://switchkitter.github.io/open-ux-lab/
+
 ```bash
 npm install
 npm run dev
@@ -29,3 +31,10 @@ Lessons live in `src/content/paths/`. Read `CONTENT_GUIDELINES.md` before writin
 ## Working with Claude Code
 
 `CLAUDE.md` describes the project, its rules and conventions. Claude Code reads it automatically when you start a session in this folder.
+
+## License
+
+- Code: [MIT](LICENSE)
+- Lesson content in `src/content/`: [CC BY 4.0](LICENSE-CONTENT). Credit "Open UX Lab" with a link to this repository.
+
+Linked sources (W3C, GOV.UK, USWDS, NN/g and others) stay under their owners' terms.

@@ -2,6 +2,7 @@
   "name": "open-ux-lab",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT AND CC-BY-4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

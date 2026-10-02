@@ -76,22 +76,28 @@ export default function HomePage({ progress }: { progress: Progress }) {
         );
       })}
 
-      <section>
-        <div className="section-head">
-          <h2>Coming paths</h2>
-        </div>
-        <div className="roadmap">
-          {plannedPaths.map((p) => (
-            <div className="road" key={p.id}>
-              <div className="eyebrow">Planned</div>
-              <h3>{p.title}</h3>
-              <p>{p.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      {plannedPaths.length > 0 && (
+        <section>
+          <div className="section-head">
+            <h2>Coming paths</h2>
+          </div>
+          <div className="roadmap">
+            {plannedPaths.map((p) => (
+              <div className="road" key={p.id}>
+                <div className="eyebrow">Planned</div>
+                <h3>{p.title}</h3>
+                <p>{p.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <p className="footnote">Progress is saved in this browser only.</p>
+      <p className="footnote">
+        Progress is saved in this browser only. Lessons are licensed{" "}
+        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>; code is MIT.{" "}
+        <a href="https://github.com/switchkitter/open-ux-lab">Source on GitHub</a>.
+      </p>
     </>
   );
 }
