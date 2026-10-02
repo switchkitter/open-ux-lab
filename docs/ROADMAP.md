@@ -4,8 +4,8 @@
 - [x] Heuristics path: 10 lessons, 20 exercises
 - [x] XP, daily streak, review pile
 - [x] Progress logic separated from storage
-- [ ] Verify install, typecheck, tests and build on a real machine
-- [ ] Deploy a preview (Netlify, Vercel or GitHub Pages)
+- [x] Verify install, typecheck, tests and build on a real machine
+- [x] Deploy a preview (GitHub Pages, via `.github/workflows/deploy.yml`)
 
 ## 0.2 — More content
 - [ ] Accessibility basics path (W3C WAI)
