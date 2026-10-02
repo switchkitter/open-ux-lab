@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { Exercise } from "../content/types";
 import Mockup from "./Mockup";
 
@@ -15,6 +15,7 @@ type Props = {
 export default function ExerciseCard({ code, exercise, nextLabel, onAnswer, onNext }: Props) {
   const [picked, setPicked] = useState<string | null>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const uid = useId();
   const answered = picked !== null;
   const correctKey = exercise.type === "compare" ? exercise.correct : String(exercise.correct);
   const isCorrect = picked === correctKey;
@@ -48,9 +49,10 @@ export default function ExerciseCard({ code, exercise, nextLabel, onAnswer, onNe
                 disabled={answered}
                 onClick={() => pick(k)}
                 aria-label={`Design ${k.toUpperCase()}`}
+                aria-describedby={`${uid}-${k}`}
               >
                 <span className="tag">{k.toUpperCase()}</span>
-                <Mockup html={exercise[k]} />
+                <Mockup id={`${uid}-${k}`} html={exercise[k]} />
               </button>
             ))}
           </div>

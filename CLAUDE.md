@@ -4,7 +4,8 @@ A free, Uxcel-style UX learning app: short lessons followed by "pick the better 
 
 ## Status
 
-- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Progress is stored in the browser (localStorage).
+- **Built:** Path 1, Nielsen's 10 usability heuristics (10 lessons, 20 exercises). Path 2, Accessibility basics (8 lessons, 16 exercises). Progress is stored in the browser (localStorage).
+- **Live:** https://switchkitter.github.io/open-ux-lab/ (repo switchkitter/open-ux-lab). Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
 - **Verified (2026-10-01):** `npm install`, `npm run typecheck`, `npm test` (15 tests) and `npm run build` all pass on Node 24.
 - **Known:** `npm audit` reports a moderate advisory in vitest 3.x (dev-only, via `@vitest/mocker`). The fix is a major upgrade to vitest 5; not done yet.
 
@@ -39,7 +40,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 - Write all lesson text, questions and explanations in original words. Never paste or closely paraphrase paragraphs from sources such as NN/g, IxDF, Laws of UX or Baymard.
 - Every lesson links to at least one trusted source for depth.
 - Content from openly licensed sources (e.g. GOV.UK Design System, USWDS, W3C) may be adapted only if its license allows it, with attribution. Check the license first and note it in the lesson's sources.
-- Exercise mockups are small HTML snippets using the `.mk-*` classes. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
+- Exercise mockups are small HTML snippets using the `.mk-*` classes (a content test fails if a class doesn't exist in `styles.css`). `.mk-say` shows what a screen reader announces; `.mk-faint` deliberately fails contrast and may only appear in the wrong design. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
 - Exercise IDs are stable keys for learners' review piles. Never rename or reuse an ID once shipped.
 
 ## Writing style for lessons

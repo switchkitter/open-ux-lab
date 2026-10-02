@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import css from "../styles.css?raw";
 import { paths } from "./paths";
 
 /** Guards against content mistakes that would break the app. */
@@ -41,6 +42,27 @@ describe("content integrity", () => {
       for (const html of [e.a, e.b]) {
         expect(/<script|on\w+=/i.test(html), e.id).toBe(false);
       }
+    }
+  });
+
+  it("only uses mockup classes that exist in styles.css", () => {
+    for (const e of exercises) {
+      if (e.type !== "compare") continue;
+      for (const html of [e.a, e.b]) {
+        for (const [, classes] of html.matchAll(/class="([^"]*)"/g)) {
+          for (const c of classes.split(/\s+/).filter((c) => c.startsWith("mk-"))) {
+            expect(css.includes(`.${c} `) || css.includes(`.${c}{`), `${e.id}: .${c}`).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
+  it("uses the failing-contrast .mk-faint class only in the worse design", () => {
+    for (const e of exercises) {
+      if (e.type !== "compare") continue;
+      const better = e.correct === "a" ? e.a : e.b;
+      expect(better.includes("mk-faint"), e.id).toBe(false);
     }
   });
 });

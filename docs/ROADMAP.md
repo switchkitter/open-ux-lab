@@ -8,7 +8,7 @@
 - [x] Deploy a preview (GitHub Pages, via `.github/workflows/deploy.yml`)
 
 ## 0.2 — More content
-- [ ] Accessibility basics path (W3C WAI)
+- [x] Accessibility basics path (W3C WAI): 8 lessons, 16 exercises
 - [ ] Laws of UX path
 - [ ] Form design path (GOV.UK, USWDS)
 - [ ] Third exercise type: "spot the problem" (tap the area of a mockup that breaks a principle)

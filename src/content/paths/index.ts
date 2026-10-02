@@ -1,15 +1,11 @@
 import type { Exercise, LearningPath, Lesson } from "../types";
+import { accessibilityPath } from "./accessibility";
 import { heuristicsPath } from "./heuristics";
 
-export const paths: LearningPath[] = [heuristicsPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath];
 
 /** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
 export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [
-  {
-    id: "accessibility",
-    title: "Accessibility basics",
-    description: "WCAG principles, contrast, keyboard access and forms. Built from W3C WAI material.",
-  },
   {
     id: "laws-of-ux",
     title: "Laws of UX",

@@ -8,5 +8,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "node",
+    // Let content tests import styles.css?raw to check that mockup classes exist.
+    css: { include: [/styles\.css/] },
   },
 });
