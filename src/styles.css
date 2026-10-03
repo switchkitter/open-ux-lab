@@ -173,10 +173,10 @@ html { scroll-padding-top: 88px; }
 .road p { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
 
 /* Lesson */
-/* Back link: a full-size touch target (44px tall) that reads as a control, not a footnote. */
+/* Back link: a full-size touch target (44px tall) that reads as a control, not a footnote. Corners match .panel. */
 .back {
   display: inline-flex; align-items: center; gap: 8px; width: fit-content; min-height: 44px; padding: 8px 16px 8px 12px;
-  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
   color: var(--fg); font-size: 16px; font-weight: 700; text-decoration: none;
 }
 .back:hover { border-color: var(--fg); }
