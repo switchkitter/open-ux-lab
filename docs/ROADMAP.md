@@ -33,6 +33,11 @@
 - [x] Skill map across paths (9 skills, #/skills)
 - [x] Progress export/import as a file (account page; loading combines with existing progress)
 
+## Motivation
+- [x] Levels (Intern to UX legend), each earning a streak freeze; achievements (17 badges); daily XP goal; streak freezes. Nothing is locked behind XP.
+- [ ] Path certificates (shareable page per finished path)
+- [ ] Cosmetic unlocks (accent color themes by level)
+
 ## 0.4 — Ready to share
 - [x] Privacy notice (#/privacy) and self-service account deletion
 - [x] Self-hosted fonts (no third-party requests)
