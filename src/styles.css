@@ -348,9 +348,12 @@ html { scroll-padding-top: 88px; }
 .you-bar { flex: 1 1 120px; height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
 .you-bar i { display: block; height: 100%; background: var(--accent); transition: width 0.4s; }
 .you-note, .you-line { color: var(--muted); font-size: 14px; }
-.you-review { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.you-review { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.you-review .btn { flex: none; }
 .you-review.quiet { display: block; color: var(--muted); font-size: 14px; }
-.you-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+/* Two equal buttons spanning the card, so their outer edges line up with the review row above. */
+.you-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.you-links .btn { justify-content: center; text-align: center; }
 .you .btn.small { min-height: 40px; }
 
 /* Achievements page */

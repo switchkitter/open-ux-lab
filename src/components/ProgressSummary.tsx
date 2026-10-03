@@ -1,5 +1,5 @@
 import { currentStreak, dueReviewIds, nextReview, whenLabel, xpToday, type Progress } from "../lib/progress";
-import { BADGES, levelFor } from "../lib/rewards";
+import { levelFor } from "../lib/rewards";
 import { hrefFor } from "../lib/route";
 
 const exercises = (n: number) => `${n} ${n === 1 ? "exercise" : "exercises"}`;
@@ -15,7 +15,6 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
   const streak = currentStreak(progress, now);
   const due = dueReviewIds(progress, now).length;
   const upcoming = nextReview(progress, now);
-  const earned = BADGES.filter((b) => progress.badges[b.id]).length;
   const pct = lv.xpForLevel ? Math.min(100, (lv.xpIntoLevel / lv.xpForLevel) * 100) : 100;
   const goal = today >= progress.goal ? "Daily goal reached" : `Today ${today} of ${progress.goal} XP`;
   const freezes = progress.freezes ? ` · ${progress.freezes} streak ${progress.freezes === 1 ? "freeze" : "freezes"}` : "";
@@ -48,7 +47,7 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
 
       <div className="you-links">
         <a className="btn ghost small" href={hrefFor({ name: "achievements" })}>
-          {`Achievements (${earned} of ${BADGES.length})`}
+          Achievements
         </a>
         <a className="btn ghost small" href={hrefFor({ name: "skills" })}>
           Skill map
