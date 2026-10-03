@@ -17,7 +17,7 @@ const lessons: Lesson[] = [
     ],
     practice: [
       "Respond to every click or tap within about a tenth of a second, even if only by changing the button state.",
-      "For waits longer than a second or two, show progress. For long waits, show how much is left.",
+      "For waits longer than about a second, show a loading indicator. For waits over about ten seconds, show how much is done and how long is left.",
       "Confirm completed actions in place (a “Saved” label, a toast) instead of leaving people to guess.",
       "Show location: highlight the current nav item and number the steps of a multi-step form.",
     ],

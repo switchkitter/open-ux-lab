@@ -44,7 +44,7 @@ const lessons: Lesson[] = [
     ],
     fieldExercise:
       "Pick one form in your product. Next to each field, write who reads the answer and what they do with it. Count the fields where nobody knows.",
-    sources: [manual("form-structure", "Design your forms for the format they'll appear in"), govuk("patterns/question-pages", "Question pages")],
+    sources: [manual("form-structure", "Structuring forms"), govuk("patterns/question-pages", "Question pages")],
     exercises: [
       {
         id: "f1-signup-fields",
@@ -139,7 +139,7 @@ const lessons: Lesson[] = [
     fieldExercise:
       "Fill in your product's longest form on a phone. Count how many times you scroll back up to check what a question asked.",
     sources: [
-      manual("form-structure", "Design your forms for the format they'll appear in"),
+      manual("form-structure", "Structuring forms"),
       govuk("patterns/check-answers", "Check answers"),
       uswds("patterns/complete-a-complex-form", "Complete a complex form"),
     ],

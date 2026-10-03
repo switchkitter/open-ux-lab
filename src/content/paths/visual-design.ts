@@ -118,7 +118,7 @@ const lessons: Lesson[] = [
     skills: ["layout", "accessibility"],
     body: [
       "Most of an interface is text, so type does most of the work. Body text needs to be big enough to read comfortably, usually 16 pixels or more on the web, with generous spacing between lines, about 1.5 times the font size, so the eye can find the start of the next line.",
-      "Line length matters too. Very long lines are tiring to follow and very short ones break the flow. About 45 to 90 characters per line suits most reading, with around 66 a good target for long text. Set text left-aligned rather than justified, use one or two typefaces at most, and check your layout still works when people enlarge text or increase its spacing.",
+      "Line length matters too. Very long lines are tiring to follow and very short ones break the flow. About 45 to 90 characters per line suits most reading, with around 66 a good target for long text; WCAG's stricter AAA guidance says no more than 80. Set text left-aligned rather than justified, use one or two typefaces at most, and check your layout still works when people enlarge text or increase its spacing.",
     ],
     practice: [
       "Use 16px or larger for body text, and keep smaller text for short labels.",
@@ -195,7 +195,7 @@ const lessons: Lesson[] = [
     minutes: 4,
     skills: ["layout"],
     body: [
-      "Consistent spacing makes a layout feel calm and easy to scan. Pick a small set of spacing values, a scale, and only use those: for example 4, 8, 16, 24, 32 and 48 pixels, or the 5-pixel steps the GOV.UK Design System uses. Random gaps of 13, 17 and 22 pixels look careless and blur which things belong together.",
+      "Consistent spacing makes a layout feel calm and easy to scan. Pick a small set of spacing values, a scale, and only use those: for example 4, 8, 16, 24, 32 and 48 pixels, or the multiples of 5 pixels the GOV.UK Design System uses. Random gaps of 13, 17 and 22 pixels look careless and blur which things belong together.",
       "Alignment works the same way. Line elements up along a few strong edges so the eye can travel straight down the page. Every extra starting point, like a centered label above a left-aligned field, adds visual noise. Use more space between groups than within them, so the structure is obvious at a glance.",
     ],
     practice: [

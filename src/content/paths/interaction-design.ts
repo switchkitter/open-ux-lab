@@ -199,7 +199,7 @@ const lessons: Lesson[] = [
     minutes: 5,
     skills: ["feedback"],
     body: [
-      "How long something takes changes what people need to see. Under about a tenth of a second, a response feels instant, so no indicator is needed. Up to about a second, people notice the delay but keep their train of thought, so a small cue is enough. Beyond a few seconds attention drifts, so show progress, and for anything over about ten seconds, show how far along it is and let people do something else or cancel.",
+      "How long something takes changes what people need to see. Under about a tenth of a second, a response feels instant. Up to about a second, people notice the delay but keep their train of thought, so the response to the action itself is enough. Longer than that, show that something is working, such as a spinner, and for anything over about ten seconds, show how far along it is and let people do something else or cancel.",
       "When content takes a moment to appear, a skeleton screen, gray shapes where the content will go, shows the layout is coming and feels quicker than a blank page. Use a spinner for short waits you can't measure and a progress bar when you can. Better still, make the wait shorter: show what's ready first, or update the screen straight away and save in the background.",
     ],
     practice: [
@@ -522,7 +522,7 @@ const lessons: Lesson[] = [
     minutes: 5,
     skills: ["feedback", "accessibility"],
     body: [
-      "Motion helps when it explains something: where a panel came from, that an item moved to another list, that something changed. Good interface animation is quick, usually between about 100 and 400 milliseconds, eases in and out rather than moving at a constant speed, and never makes people wait before they can do the next thing.",
+      "Motion helps when it explains something: where a panel came from, that an item moved to another list, that something changed. Good interface animation is quick, usually between about 100 and 400 milliseconds and rarely over 500, eases in and out rather than moving at a constant speed, and never makes people wait before they can do the next thing.",
       "Motion for decoration quickly becomes noise, and large movements like parallax and zooming can make some people dizzy or nauseous. Respect the reduced-motion setting on people's devices by toning down or removing animation that isn't essential, never make motion the only way information is shown, and let people pause anything that moves for more than a few seconds.",
     ],
     practice: [
