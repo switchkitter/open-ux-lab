@@ -59,7 +59,7 @@ export default function App() {
       <HomePage progress={progress} />
     );
   } else if (route.name === "account") {
-    page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} update={update} />;
+    page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} progress={progress} update={update} />;
   } else if (route.name === "privacy") {
     page = <PrivacyPage />;
   } else if (route.name === "credits") {

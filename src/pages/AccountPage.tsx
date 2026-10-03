@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import ProgressBackup from "../components/ProgressBackup";
 import { deleteAccount, sendSignInCode, signOut, verifySignInCode } from "../lib/cloud";
-import { emptyProgress } from "../lib/progress";
+import { emptyProgress, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 import type { SyncStatus } from "../lib/useCloudSync";
 import type { UpdateProgress } from "../lib/useProgress";
 
-type Props = { status: SyncStatus; syncNow: () => void; update: UpdateProgress };
+type Props = { status: SyncStatus; syncNow: () => void; progress: Progress; update: UpdateProgress };
 
-export default function AccountPage({ status, syncNow, update }: Props) {
+export default function AccountPage({ status, syncNow, progress, update }: Props) {
   // Survives the switch to the signed-out view after an account is deleted.
   const [notice, setNotice] = useState<string | null>(null);
   return (
@@ -20,7 +21,10 @@ export default function AccountPage({ status, syncNow, update }: Props) {
         {status.state === "off" && (
           <>
             <h1>Sync isn't available here</h1>
-            <p>This copy of Open UX Lab isn't connected to a sync server. Your progress is saved in this browser.</p>
+            <p>
+              This copy of Open UX Lab isn't connected to a sync server. Your progress is saved in this browser, and you can
+              move it to another one with a file.
+            </p>
           </>
         )}
         {status.state === "checking" && <p role="status">Checking whether you're signed in…</p>}
@@ -34,6 +38,7 @@ export default function AccountPage({ status, syncNow, update }: Props) {
           <SignedIn
             status={status}
             syncNow={syncNow}
+            backup={<ProgressBackup progress={progress} update={update} />}
             onDeleted={(clearedDevice) => {
               if (clearedDevice) update(() => emptyProgress());
               setNotice(
@@ -44,6 +49,7 @@ export default function AccountPage({ status, syncNow, update }: Props) {
             }}
           />
         )}
+        {(status.state === "off" || status.state === "signed-out") && <ProgressBackup progress={progress} update={update} />}
         <p className="footnote">
           <a href={hrefFor({ name: "privacy" })}>How we handle your data</a>
         </p>
@@ -201,10 +207,11 @@ function SignIn() {
 type SignedInProps = {
   status: Extract<SyncStatus, { user: unknown }>;
   syncNow: () => void;
+  backup: ReactNode;
   onDeleted: (clearedDevice: boolean) => void;
 };
 
-function SignedIn({ status, syncNow, onDeleted }: SignedInProps) {
+function SignedIn({ status, syncNow, backup, onDeleted }: SignedInProps) {
   const [signOutError, setSignOutError] = useState<string | null>(null);
   return (
     <>
@@ -232,6 +239,7 @@ function SignedIn({ status, syncNow, onDeleted }: SignedInProps) {
         </button>
       </div>
       <p className="footnote">Signing out keeps your progress on this device. It just stops syncing.</p>
+      {backup}
       <DeleteAccount userId={status.user.id} onDeleted={onDeleted} />
     </>
   );
