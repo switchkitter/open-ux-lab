@@ -9,7 +9,7 @@ export default function SkillsPage({ progress }: { progress: Progress }) {
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← Home
+        <span aria-hidden="true">←</span> Home
       </a>
       <section>
         <div className="eyebrow">Skill map</div>

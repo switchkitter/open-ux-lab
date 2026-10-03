@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← Home
+        <span aria-hidden="true">←</span> Home
       </a>
       <article className="lesson privacy">
         <div className="eyebrow">{`Last updated ${site.privacyUpdated}`}</div>

@@ -162,8 +162,13 @@ html { scroll-padding-top: 88px; }
 .road p { margin: 6px 0 0; font-size: 14px; color: var(--muted); }
 
 /* Lesson */
-.back { color: var(--muted); font-size: 14px; text-decoration: none; }
-.back:hover { color: var(--fg); }
+/* Back link: a full-size touch target (44px tall) that reads as a control, not a footnote. */
+.back {
+  display: inline-flex; align-items: center; gap: 8px; width: fit-content; min-height: 44px; padding: 8px 16px 8px 12px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface);
+  color: var(--fg); font-size: 16px; font-weight: 700; text-decoration: none;
+}
+.back:hover { border-color: var(--fg); }
 .steps { display: flex; gap: 4px; margin-top: 14px; }
 .steps i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
 .steps i.on { background: var(--accent); }

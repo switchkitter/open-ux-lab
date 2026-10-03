@@ -14,7 +14,7 @@ export default function AccountPage({ status, syncNow, progress, update }: Props
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← Home
+        <span aria-hidden="true">←</span> Home
       </a>
       <section className="panel account">
         <div className="eyebrow">Account</div>

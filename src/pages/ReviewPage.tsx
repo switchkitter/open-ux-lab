@@ -60,7 +60,7 @@ export default function ReviewPage({ progress, update }: Props) {
     <>
       <div>
         <a className="back" href={hrefFor({ name: "home" })}>
-          ← Home
+          <span aria-hidden="true">←</span> Home
         </a>
       </div>
       <ExerciseCard

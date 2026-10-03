@@ -57,7 +57,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
     <>
       <div>
         <a className="back" href={hrefFor({ name: "path", id: path.id })}>
-          ← {path.title}
+          <span aria-hidden="true">←</span> {path.title}
         </a>
         {/* Visual only: the eyebrow on each screen says "Exercise 1 of 2" in text. */}
         <div className="steps" aria-hidden="true">

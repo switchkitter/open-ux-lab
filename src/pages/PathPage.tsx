@@ -20,7 +20,7 @@ export default function PathPage({ path, progress }: { path: LearningPath; progr
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← Home
+        <span aria-hidden="true">←</span> Home
       </a>
       <section className="path-hero">
         {pathHeroes[path.id] && <figure className={`path-banner tone-${paths.indexOf(path) % 3}`}>{pathHeroes[path.id]}</figure>}

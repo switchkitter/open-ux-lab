@@ -36,7 +36,7 @@ export default function CreditsPage() {
   return (
     <>
       <a className="back" href={hrefFor({ name: "home" })}>
-        ← Home
+        <span aria-hidden="true">←</span> Home
       </a>
       <article className="lesson credits">
         <div className="eyebrow">Credits</div>
