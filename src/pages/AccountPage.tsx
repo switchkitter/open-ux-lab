@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import Appearance from "../components/Appearance";
 import ProgressBackup from "../components/ProgressBackup";
 import { deleteAccount, sendSignInCode, signOut, verifySignInCode } from "../lib/cloud";
 import { emptyProgress, type Progress } from "../lib/progress";
@@ -50,6 +51,7 @@ export default function AccountPage({ status, syncNow, progress, update }: Props
           />
         )}
         {(status.state === "off" || status.state === "signed-out") && <ProgressBackup progress={progress} update={update} />}
+        {status.state !== "checking" && <Appearance />}
         <p className="footnote">
           <a href={hrefFor({ name: "privacy" })}>How we handle your data</a>
         </p>

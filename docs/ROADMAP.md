@@ -30,6 +30,7 @@
 - [x] Animated banner illustration at the top of each path page
 
 ## App
+- [x] Light/dark theme switch: header toggle, Match my device / Light / Dark on the account page
 - [x] Faster first load: Supabase only for signed-in visitors, lessons loaded per path (265 → 120 KB compressed)
 - [x] Installable PWA: manifest, app icon, offline support, "new version" prompt
 

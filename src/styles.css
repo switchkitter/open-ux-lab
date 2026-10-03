@@ -316,6 +316,9 @@ html { scroll-padding-top: 88px; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 .notice { background: var(--good-soft); border-left: 4px solid var(--good); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+.appearance { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; display: grid; gap: 10px; }
+.appearance h2 { font-size: 20px; }
+.appearance p { margin: 0; }
 .backup { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 8px; display: grid; gap: 10px; }
 .backup h2 { font-size: 20px; }
 .backup p { margin: 0; }

@@ -1,6 +1,7 @@
 import { currentStreak, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 import SoundToggle from "./SoundToggle";
+import ThemeToggle from "./ThemeToggle";
 import UpdatePrompt from "./UpdatePrompt";
 import Spoken from "./Spoken";
 import type { SyncStatus } from "../lib/useCloudSync";
@@ -61,6 +62,7 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
               </Spoken>
             </a>
           )}
+          <ThemeToggle />
           <SoundToggle />
         </div>
       </div>

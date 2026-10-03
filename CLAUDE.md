@@ -77,6 +77,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 ## Design system
 
 - Tokens are defined on `:root` with dark-mode overrides (`prefers-color-scheme` and `[data-theme]`). Use tokens, never literal colors.
+- Theme: `src/lib/theme.ts` (system, light or dark, saved per device as `open-ux-lab:theme`), a sun/moon switch in the header (`ThemeToggle`) and Match my device / Light / Dark on the account page (`Appearance`). An inline script in `index.html` applies a saved theme before the page draws; keep it in step with `theme.ts`.
 - Fonts: two typefaces only, Bricolage Grotesque (display: headings and big numbers) and Atkinson Hyperlegible (everything else, including labels, chips and text in illustrations), self-hosted via @fontsource. This follows the Visual design basics typography lesson; don't add a third. Don't add Google Fonts or other third-party requests (see the privacy notice).
 - The app must stay keyboard-accessible, readable at 400px wide, and meet WCAG AA contrast. This is a UX learning app, so it should model good UX.
 - Every screen has exactly one `h1` (exercise questions are the `h1` on exercise screens). After a route change or a lesson/review step, call `announceScreen()` from `src/lib/focus.ts`: it sets the tab title and moves focus to the `h1`.
