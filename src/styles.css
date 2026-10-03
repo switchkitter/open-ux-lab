@@ -105,10 +105,20 @@ html { scroll-padding-top: 88px; }
 }
 .chip b { font-weight: 600; }
 .chip.xp b { color: var(--mark-ink); }
-.chip.sync { color: var(--accent); text-decoration: none; }
-.chip.sync:hover { border-color: var(--accent); }
-.chip.sync.error { color: var(--bad); border-color: var(--bad); }
-.chip.sync .sync-mark { color: var(--good); font-weight: 700; margin-right: 4px; }
+/* Account link: a status chip when signed in; a filled button when signed out, so it doesn't look like a stat. */
+.account-link {
+  display: inline-flex; align-items: center; flex: none; min-height: 28px; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+  font-family: var(--f-body); font-size: 13px; white-space: nowrap; text-decoration: none;
+}
+.account-link:hover { border-color: var(--accent); }
+.account-link .sync-mark { color: var(--good); font-weight: 700; margin-right: 4px; }
+.account-link.error { color: var(--bad); border-color: var(--bad); }
+.account-link.signed-out {
+  background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
+  font-weight: 700; font-size: 14px; padding: 4px 14px;
+}
+.account-link.signed-out:hover { filter: brightness(1.1); }
 
 /* Page */
 .main {

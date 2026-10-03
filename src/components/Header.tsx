@@ -50,15 +50,16 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
                 <b>{done}</b>/{totalLessons} lessons
               </Spoken>
             </span>
-            {sync && (
-              <a className={`chip sync ${syncStatus.state}`} href={hrefFor({ name: "account" })}>
-                <Spoken text={sync.spoken}>
-                  {sync.mark && <span className="sync-mark">{sync.mark}</span>}
-                  {sync.shown}
-                </Spoken>
-              </a>
-            )}
           </div>
+          {/* An action, not a progress number, so it sits outside the progress group, next to the sound toggle. */}
+          {sync && (
+            <a className={`account-link ${syncStatus.state}`} href={hrefFor({ name: "account" })}>
+              <Spoken text={sync.spoken}>
+                {sync.mark && <span className="sync-mark">{sync.mark}</span>}
+                {sync.shown}
+              </Spoken>
+            </a>
+          )}
           <SoundToggle />
         </div>
       </div>
