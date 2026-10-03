@@ -103,6 +103,17 @@ describe("content integrity", () => {
     }
   });
 
+  it("doesn't let the answer position give compare exercises away", () => {
+    // "Always pick B" shouldn't work: keep each path roughly balanced and avoid long runs.
+    for (const path of paths) {
+      const answers = path.lessons.flatMap((l) => l.exercises).flatMap((e) => (e.type === "compare" ? [e.correct] : []));
+      const b = answers.filter((x) => x === "b").length / answers.length;
+      expect(b, `${path.id}: share of B answers`).toBeGreaterThanOrEqual(0.3);
+      expect(b, `${path.id}: share of B answers`).toBeLessThanOrEqual(0.7);
+      expect(answers.join(""), `${path.id}: no run of 4 same answers`).not.toMatch(/aaaa|bbbb/);
+    }
+  });
+
   it("describes both designs of every compare exercise in neutral words", () => {
     // The description is all a screen reader user gets, so it can't be missing, identical or give the answer away.
     for (const e of exercises) {
