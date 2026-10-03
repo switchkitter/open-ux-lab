@@ -52,7 +52,8 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
           <p>
             <strong>{`Daily practice: ${PRACTICE_SIZE} exercises`}</strong>
           </p>
-          <a className="btn small" href={hrefFor({ name: "practice" })}>
+          {/* One primary action per screen: review comes first when anything is due. */}
+          <a className={due > 0 ? "btn ghost small" : "btn small"} href={hrefFor({ name: "practice" })}>
             Practice
           </a>
         </div>

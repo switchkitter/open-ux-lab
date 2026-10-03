@@ -40,7 +40,8 @@ export default function PathPage({ path, progress }: { path: PathMeta; progress:
             </span>
           </div>
           <div className="actions">
-            <a className="btn" href={hrefFor({ name: "lesson", id: action.id })}>
+            {/* On a finished path the challenge (or the certificate) below is the main action, so this one is secondary. */}
+            <a className={s.state === "complete" ? "btn ghost" : "btn"} href={hrefFor({ name: "lesson", id: action.id })}>
               {action.label}
             </a>
           </div>
