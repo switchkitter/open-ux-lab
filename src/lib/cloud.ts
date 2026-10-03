@@ -16,35 +16,63 @@ export const cloudConfigured = Boolean(url && key);
 
 export type CloudUser = { id: string; email: string | null };
 
+const AUTH_KEY = "open-ux-lab:auth";
+
 let clientPromise: Promise<SupabaseClient> | null = null;
+/** watchUser callbacks waiting for the library to load (it only loads when someone signs in). */
+const pendingWatchers = new Set<(supabase: SupabaseClient) => void>();
 
 function client(): Promise<SupabaseClient> {
   if (!cloudConfigured) return Promise.reject(new Error("Cloud sync isn't configured."));
-  clientPromise ??= import("@supabase/supabase-js").then(({ createClient }) =>
-    createClient(url!, key!, {
-      // The app uses #/ routes, so don't let Supabase read the URL hash. Sign-in uses typed codes instead.
-      auth: { detectSessionInUrl: false, persistSession: true, autoRefreshToken: true, storageKey: "open-ux-lab:auth" },
-    }),
-  );
+  if (!clientPromise) {
+    clientPromise = import("@supabase/supabase-js").then(({ createClient }) =>
+      createClient(url!, key!, {
+        // The app uses #/ routes, so don't let Supabase read the URL hash. Sign-in uses typed codes instead.
+        auth: { detectSessionInUrl: false, persistSession: true, autoRefreshToken: true, storageKey: AUTH_KEY },
+      }),
+    );
+    void clientPromise.then((supabase) => pendingWatchers.forEach((attach) => attach(supabase)), () => {});
+  }
   return clientPromise;
 }
 
-/** Calls back now and on every sign-in or sign-out. Returns an unsubscribe function. */
+/** Whether this browser has a saved sign-in. Without one, the Supabase library isn't loaded at startup. */
+function hasSavedSession(): boolean {
+  try {
+    return localStorage.getItem(AUTH_KEY) !== null;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Calls back now and on every sign-in or sign-out. Returns an unsubscribe function.
+ * Most visitors aren't signed in, so the Supabase library (about a fifth of the app's download) only
+ * loads when there's a saved sign-in, or when someone starts signing in.
+ */
 export function watchUser(callback: (user: CloudUser | null) => void): () => void {
   let unsubscribe = () => {};
   let stopped = false;
-  void client().then((supabase) => {
+  const attach = (supabase: SupabaseClient) => {
+    pendingWatchers.delete(attach);
     if (stopped) return;
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
       callback(session ? { id: session.user.id, email: session.user.email ?? null } : null);
     });
     unsubscribe = () => data.subscription.unsubscribe();
-  }, () => {
-    // The Supabase library failed to load (for example, offline). Treat as signed out; signing in reports the error.
-    if (!stopped) callback(null);
-  });
+  };
+  if (clientPromise || hasSavedSession()) {
+    void client().then(attach, () => {
+      // The Supabase library failed to load (for example, offline). Treat as signed out; signing in reports the error.
+      if (!stopped) callback(null);
+    });
+  } else {
+    callback(null);
+    pendingWatchers.add(attach);
+  }
   return () => {
     stopped = true;
+    pendingWatchers.delete(attach);
     unsubscribe();
   };
 }
