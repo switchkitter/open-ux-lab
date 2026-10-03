@@ -1,3 +1,4 @@
+import { rosette } from "../components/Seal";
 import { dayLabel, type Certificate } from "./certificate";
 
 const W = 1200;
@@ -44,7 +45,7 @@ export async function certificateImage(c: Certificate, site: string): Promise<Fi
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
-  const [bg, surface, fg, muted, accent, mark, markInk] = ["--bg", "--surface", "--fg", "--muted", "--accent", "--mark", "--mark-ink"].map(token);
+  const [bg, surface, fg, muted, accent, mark] = ["--bg", "--surface", "--fg", "--muted", "--accent", "--mark"].map(token);
 
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
@@ -94,20 +95,38 @@ export async function certificateImage(c: Certificate, site: string): Promise<Fi
   ctx.fillStyle = muted;
   ctx.fillText(`${c.path.lessons.length} lessons · ${exercises} exercises`, mid, afterTitle + 60);
 
-  // Seal: a gold disc with a check.
-  const sealY = H - 225;
+  // Seal: the same rosette, ring, check and ribbons as the page (components/Seal.tsx), scaled up.
+  const s = 1.2;
+  const sealY = 618;
+  const sx = (x: number) => mid + (x - 40) * s;
+  const sy = (y: number) => sealY + (y - 38) * s;
+  ctx.fillStyle = accent;
+  for (const tail of [
+    [[27, 58], [18, 92], [29, 86], [36, 95], [42, 62]],
+    [[53, 58], [62, 92], [51, 86], [44, 95], [38, 62]],
+  ]) {
+    ctx.beginPath();
+    tail.forEach(([x, y], i) => (i ? ctx.lineTo(sx(x), sy(y)) : ctx.moveTo(sx(x), sy(y))));
+    ctx.closePath();
+    ctx.fill();
+  }
   ctx.beginPath();
-  ctx.arc(mid, sealY, 46, 0, Math.PI * 2);
+  rosette(40, 38, 33, 29).forEach(([x, y], i) => (i ? ctx.lineTo(sx(x), sy(y)) : ctx.moveTo(sx(x), sy(y))));
+  ctx.closePath();
   ctx.fillStyle = mark;
   ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = markInk;
-  ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(mid - 20, sealY + 2);
-  ctx.lineTo(mid - 5, sealY + 17);
-  ctx.lineTo(mid + 22, sealY - 14);
-  ctx.lineWidth = 7;
+  ctx.arc(mid, sealY, 22 * s, 0, Math.PI * 2);
+  ctx.strokeStyle = surface;
+  ctx.globalAlpha = 0.75;
+  ctx.lineWidth = 1.5 * s;
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+  ctx.beginPath();
+  ctx.moveTo(sx(29), sy(39));
+  ctx.lineTo(sx(37), sy(47));
+  ctx.lineTo(sx(52), sy(31));
+  ctx.lineWidth = 5 * s;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.stroke();

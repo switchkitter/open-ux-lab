@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Seal from "../components/Seal";
 import { certificateUrl, dayLabel, linkedInUrl, type Certificate } from "../lib/certificate";
 import { certificateImage } from "../lib/certificateImage";
 import { hrefFor } from "../lib/route";
@@ -71,10 +72,7 @@ export default function CertificatePage({ certificate: c }: { certificate: Certi
         <p className="cert-line">completed the learning path</p>
         <p className="cert-path">{c.path.title}</p>
         <p className="cert-detail">{`${c.path.lessons.length} lessons · ${exercises} exercises`}</p>
-        <svg className="cert-seal" viewBox="0 0 60 60" width="60" height="60" aria-hidden="true" focusable="false">
-          <circle cx="30" cy="30" r="26" />
-          <path d="M18 31l8 8 16-17" />
-        </svg>
+        <Seal />
         <p className="cert-date">{dayLabel(c.date)}</p>
       </article>
 

@@ -405,8 +405,10 @@ html { scroll-padding-top: 88px; }
 .cert-path { font-family: var(--f-display); font-weight: 700; font-size: clamp(22px, 5vw, 30px); color: var(--accent); }
 .cert-detail { color: var(--muted); font-size: 15px; }
 .cert-seal { margin-top: 14px; }
-.cert-seal circle { fill: var(--mark); stroke: var(--mark-ink); stroke-width: 2.5; }
-.cert-seal path { fill: none; stroke: var(--mark-ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.cert-seal .seal-ribbon { fill: var(--accent); }
+.cert-seal .seal-edge { fill: var(--mark); }
+.cert-seal .seal-ring { fill: none; stroke: var(--surface); stroke-width: 1.5; opacity: 0.75; }
+.cert-seal .seal-check { fill: none; stroke: var(--surface); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
 .cert-date { font-weight: 700; }
 .cert-share { display: grid; gap: 10px; }
 .cert-share h2 { font-size: 20px; }
