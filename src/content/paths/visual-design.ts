@@ -217,13 +217,13 @@ const lessons: Lesson[] = [
         type: "compare",
         question: "Which settings card is easier to scan?",
         a: `<div class="mk"><div class="mk-title">Profile</div><div class="mk-label">Display name</div><div class="mk-in">Priya</div><div class="mk-label">Time zone</div><div class="mk-in">Europe/Dublin ▾</div><div>${btn("Save")}</div></div>`,
-        b: `<div class="mk"><div class="mk-title" style="text-align:center">Profile</div><div class="mk-label" style="text-align:right">Display name</div><div class="mk-in" style="margin-left:24px">Priya</div><div class="mk-label" style="text-align:center">Time zone</div><div class="mk-in" style="margin-left:8px">Europe/Dublin ▾</div><div style="text-align:center">${btn("Save")}</div></div>`,
+        b: `<div class="mk"><div class="mk-title" style="text-align:center">Profile</div><div class="mk-label">Display name</div><div class="mk-in">Priya</div><div class="mk-label">Time zone</div><div class="mk-in">Europe/Dublin ▾</div><div style="text-align:center">${btn("Save")}</div></div>`,
         describe: {
           a: "A Profile card. The title, the Display name and Time zone labels, their fields and the Save button all start at the same left edge.",
-          b: "A Profile card. The title is centered, the Display name label is right aligned, its field is indented, the Time zone label is centered, its field is slightly indented, and the Save button is centered.",
+          b: "A Profile card. The Display name and Time zone labels and their fields line up on the left edge, but the title and the Save button are centered.",
         },
         correct: "a",
-        why: "In A everything shares one left edge, so the eye runs straight down the card. In B the title, labels, fields and button all start in different places, so people have to hunt for the start of each element, and labels drift away from their fields.",
+        why: "In A everything shares one left edge, so the eye runs straight down the card and lands on Save. B lines up the labels and fields but centers the title and the button, so the eye has to jump to the middle twice, and the Save button floats away from the fields it saves. Centering a few items like this is a common habit, and it's easy to miss.",
       },
       {
         id: "v3-scale",

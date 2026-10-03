@@ -622,14 +622,14 @@ const lessons: Lesson[] = [
         id: "r8-consent",
         type: "compare",
         question: "Which way of starting a session gets informed consent?",
-        a: `<div class="mk"><div class="mk-label">Moderator</div><div>“Before we start, please sign this. It's just standard legal stuff.”</div></div>`,
+        a: `<div class="mk"><div class="mk-label">Moderator</div><div>“Before we start, could you read and sign this consent form? Take your time.”</div><div class="mk-muted">Hands over a four-page form. Nothing else is said about recording.</div></div>`,
         b: `<div class="mk"><div class="mk-label">Moderator</div><div>“We'll record your screen and voice so the design team can review it. Only they will see it, and we delete it after 3 months. You can stop at any time. Is that OK?”</div></div>`,
         describe: {
-          a: "The moderator says: “Before we start, please sign this. It's just standard legal stuff.”",
+          a: "The moderator says: “Before we start, could you read and sign this consent form? Take your time.” and hands over a four-page form, without saying anything else about the recording.",
           b: "The moderator says: “We'll record your screen and voice so the design team can review it. Only they will see it, and we delete it after 3 months. You can stop at any time. Is that OK?”",
         },
         correct: "b",
-        why: "B explains in plain words what's recorded, who sees it, how long it's kept and that they can stop, then asks. A rushes people into signing something they haven't understood, which isn't informed consent, however standard the form is.",
+        why: "B explains in plain words what's recorded, who sees it, how long it's kept and that they can stop, then asks. A is polite and the form may cover all of that, but a four-page document handed over at the start of a session gets skimmed and signed, so people agree without really knowing what they've agreed to.",
       },
       {
         id: "r8-sharing-clips",
