@@ -135,7 +135,7 @@ function LessonSession({ lesson, path, progress, update }: Props) {
       {step === 0 && (
         <article className="lesson">
           <div className="eyebrow">
-            {`${path.title} · Lesson ${path.lessons.indexOf(lesson) + 1} of ${path.lessons.length}`}
+            {`${path.title} · Lesson ${path.lessons.findIndex((l) => l.id === lesson.id) + 1} of ${path.lessons.length}`}
           </div>
           <h1>{lesson.title}</h1>
           {place && (

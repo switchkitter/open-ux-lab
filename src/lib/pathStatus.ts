@@ -23,3 +23,19 @@ export function pathStatus(path: PathMeta, progress: Progress): PathStatus {
     state: done === 0 ? "not-started" : next ? "in-progress" : challengePassed(progress, path.id) ? "complete" : "challenge",
   };
 }
+
+export type NextStep = { kind: "lesson"; path: PathMeta; lesson: LessonMeta } | { kind: "challenge"; path: PathMeta };
+
+/**
+ * The learner's next step for the home page: the next lesson in the first path they've started,
+ * then a path challenge they've unlocked. Null before they've started anything (the path cards
+ * cover that) and once every started path is complete.
+ */
+export function nextStep(paths: PathMeta[], progress: Progress): NextStep | null {
+  const statuses = paths.map((path) => ({ path, s: pathStatus(path, progress) }));
+  const lesson = statuses.find(({ s }) => s.state === "in-progress");
+  if (lesson) return { kind: "lesson", path: lesson.path, lesson: lesson.s.next! };
+  const challenge = statuses.find(({ s }) => s.state === "challenge");
+  if (challenge) return { kind: "challenge", path: challenge.path };
+  return null;
+}

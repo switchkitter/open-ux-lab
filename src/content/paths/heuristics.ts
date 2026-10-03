@@ -36,7 +36,7 @@ const lessons: Lesson[] = [
           b: "An Upload report screen showing quarterly-report.pdf, 62%, about 8 seconds left, a progress bar about two-thirds full, and a Cancel upload button.",
         },
         correct: "b",
-        why: "B says what is happening, how far along it is, and how long is left, and it offers a way out. A only greys out the button, so people can't tell whether the upload started, stalled, or failed.",
+        why: "B says what is happening, how far along it is, and how long is left, and it offers a way out. A only grays out the button, so people can't tell whether the upload started, stalled, or failed.",
       },
       {
         id: "h1-save-feedback",
@@ -89,12 +89,12 @@ const lessons: Lesson[] = [
         items: [
           { id: "video", text: "Uploading a 2 GB video", group: 0 },
           { id: "export", text: "Exporting a year of reports, which takes about two minutes", group: 0 },
-          { id: "update", text: "Installing a software update", group: 0 },
-          { id: "search", text: "Loading search results, which takes about a second", group: 1 },
+          { id: "update", text: "Installing a software update, which takes several minutes", group: 0 },
+          { id: "search", text: "Loading search results, which takes about two seconds", group: 1 },
           { id: "like", text: "Liking a post", group: 1 },
-          { id: "note", text: "Saving a short note", group: 1 },
+          { id: "note", text: "Saving a short note, which takes a fraction of a second", group: 1 },
         ],
-        why: "When a wait runs to many seconds or minutes, people need to see how far along it is and roughly how long is left, or they assume it's stuck and give up. Quick actions only need a brief cue, like a button changing state or a “Saved” note; a full progress bar would flash past and add noise. A one-second search is the one people overdo: a small spinner is plenty.",
+        why: "When a wait runs to many seconds or minutes, people need to see how far along it is and roughly how long is left, or they assume it's stuck and give up. Quick actions only need a brief cue, like a button changing state or a “Saved” note; a full progress bar would flash past and add noise. A two-second search is the one people overdo: a small spinner is plenty, and anything faster than about a second needs no indicator at all.",
       },
     ],
   },
@@ -275,7 +275,7 @@ const lessons: Lesson[] = [
           { id: "tour", text: "An “Exit tour” button on a product walkthrough", group: 0 },
           { id: "modal", text: "A pop-up survey with no close button", group: 1 },
           { id: "back", text: "A Back button that wipes everything typed in the form", group: 1 },
-          { id: "signup", text: "A free trial that can only be cancelled by phoning support", group: 1 },
+          { id: "signup", text: "A free trial that can only be canceled by phoning support", group: 1 },
         ],
         why: "Clear exits and undo let people explore without fear of getting stuck or losing work. A pop-up that can't be closed, a Back button that throws away input and a cancellation that needs a phone call all punish people for changing their mind. The phone-only cancellation is the sneakiest: it has an exit, but one made deliberately hard to use.",
       },
@@ -490,7 +490,7 @@ const lessons: Lesson[] = [
     practice: [
       "Show recent items, recent searches and suggestions instead of blank inputs.",
       "Keep relevant information visible when it is needed, such as order details at payment.",
-      "Use visible menus and labelled icons rather than hidden gestures or memorized commands.",
+      "Use visible menus and labeled icons rather than hidden gestures or memorized commands.",
       "Offer previews and examples so people can recognize the right choice.",
     ],
     fieldExercise:

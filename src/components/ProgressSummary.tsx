@@ -1,4 +1,6 @@
 import { currentStreak, dueReviewIds, nextReview, whenLabel, xpToday, type Progress } from "../lib/progress";
+import { paths } from "../content/catalog";
+import { nextStep } from "../lib/pathStatus";
 import { PRACTICE_SIZE, practiceStatus } from "../lib/practice";
 import { levelFor } from "../lib/rewards";
 import { hrefFor } from "../lib/route";
@@ -17,6 +19,9 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
   const due = dueReviewIds(progress, now).length;
   const upcoming = nextReview(progress, now);
   const practice = practiceStatus(progress, now);
+  const next = nextStep(paths, progress);
+  // One primary button: review if anything is due, else the next lesson or challenge, else practice.
+  const primary = due > 0 ? "review" : next ? "next" : "practice";
   const pct = lv.xpForLevel ? Math.min(100, (lv.xpIntoLevel / lv.xpForLevel) * 100) : 100;
   const goal = today >= progress.goal ? "Daily goal reached" : `Today ${today} of ${progress.goal} XP`;
   const freezes = progress.freezes ? ` · ${progress.freezes} streak ${progress.freezes === 1 ? "freeze" : "freezes"}` : "";
@@ -34,7 +39,8 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
       </div>
       <p className="you-line">{`${goal} · ${streak}-day streak${freezes}`}</p>
 
-      {due > 0 ? (
+      {/* The main action comes first: review when anything is due. */}
+      {due > 0 && (
         <div className="you-review">
           <p>
             <strong>{`${exercises(due)} to review`}</strong>
@@ -43,8 +49,24 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
             Review now
           </a>
         </div>
-      ) : (
-        upcoming && <p className="you-review quiet">{`Nothing to review today. Next review ${whenLabel(upcoming.day, now)}: ${exercises(upcoming.count)}.`}</p>
+      )}
+
+      {next && (
+        <div className="you-review">
+          <p>
+            <strong>{next.kind === "lesson" ? `Up next: ${next.lesson.title}` : `Up next: ${next.path.title} challenge`}</strong>
+          </p>
+          <a
+            className={primary === "next" ? "btn small" : "btn ghost small"}
+            href={next.kind === "lesson" ? hrefFor({ name: "lesson", id: next.lesson.id }) : hrefFor({ name: "challenge", id: next.path.id })}
+          >
+            {next.kind === "lesson" ? "Continue" : "Start"}
+          </a>
+        </div>
+      )}
+
+      {due === 0 && upcoming && (
+        <p className="you-review quiet">{`Nothing to review today. Next review ${whenLabel(upcoming.day, now)}: ${exercises(upcoming.count)}.`}</p>
       )}
 
       {practice === "ready" && (
@@ -52,8 +74,8 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
           <p>
             <strong>{`Daily practice: ${PRACTICE_SIZE} exercises`}</strong>
           </p>
-          {/* One primary action per screen: review comes first when anything is due. */}
-          <a className={due > 0 ? "btn ghost small" : "btn small"} href={hrefFor({ name: "practice" })}>
+          {/* Secondary unless it is the only next step (see `primary`). */}
+          <a className={primary === "practice" ? "btn small" : "btn ghost small"} href={hrefFor({ name: "practice" })}>
             Practice
           </a>
         </div>

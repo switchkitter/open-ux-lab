@@ -17,7 +17,8 @@ type Props = { progress: Progress; totalLessons: number; syncStatus: SyncStatus 
 const syncLabel: Record<SyncStatus["state"], { shown: string; spoken: string; mark?: string } | null> = {
   off: null,
   checking: null,
-  "signed-out": { shown: "Sign in", spoken: "Sign in" },
+  // "Sign in" suggested an account was required, but it is optional and only syncs progress.
+  "signed-out": { shown: "Sync progress", spoken: "Sync progress" },
   syncing: { shown: "Synced", spoken: "Account, progress synced", mark: "✓" },
   synced: { shown: "Synced", spoken: "Account, progress synced", mark: "✓" },
   error: { shown: "Not synced", spoken: "Account, progress not synced" },

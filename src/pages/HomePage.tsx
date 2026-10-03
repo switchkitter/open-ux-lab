@@ -47,9 +47,9 @@ export default function HomePage({ progress }: { progress: Progress }) {
                   <span className="path-icon" aria-hidden="true">
                     {pathIcons[path.id]}
                   </span>
-                  <span className="path-card-title" id={`card-${path.id}-title`}>
+                  <h3 className="path-card-title" id={`card-${path.id}-title`}>
                     {path.title}
-                  </span>
+                  </h3>
                   <span className="path-card-desc">{path.description}</span>
                   {/* Pinned to the bottom of the card, so these line up across a row whatever the description length. */}
                   <span className="path-card-foot">

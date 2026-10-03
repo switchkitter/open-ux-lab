@@ -232,6 +232,10 @@ html { scroll-padding-top: 88px; }
 .sort-item { background: var(--surface); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; }
 .sort-item.right { border-color: var(--good); background: var(--good-soft); }
 .sort-item.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.sort-item.missing { border-color: var(--bad); }
+.sort-item .form-error { margin: 0; }
+.sort-check { align-items: center; }
+.sort-check .form-error { margin: 0; }
 .sort-item fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
 .sort-text { padding: 0; font-weight: 700; }
 .sort-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }

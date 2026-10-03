@@ -38,7 +38,8 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
   );
   // Sort exercises: the group chosen for each item, and a message if some are left unplaced.
   const [placed, setPlaced] = useState<Record<string, 0 | 1>>({});
-  const [sortError, setSortError] = useState<string | null>(null);
+  // Items left without a group when the learner pressed Check answers.
+  const [unplaced, setUnplaced] = useState<string[]>([]);
   const answered = picked !== null;
   const correctKey = exercise.type === "choice" ? String(exercise.correct) : exercise.type === "sort" ? "all" : exercise.correct;
   const isCorrect = picked === correctKey;
@@ -63,10 +64,10 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
 
   function checkSort() {
     if (exercise.type !== "sort" || answered) return;
-    const missing = order.map((i) => exercise.items[i]).find((item) => placed[item.id] === undefined);
-    if (missing) {
-      setSortError("Choose a group for every item");
-      document.getElementById(`${uid}-${missing.id}-0`)?.focus();
+    const missing = order.map((i) => exercise.items[i]).filter((item) => placed[item.id] === undefined);
+    if (missing.length) {
+      setUnplaced(missing.map((m) => m.id));
+      document.getElementById(`${uid}-${missing[0].id}-0`)?.focus();
       return;
     }
     pick(exercise.items.every((i) => placed[i.id] === i.group) ? "all" : "some");
@@ -157,21 +158,21 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
           <div className="eyebrow">{`${eyebrow} · Sort into groups`}</div>
           <h1 className="q">{exercise.question}</h1>
           <p className="qhint">{`Put each item in a group: ${exercise.groups[0]} or ${exercise.groups[1]}.`}</p>
-          {sortError && (
-            <p className="form-error" role="alert">
-              <span className="visually-hidden">Error: </span>
-              {sortError}
-            </p>
-          )}
           <ul className="sort-items">
             {order.map((i) => {
               const item = exercise.items[i];
               const choice = placed[item.id];
               const ok = choice === item.group;
               return (
-                <li key={item.id} className={`sort-item ${reveal ? (ok ? "right" : "wrong") : ""}`}>
-                  <fieldset>
+                <li key={item.id} className={`sort-item ${reveal ? (ok ? "right" : "wrong") : ""} ${unplaced.includes(item.id) ? "missing" : ""}`}>
+                  <fieldset aria-describedby={unplaced.includes(item.id) ? `${uid}-${item.id}-error` : undefined}>
                     <legend className="sort-text">{item.text}</legend>
+                    {unplaced.includes(item.id) && (
+                      <p className="form-error" id={`${uid}-${item.id}-error`}>
+                        <span className="visually-hidden">Error: </span>
+                        Choose a group for this item
+                      </p>
+                    )}
                     <div className="sort-options">
                       {exercise.groups.map((g, gi) => (
                         <label key={g} className={`sort-option ${choice === gi ? "chosen" : ""}`}>
@@ -183,7 +184,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
                             disabled={answered}
                             onChange={() => {
                               setPlaced((p) => ({ ...p, [item.id]: gi as 0 | 1 }));
-                              setSortError(null);
+                              setUnplaced((u) => u.filter((id) => id !== item.id));
                             }}
                           />
                           <span>{g}</span>
@@ -201,10 +202,13 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
             })}
           </ul>
           {!answered && (
-            <div className="actions">
+            <div className="actions sort-check">
               <button className="btn" type="button" onClick={checkSort}>
                 Check answers
               </button>
+              <p className="form-error" role="status">
+                {unplaced.length > 0 && `${unplaced.length} ${unplaced.length === 1 ? "item still needs" : "items still need"} a group.`}
+              </p>
             </div>
           )}
         </>

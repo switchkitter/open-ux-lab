@@ -418,7 +418,7 @@ const lessons: Lesson[] = [
           { id: "confirm", label: "Button: Cancel subscription", html: btn("Cancel subscription", "danger") },
         ],
         correct: "cancel",
-        why: "In a dialog about cancelling, a button labeled just “Cancel” is ambiguous: does it cancel the subscription or close the dialog? “Keep subscription” removes the doubt. The two lines of text and the Cancel subscription button say clearly what will happen.",
+        why: "In a dialog about canceling, a button labeled just “Cancel” is ambiguous: does it cancel the subscription or close the dialog? “Keep subscription” removes the doubt. The two lines of text and the Cancel subscription button say clearly what will happen.",
       },
       {
         id: "w5-sort-confirm-undo",

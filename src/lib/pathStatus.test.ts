@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { paths } from "../content/paths";
 import { emptyProgress } from "./progress";
-import { pathStatus } from "./pathStatus";
+import { nextStep, pathStatus } from "./pathStatus";
 
 const heuristics = paths.find((p) => p.id === "heuristics")!;
 
@@ -26,5 +26,18 @@ describe("pathStatus", () => {
     expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons, challenges }).state).toBe("challenge");
     const passed = { heuristics: { best: 9, passedDay: "2026-10-03" } };
     expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons, challenges: passed }).state).toBe("complete");
+  });
+});
+
+describe("nextStep", () => {
+  const forms = paths.find((p) => p.id === "forms")!;
+  const all = (p: typeof forms) => Object.fromEntries(p.lessons.map((l) => [l.id, true as const]));
+
+  it("continues the first path in progress, then offers an unlocked challenge, else nothing", () => {
+    expect(nextStep(paths, emptyProgress())).toBeNull();
+    expect(nextStep(paths, { ...emptyProgress(), completedLessons: { f1: true } })).toMatchObject({ kind: "lesson", lesson: { id: "f2" } });
+    expect(nextStep(paths, { ...emptyProgress(), completedLessons: all(forms) })).toMatchObject({ kind: "challenge", path: { id: "forms" } });
+    const passed = { forms: { best: 9, passedDay: "2026-10-03" } };
+    expect(nextStep(paths, { ...emptyProgress(), completedLessons: all(forms), challenges: passed })).toBeNull();
   });
 });
