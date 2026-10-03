@@ -808,7 +808,7 @@ const lessons: Lesson[] = [
 export const heuristicsPath: LearningPath = {
   id: "heuristics",
   title: "Nielsen's 10 usability heuristics",
-  description: "The classic checklist for evaluating any interface.",
+  description: "Ten rules of thumb for spotting usability problems in any screen: clear feedback, familiar words, undo, consistency, preventing errors and more.",
   status: "live",
   lessons,
 };
