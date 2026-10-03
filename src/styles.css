@@ -413,6 +413,31 @@ html { scroll-padding-top: 88px; }
 .cert-share .actions { margin-top: 4px; }
 .cert-try { margin: 0; }
 
+/* Feedback button and dialog */
+.feedback-open {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 16px; padding: 8px 4px;
+  background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.feedback-open svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) { .feedback-open:hover { color: var(--fg); } }
+.feedback-dialog {
+  width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: auto; padding: 22px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg);
+}
+.feedback-dialog::backdrop { background: var(--fg); opacity: 0.5; }
+.feedback-dialog form, .feedback-done { display: grid; gap: 14px; }
+.feedback-dialog h2 { font-size: 22px; }
+.feedback-dialog p { margin: 0; }
+.feedback-about { color: var(--muted); font-size: 15px; margin-top: -8px !important; }
+.feedback-dialog fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+.feedback-dialog legend { padding: 0; margin-bottom: 4px; }
+.feedback-kind .form-hint, .feedback-dialog .check .form-hint { display: block; font-weight: 400; }
+.feedback-dialog textarea { resize: vertical; min-height: 96px; font: inherit; }
+.feedback-dialog .form-error p + p { margin-top: 4px; }
+.feedback-dialog .form-group { margin: 0; }
+.feedback-dialog .actions { margin-top: 0; }
+
 .page-title { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 .skill { display: grid; gap: 8px; align-content: start; }

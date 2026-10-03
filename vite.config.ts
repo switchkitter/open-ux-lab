@@ -6,6 +6,8 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   // Relative asset paths, so the build works under any sub-path (e.g. GitHub Pages /open-ux-lab/).
   base: "./",
+  // Short commit ID of this build (GitHub Actions sets GITHUB_SHA), shown in feedback technical details.
+  define: { __APP_VERSION__: JSON.stringify((process.env.GITHUB_SHA ?? "local").slice(0, 7)) },
   plugins: [
     react(),
     // Installable app + offline support. The service worker precaches the built app, so lessons work

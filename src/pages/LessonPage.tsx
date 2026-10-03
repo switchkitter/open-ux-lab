@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { LearningPath, Lesson } from "../content/types";
 import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
+import FeedbackButton from "../components/FeedbackButton";
 import RewardsList from "../components/RewardsList";
 import { lessonScenes } from "../art";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
@@ -121,6 +122,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
               Start practice ({total} exercises)
             </button>
           </div>
+          <FeedbackButton target={{ type: "lesson", id: lesson.id, title: lesson.title }} />
         </article>
       )}
 

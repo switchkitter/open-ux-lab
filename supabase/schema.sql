@@ -76,3 +76,48 @@ $$;
 
 revoke all on function public.track_event(text, text) from public;
 grant execute on function public.track_event(text, text) to anon, authenticated;
+
+-- Feedback on lessons and exercises, sent from the "Give feedback" dialog.
+-- Not linked to accounts. Learners can add feedback only through submit_feedback(); nobody can read the
+-- table through the public API (no select policy), so read it in the Supabase dashboard (see stats.sql).
+-- submit_feedback() also deletes feedback older than 12 months (the privacy notice promises this) and
+-- refuses new messages when more than 30 arrived in the last 10 minutes, to blunt floods.
+create table if not exists public.feedback (
+  id bigint generated always as identity primary key,
+  created_at timestamptz not null default now(),
+  kind text not null check (kind in ('technical', 'content', 'other')),
+  target_type text not null check (target_type in ('lesson', 'exercise')),
+  target_id text not null check (char_length(target_id) between 1 and 64),
+  message text not null check (char_length(message) between 1 and 1000),
+  reply_email text check (reply_email is null or (char_length(reply_email) <= 254 and reply_email like '%_@_%')),
+  details jsonb check (details is null or (jsonb_typeof(details) = 'object' and pg_column_size(details) <= 1000))
+);
+
+alter table public.feedback enable row level security;
+revoke all on public.feedback from anon, authenticated;
+
+create or replace function public.submit_feedback(
+  feedback_kind text,
+  target_kind text,
+  target_key text,
+  body text,
+  reply_to text default null,
+  tech_details jsonb default null
+)
+returns void
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  delete from public.feedback where created_at < now() - interval '12 months';
+  if (select count(*) from public.feedback where created_at > now() - interval '10 minutes') >= 30 then
+    raise exception 'Too much feedback right now. Try again later.';
+  end if;
+  insert into public.feedback (kind, target_type, target_id, message, reply_email, details)
+  values (feedback_kind, target_kind, target_key, btrim(body), nullif(btrim(reply_to), ''), tech_details);
+end;
+$$;
+
+revoke all on function public.submit_feedback(text, text, text, text, text, jsonb) from public;
+grant execute on function public.submit_feedback(text, text, text, text, text, jsonb) to anon, authenticated;

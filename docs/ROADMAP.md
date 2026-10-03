@@ -51,4 +51,5 @@
 - [x] Link preview (Open Graph image and tags)
 - [x] Sign-in emails from hello@openuxlab.com (Brevo domain authentication)
 - [x] Attribution page (Sources and credits, #/credits)
+- [x] Feedback on every lesson and exercise (technical, content or other), stored in Supabase, email fallback
 - [x] Privacy-respecting analytics: anonymous daily counts in Supabase, opt-out, GPC/DNT respected

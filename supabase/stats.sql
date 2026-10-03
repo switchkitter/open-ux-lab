@@ -36,3 +36,15 @@ from public.usage_counts
 where event = 'review_completed'
 group by 1
 order by 1 desc;
+
+-- Feedback, newest first.
+select created_at, kind, target_type, target_id, message, reply_email, details
+from public.feedback
+order by created_at desc
+limit 100;
+
+-- Which lessons and exercises get the most feedback.
+select target_type, target_id, kind, count(*) as messages
+from public.feedback
+group by target_type, target_id, kind
+order by messages desc;

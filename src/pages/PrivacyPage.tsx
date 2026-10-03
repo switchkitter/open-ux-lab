@@ -37,7 +37,7 @@ export default function PrivacyPage() {
             </li>
             <li>
               The app has no advertising, no tracking cookies and no personal tracking, and doesn't load fonts or scripts from
-              other companies. It does keep anonymous usage counts, explained below.
+              other companies. It does keep anonymous usage counts, and stores feedback you choose to send, both explained below.
             </li>
             <li>
               The site is hosted on GitHub Pages. Like most web hosts, GitHub records technical details such as your IP
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
           <h2>Who handles your data</h2>
           <ul>
             <li>
-              <strong>Supabase</strong> stores your account and progress, and the anonymous usage counts, on servers in the United States.
+              <strong>Supabase</strong> stores your account and progress, feedback you send, and the anonymous usage counts, on servers in the United States.
             </li>
             <li>
               <strong>Brevo</strong> sends the sign-in code emails, so it handles your email address and those emails. Brevo
@@ -124,6 +124,16 @@ export default function PrivacyPage() {
             </label>
           )}
           <p>Counts are also never sent if your browser uses Global Privacy Control or Do Not Track.</p>
+
+          <h2>Feedback</h2>
+          <p>
+            Every lesson and exercise has a “Give feedback” button. If you send feedback, we store what you choose to
+            send: the kind of feedback, which lesson or exercise it's about, your message, and, only if you add them, an
+            email address for a reply and technical details (browser, system, screen size and app version, shown to you
+            before you send). It isn't linked to your account. We use it only to fix problems, improve the lessons and
+            reply if you asked us to. Supabase stores it, and we delete it after 12 months. Please don't put personal
+            details in your message.
+          </p>
 
           <h2>Certificates</h2>
           <p>

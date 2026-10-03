@@ -3,6 +3,7 @@ import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
 import { count } from "../lib/analytics";
 import { play } from "../lib/useSound";
+import FeedbackButton from "./FeedbackButton";
 import Mockup from "./Mockup";
 import Spoken from "./Spoken";
 
@@ -162,6 +163,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
           </div>
         </>
       )}
+      <FeedbackButton target={{ type: "exercise", id: exercise.id, title: exercise.question }} />
     </section>
   );
 }
