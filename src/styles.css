@@ -427,6 +427,9 @@ html { scroll-padding-top: 88px; }
   width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: auto; padding: 22px;
   border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--fg);
 }
+/* Keep the page still behind an open dialog; scrolling inside the dialog doesn't spill over to the page. */
+html:has(dialog[open]) { overflow: hidden; }
+.feedback-dialog { overscroll-behavior: contain; }
 .feedback-dialog::backdrop { background: var(--fg); opacity: 0.5; }
 .feedback-dialog form, .feedback-done { display: grid; gap: 14px; }
 .feedback-dialog h2 { font-size: 22px; }
