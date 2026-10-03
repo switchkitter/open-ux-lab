@@ -77,19 +77,22 @@ export default function HomePage({ progress }: { progress: Progress }) {
                     {path.title}
                   </span>
                   <span className="path-card-desc">{path.description}</span>
-                  <span className="path-card-meta">
-                    {`${st.total} lessons · about ${st.minutes} min`}
-                  </span>
-                  <span className="meter">
-                    <span id={`card-${path.id}-progress`}>
-                      {`${st.done} of ${st.total} lessons done`}
+                  {/* Pinned to the bottom of the card, so these line up across a row whatever the description length. */}
+                  <span className="path-card-foot">
+                    <span className="path-card-meta">
+                      {`${st.total} lessons · about ${st.minutes} min`}
                     </span>
-                    <span className="meter-track" aria-hidden="true">
-                      <i style={{ width: `${(st.done / st.total) * 100}%` }} />
+                    <span className="meter">
+                      <span id={`card-${path.id}-progress`}>
+                        {`${st.done} of ${st.total} lessons done`}
+                      </span>
+                      <span className="meter-track" aria-hidden="true">
+                        <i style={{ width: `${(st.done / st.total) * 100}%` }} />
+                      </span>
                     </span>
-                  </span>
-                  <span className={`path-card-next ${st.state}`} id={`card-${path.id}-next`}>
-                    {st.state === "complete" ? "Completed" : st.state === "not-started" ? `Start with: ${st.next!.title}` : `Up next: ${st.next!.title}`}
+                    <span className={`path-card-next ${st.state}`} id={`card-${path.id}-next`}>
+                      {st.state === "complete" ? "Completed" : st.state === "not-started" ? `Start with: ${st.next!.title}` : `Up next: ${st.next!.title}`}
+                    </span>
                   </span>
                 </a>
               </li>
