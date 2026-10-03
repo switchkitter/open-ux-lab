@@ -166,7 +166,8 @@ html { scroll-padding-top: 88px; }
 .btn { transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease; }
 @media (hover: hover) {
   .btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 82%, var(--fg)); }
-  .btn.ghost:hover:not(:disabled) { background: var(--surface); border-color: var(--fg); }
+  /* Same accent border as path cards and answer options on hover. */
+  .btn.ghost:hover:not(:disabled) { background: var(--surface); border-color: var(--accent); }
   .btn.danger:hover:not(:disabled) { background: color-mix(in srgb, var(--bad) 82%, var(--fg)); }
   .btn.ghost.danger:hover:not(:disabled) { background: var(--bad-soft); border-color: var(--bad); }
   .account-link.signed-out:hover { background: color-mix(in srgb, var(--accent) 82%, var(--fg)); }
@@ -185,7 +186,7 @@ html { scroll-padding-top: 88px; }
   border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
   color: var(--fg); font-size: 16px; font-weight: 700; text-decoration: none;
 }
-.back:hover { border-color: var(--fg); }
+.back:hover { border-color: var(--accent); }
 .steps { display: flex; gap: 4px; margin-top: 14px; }
 .steps i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
 .steps i.on { background: var(--accent); }
