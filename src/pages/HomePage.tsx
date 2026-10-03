@@ -1,61 +1,32 @@
 import { pathIcons } from "../art";
 import ProgressSummary from "../components/ProgressSummary";
 import { paths, plannedPaths } from "../content/paths";
-import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
+import type { Progress } from "../lib/progress";
 import { pathStatus } from "../lib/pathStatus";
 import { hrefFor } from "../lib/route";
 
 export default function HomePage({ progress }: { progress: Progress }) {
-  const now = new Date();
-  const dueCount = dueReviewIds(progress, now).length;
-  const upcoming = nextReview(progress, now);
-  const plural = (n: number) => `${n} ${n === 1 ? "exercise" : "exercises"}`;
-  const intervals = REVIEW_INTERVALS.join(", then ");
+  // The pitch is for first-time visitors; once someone has started, their progress comes first instead.
+  const returning = progress.xp > 0 || Object.keys(progress.seen).length > 0;
 
   return (
     <>
-      <section className="hero">
-        <div className="eyebrow">Free UX practice</div>
-        <h1>Learn UX by judging real interface decisions</h1>
-        <p className="lede">
-          Short lessons, then exercises where you pick the better design and see why. Lessons summarize trusted
-          public sources and link to them for the full story.
-        </p>
-      </section>
-
-      <ProgressSummary progress={progress} />
-
-      {dueCount > 0 && (
-        <section className="panel review">
-          <div>
-            <h2 className="review-title">{`${plural(dueCount)} to review today`}</h2>
-            <p>
-              {`Each time you get one right, it comes back later: after ${intervals} days. Get it right once more after that and it's cleared.`}
-            </p>
-          </div>
-          <a className="btn" href={hrefFor({ name: "review" })}>
-            Start review
-          </a>
+      {returning ? (
+        <section className="hero compact">
+          <h1>Welcome back</h1>
         </section>
-      )}
-      {dueCount === 0 && upcoming && (
-        <section className="panel review quiet">
-          <div>
-            <h2 className="review-title">Nothing to review today</h2>
-            <p>
-              Next review {whenLabel(upcoming.day, now)}: {plural(upcoming.count)}.
-            </p>
-          </div>
+      ) : (
+        <section className="hero">
+          <div className="eyebrow">Free UX practice</div>
+          <h1>Learn UX by judging real interface decisions</h1>
+          <p className="lede">
+            Short lessons, then exercises where you pick the better design and see why. Lessons summarize trusted
+            public sources and link to them for the full story.
+          </p>
         </section>
       )}
 
-      <a className="panel skills-link" href={hrefFor({ name: "skills" })}>
-        <span>
-          <span className="skills-link-title">Your skill map</span>
-          <span className="skills-link-sub">See your strengths and gaps across all paths.</span>
-        </span>
-        <span aria-hidden="true">→</span>
-      </a>
+      {returning && <ProgressSummary progress={progress} />}
 
       <section aria-labelledby="paths-heading">
         <h2 id="paths-heading" className="paths-heading">
