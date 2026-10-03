@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import type { LearningPath } from "../content/types";
 import { mergeProgress } from "./merge";
-import { practiceSet, practiceStatus } from "./practice";
-import { completePractice, emptyProgress, recordPracticeAnswer, XP, type Progress } from "./progress";
+import { challengeSet, practiceSet, practiceStatus } from "./practice";
+import { CHALLENGE_PASS, CHALLENGE_SIZE, challengePassed, completeChallenge, completePractice, emptyProgress, recordChallengeAnswer, recordPracticeAnswer, XP, type Progress } from "./progress";
 
 const types = ["compare", "choice", "spot", "sort"] as const;
 const lesson = (id: string) => ({ id, exercises: types.map((t) => ({ id: `${id}-${t}`, type: t })) });
@@ -54,5 +54,42 @@ describe("daily practice", () => {
 
   it("stays done when another device syncs", () => {
     expect(mergeProgress(p({ practiceDay: "2026-10-01" }), p({ practiceDay: "2026-10-02" }), null).practiceDay).toBe("2026-10-02");
+  });
+});
+
+describe("path challenge", () => {
+  const bigPath = { id: "z", lessons: ["z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8"].map(lesson) } as unknown as LearningPath;
+
+  it("asks ten questions from across the whole path, no more than two per lesson", () => {
+    const set = challengeSet(bigPath);
+    expect(set).toHaveLength(CHALLENGE_SIZE);
+    expect(new Set(set.map((i) => i.exercise.id)).size).toBe(CHALLENGE_SIZE);
+    const perLesson = set.reduce<Record<string, number>>((n, i) => ({ ...n, [i.lesson.id]: (n[i.lesson.id] ?? 0) + 1 }), {});
+    for (const n of Object.values(perLesson)) expect(n).toBeLessThanOrEqual(2);
+  });
+
+  it("keeps the best score, records the first pass, and gives the pass bonus once", () => {
+    let progress = completeChallenge(emptyProgress(), "z", CHALLENGE_PASS - 1, day(2));
+    expect(progress.challenges.z).toEqual({ best: CHALLENGE_PASS - 1, passedDay: null });
+    expect(challengePassed(progress, "z")).toBe(false);
+    progress = completeChallenge(progress, "z", CHALLENGE_PASS, day(3));
+    expect(progress.challenges.z).toEqual({ best: CHALLENGE_PASS, passedDay: "2026-10-03" });
+    expect(progress.xp).toBe(XP.challengePass);
+    progress = completeChallenge(progress, "z", CHALLENGE_SIZE, day(4));
+    expect(progress.challenges.z).toEqual({ best: CHALLENGE_SIZE, passedDay: "2026-10-03" });
+    expect(progress.xp).toBe(XP.challengePass);
+    progress = completeChallenge(progress, "z", 3, day(5));
+    expect(progress.challenges.z.best).toBe(CHALLENGE_SIZE);
+  });
+
+  it("sends missed questions to the review pile", () => {
+    const progress = recordChallengeAnswer(emptyProgress(), "z1-spot", false, day(2));
+    expect(progress.review["z1-spot"]).toEqual({ step: 0, due: "2026-10-02" });
+  });
+
+  it("merges results from two devices: best score and earliest pass", () => {
+    const a = p({ challenges: { z: { best: 7, passedDay: null }, y: { best: 9, passedDay: "2026-10-05" } } });
+    const b = p({ challenges: { z: { best: 9, passedDay: "2026-10-04" }, y: { best: 8, passedDay: "2026-10-03" } } });
+    expect(mergeProgress(a, b, null).challenges).toEqual({ z: { best: 9, passedDay: "2026-10-04" }, y: { best: 9, passedDay: "2026-10-03" } });
   });
 });

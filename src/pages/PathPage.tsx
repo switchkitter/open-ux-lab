@@ -4,7 +4,7 @@ import CertificateOffer from "../components/CertificateOffer";
 import LessonList from "../components/LessonList";
 import type { PathMeta } from "../content/types";
 import { pathStatus } from "../lib/pathStatus";
-import type { Progress } from "../lib/progress";
+import { CHALLENGE_PASS, CHALLENGE_SIZE, challengePassed, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 
 /** One learning path: its overview, progress, a single main action, and its lessons. */
@@ -46,7 +46,7 @@ export default function PathPage({ path, progress }: { path: PathMeta; progress:
           </div>
         </div>
       </section>
-      {s.state === "complete" && <CertificateOffer path={path} />}
+      {s.state === "complete" && <ChallengePanel path={path} progress={progress} />}
       <section aria-labelledby="lessons-heading">
         <h2 id="lessons-heading" className="lessons-heading">
           Lessons
@@ -54,5 +54,38 @@ export default function PathPage({ path, progress }: { path: PathMeta; progress:
         <LessonList path={path} progress={progress} />
       </section>
     </>
+  );
+}
+
+/** On a finished path: the challenge that unlocks the certificate, then the certificate itself. */
+function ChallengePanel({ path, progress }: { path: PathMeta; progress: Progress }) {
+  const result = progress.challenges[path.id];
+  if (challengePassed(progress, path.id)) {
+    return (
+      <>
+        <section className="panel challenge-panel" aria-labelledby="challenge-heading">
+          <h2 id="challenge-heading">Path challenge passed</h2>
+          <p>{`Best score: ${result!.best} of ${CHALLENGE_SIZE}.`}</p>
+          <div className="actions">
+            <a className="btn ghost small" href={hrefFor({ name: "challenge", id: path.id })}>
+              Take it again
+            </a>
+          </div>
+        </section>
+        <CertificateOffer path={path} />
+      </>
+    );
+  }
+  return (
+    <section className="panel challenge-panel" aria-labelledby="challenge-heading">
+      <h2 id="challenge-heading">Path challenge</h2>
+      <p>{`${CHALLENGE_SIZE} questions from across this path, with no hints until the end. Score ${CHALLENGE_PASS} or more to earn your certificate.`}</p>
+      {result && <p className="challenge-best">{`Best so far: ${result.best} of ${CHALLENGE_SIZE}.`}</p>}
+      <div className="actions">
+        <a className="btn" href={hrefFor({ name: "challenge", id: path.id })}>
+          {result ? "Try the challenge again" : "Start the challenge"}
+        </a>
+      </div>
+    </section>
   );
 }

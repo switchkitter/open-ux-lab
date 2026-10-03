@@ -18,10 +18,15 @@ type Props = {
   noteFor?: (correct: boolean) => string | null;
   onAnswer: (correct: boolean) => void;
   onNext: () => void;
+  /**
+   * Challenge mode: answers are saved without showing right or wrong, an explanation or a sound;
+   * the results screen shows them all at the end.
+   */
+  quiz?: boolean;
 };
 
 /** One exercise. Remount with key={exercise.id} to reset between exercises. */
-export default function ExerciseCard({ source, position, exercise, nextLabel, noteFor, onAnswer, onNext }: Props) {
+export default function ExerciseCard({ source, position, exercise, nextLabel, noteFor, onAnswer, onNext, quiz = false }: Props) {
   const [picked, setPicked] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
@@ -38,7 +43,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
   const correctKey = exercise.type === "choice" ? String(exercise.correct) : exercise.type === "sort" ? "all" : exercise.correct;
   const isCorrect = picked === correctKey;
   const sortRight = exercise.type === "sort" ? exercise.items.filter((i) => placed[i.id] === i.group).length : 0;
-  const sortSummary = exercise.type === "sort" && answered ? `${sortRight} of ${exercise.items.length} in the right group.` : null;
+  const sortSummary = exercise.type === "sort" && answered && !quiz ? `${sortRight} of ${exercise.items.length} in the right group.` : null;
 
   // Move focus to the verdict so screen readers read it straight away; Tab then reaches the Next button.
   useEffect(() => {
@@ -51,7 +56,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
     // Work out the note before onAnswer updates progress, since it describes the state being changed.
     setNote(noteFor?.(key === correctKey) ?? null);
     // Sound repeats the verdict that's also shown in text and color; it's never the only cue.
-    play(key === correctKey ? "correct" : "wrong");
+    if (!quiz) play(key === correctKey ? "correct" : "wrong");
     count(key === correctKey ? "exercise_right" : "exercise_wrong", exercise.id);
     onAnswer(key === correctKey);
   }
@@ -67,19 +72,21 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
     pick(exercise.items.every((i) => placed[i.id] === i.group) ? "all" : "some");
   }
 
+  // In challenge mode, only the chosen answer is marked, neutrally.
+  const reveal = answered && !quiz;
   const stateClass = (key: string) =>
-    !answered ? "" : key === correctKey ? "right" : key === picked ? "wrong" : "";
+    !answered ? "" : quiz ? (key === picked ? "chosen" : "") : key === correctKey ? "right" : key === picked ? "wrong" : "";
 
   // Right and wrong are shown in words as well as color.
   const [mine, right] = exercise.type === "spot" ? ["Your pick", "The problem"] : ["Your answer", "Correct answer"];
   const verdict = (key: string) =>
-    !answered ? null : key === correctKey ? (key === picked ? `${mine}: correct` : right) : key === picked ? mine : null;
+    !answered ? null : quiz ? (key === picked ? mine : null) : key === correctKey ? (key === picked ? `${mine}: correct` : right) : key === picked ? mine : null;
   const verdictMark = (key: string) => {
     const text = verdict(key);
     if (!text) return null;
     return (
-      <span className={`verdict ${key === correctKey ? "right" : "wrong"}`}>
-        <span aria-hidden="true">{key === correctKey ? "✓" : "✗"}</span> {text}
+      <span className={`verdict ${quiz ? "chosen" : key === correctKey ? "right" : "wrong"}`}>
+        {!quiz && <span aria-hidden="true">{key === correctKey ? "✓" : "✗"}</span>} {text}
       </span>
     );
   };
@@ -162,7 +169,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
               const choice = placed[item.id];
               const ok = choice === item.group;
               return (
-                <li key={item.id} className={`sort-item ${answered ? (ok ? "right" : "wrong") : ""}`}>
+                <li key={item.id} className={`sort-item ${reveal ? (ok ? "right" : "wrong") : ""}`}>
                   <fieldset>
                     <legend className="sort-text">{item.text}</legend>
                     <div className="sort-options">
@@ -183,7 +190,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
                         </label>
                       ))}
                     </div>
-                    {answered && (
+                    {reveal && (
                       <p className={`verdict ${ok ? "right" : "wrong"}`}>
                         <span aria-hidden="true">{ok ? "✓" : "✗"}</span> {ok ? "Right" : `Belongs in: ${exercise.groups[item.group]}`}
                       </p>
@@ -222,7 +229,19 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
         </>
       )}
 
-      {answered && (
+      {answered && quiz && (
+        <>
+          <div className="feedback neutral" ref={feedbackRef} tabIndex={-1}>
+            Answer saved. You'll see how you did at the end.
+          </div>
+          <div className="actions">
+            <button className="btn" type="button" onClick={onNext}>
+              {nextLabel}
+            </button>
+          </div>
+        </>
+      )}
+      {reveal && (
         <>
           <div className={`feedback ${isCorrect ? "good" : "bad"}`} ref={feedbackRef} tabIndex={-1}>
             {/* Read as one item, so VoiceOver doesn't stop after the bold verdict. */}

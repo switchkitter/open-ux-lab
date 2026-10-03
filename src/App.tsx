@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import AccountPage from "./pages/AccountPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import CertificatePage from "./pages/CertificatePage";
+import ChallengePage from "./pages/ChallengePage";
 import { readCertificate } from "./lib/certificate";
 import CreditsPage from "./pages/CreditsPage";
 import HomePage from "./pages/HomePage";
@@ -30,7 +31,7 @@ export default function App() {
   // Title and focus on every route change. On first load, keep the browser's default focus.
   const firstRender = useRef(true);
   const routeKey =
-    route.name === "lesson" || route.name === "path" ? `${route.name}/${route.id}`
+    route.name === "lesson" || route.name === "path" || route.name === "challenge" ? `${route.name}/${route.id}`
     : route.name === "certificate" ? `${route.name}/${route.path}/${route.date}/${route.learner}`
     : route.name;
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function App() {
       : route.name === "credits" ? "Sources and credits"
       : route.name === "achievements" ? "Your achievements"
       : route.name === "practice" ? "Daily practice"
+      : route.name === "challenge" ? `Path challenge: ${paths.find((p) => p.id === route.id)?.title ?? ""}`
       : route.name === "certificate" ? `Certificate: ${readCertificate(route.path, route.date, route.learner)?.path.title ?? "link not valid"}`
       : "";
     if (firstRender.current) {
@@ -73,6 +75,9 @@ export default function App() {
     page = <PrivacyPage />;
   } else if (route.name === "certificate") {
     page = <CertificatePage certificate={readCertificate(route.path, route.date, route.learner)} />;
+  } else if (route.name === "challenge") {
+    const path = paths.find((p) => p.id === route.id);
+    page = path ? <ChallengePage key={path.id} path={path} progress={progress} update={update} /> : <HomePage progress={progress} />;
   } else if (route.name === "practice") {
     page = <PracticePage progress={progress} update={update} />;
   } else if (route.name === "achievements") {

@@ -8,7 +8,20 @@ export const XP = {
   lessonComplete: 20,
   reviewCorrect: 5,
   practiceCorrect: 5,
+  challengeCorrect: 5,
+  challengePass: 50,
 } as const;
+
+/** Path challenge: this many questions, and this many right to pass (and earn the certificate). */
+export const CHALLENGE_SIZE = 10;
+export const CHALLENGE_PASS = 8;
+
+export type ChallengeResult = {
+  /** Best score so far, out of CHALLENGE_SIZE. */
+  best: number;
+  /** First day it was passed, or null if not yet. */
+  passedDay: string | null;
+};
 
 /**
  * Spaced review: after each correct review, an item comes back after the next interval (in days).
@@ -68,6 +81,8 @@ export type Progress = {
   levelRewarded: number;
   /** Last day the daily practice was finished. See lib/practice.ts. */
   practiceDay: string | null;
+  /** Path challenge results, by path ID. Passing one unlocks that path's certificate. */
+  challenges: Record<string, ChallengeResult>;
   /** Achievement ID -> day it was earned. See lib/rewards.ts. IDs are stable, like exercise IDs. */
   badges: Record<string, string>;
   stats: LearningStats;
@@ -92,6 +107,7 @@ export function emptyProgress(): Progress {
     freezes: 0,
     levelRewarded: 1,
     practiceDay: null,
+    challenges: {},
     badges: {},
     stats: emptyStats(),
   };
@@ -260,6 +276,30 @@ export function recordPracticeAnswer(p: Progress, exerciseId: string, correct: b
   const seen = { ...p.seen, [exerciseId]: true as const };
   if (correct) return gainXp({ ...p, seen }, XP.practiceCorrect, now);
   return { ...p, seen, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
+}
+
+/** Answer in a path challenge: scored like practice, and a miss goes to the review pile. */
+export function recordChallengeAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
+  const seen = { ...p.seen, [exerciseId]: true as const };
+  if (correct) return gainXp({ ...p, seen }, XP.challengeCorrect, now);
+  return { ...p, seen, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
+}
+
+/** Records a finished challenge: best score, the first pass (with a one-off XP bonus) and the day's activity. */
+export function completeChallenge(p: Progress, pathId: string, score: number, now: Date): Progress {
+  const before = p.challenges[pathId];
+  const passed = score >= CHALLENGE_PASS;
+  const firstPass = passed && !before?.passedDay;
+  const result: ChallengeResult = {
+    best: Math.max(before?.best ?? 0, score),
+    passedDay: before?.passedDay ?? (passed ? dayKey(now) : null),
+  };
+  const next = { ...p, challenges: { ...p.challenges, [pathId]: result } };
+  return recordActivity(firstPass ? gainXp(next, XP.challengePass, now) : next, now);
+}
+
+export function challengePassed(p: Progress, pathId: string): boolean {
+  return Boolean(p.challenges[pathId]?.passedDay);
 }
 
 /** Marks today's practice as done (it also counts as activity for the streak). */

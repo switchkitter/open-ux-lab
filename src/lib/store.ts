@@ -1,4 +1,4 @@
-import { DAILY_GOALS, DEFAULT_GOAL, MAX_FREEZES, emptyProgress, emptyStats, normalizeReviewItem, type LearningStats, type Progress, type ReviewItem } from "./progress";
+import { CHALLENGE_SIZE, DAILY_GOALS, DEFAULT_GOAL, MAX_FREEZES, emptyProgress, emptyStats, normalizeReviewItem, type LearningStats, type Progress, type ReviewItem } from "./progress";
 
 /**
  * Where progress lives. Today it's the browser; later this can be swapped
@@ -45,6 +45,14 @@ export function normalizeProgress(raw: unknown): Progress {
     freezes: Math.min(count(raw.freezes), MAX_FREEZES),
     levelRewarded: Math.max(1, count(raw.levelRewarded)),
     practiceDay: day(raw.practiceDay),
+    challenges: Object.fromEntries(
+      Object.entries(isRecord(raw.challenges) ? raw.challenges : {})
+        .filter(([, v]) => isRecord(v))
+        .map(([id, v]) => {
+          const r = v as Record<string, unknown>;
+          return [id, { best: Math.min(count(r.best), CHALLENGE_SIZE), passedDay: day(r.passedDay) }];
+        }),
+    ),
     badges,
     stats,
   };

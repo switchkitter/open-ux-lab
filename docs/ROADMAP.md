@@ -44,7 +44,7 @@
 
 ## Practice
 - [x] Daily practice: 5 mixed exercises a day from finished lessons
-- [ ] Path challenge: a scored round at the end of each path
+- [x] Path challenge: 10 questions, pass with 8 to unlock the path's certificate
 
 ## 0.4 — Ready to share
 - [x] Privacy notice (#/privacy) and self-service account deletion

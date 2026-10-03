@@ -32,7 +32,7 @@ export default function PrivacyPage() {
           <h2>Using the app without an account</h2>
           <ul>
             <li>
-              Your progress (XP, level, streak and streak freezes, daily goal, daily practice, achievements, completed lessons, which exercises you've answered, and your review pile) is
+              Your progress (XP, level, streak and streak freezes, daily goal, daily practice, path challenge scores, achievements, completed lessons, which exercises you've answered, and your review pile) is
               saved in your browser on your device. It isn't sent to us.
             </li>
             <li>
@@ -137,7 +137,7 @@ export default function PrivacyPage() {
 
           <h2>Certificates</h2>
           <p>
-            When you finish a path you can make a certificate. The name you type goes only into the certificate's link, so
+            When you pass a path's challenge you can make a certificate. The name you type goes only into the certificate's link, so
             anyone you share the link with can see it. We don't receive or store it. This browser remembers the name you
             last used so the form is filled in next time. If you choose “Add to LinkedIn”, the certificate's title, date
             and link are sent to LinkedIn so it can fill in its form.

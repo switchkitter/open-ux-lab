@@ -1,6 +1,6 @@
 import { paths } from "../content/catalog";
 import type { ExerciseMeta, LessonMeta, PathMeta } from "../content/types";
-import { dayKey, type Progress } from "./progress";
+import { CHALLENGE_SIZE, dayKey, type Progress } from "./progress";
 
 /**
  * Daily practice: a small mixed set of exercises from lessons the learner has finished. The set is
@@ -24,33 +24,46 @@ function seeded(seed: string): () => number {
   };
 }
 
+/**
+ * Shuffles the pool and picks `size` items, first keeping to the per-type and per-lesson limits so
+ * the set is varied, then filling up from the rest if needed.
+ */
+export function pickMixed(pool: PracticeItem[], size: number, random: () => number, maxPerType: number, maxPerLesson: number): PracticeItem[] {
+  const shuffled = [...pool];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  const picked: PracticeItem[] = [];
+  const perType: Record<string, number> = {};
+  const perLesson: Record<string, number> = {};
+  for (const item of shuffled) {
+    if (picked.length === size) break;
+    if ((perType[item.exercise.type] ?? 0) >= maxPerType || (perLesson[item.lesson.id] ?? 0) >= maxPerLesson) continue;
+    picked.push(item);
+    perType[item.exercise.type] = (perType[item.exercise.type] ?? 0) + 1;
+    perLesson[item.lesson.id] = (perLesson[item.lesson.id] ?? 0) + 1;
+  }
+  for (const item of shuffled) {
+    if (picked.length === size) break;
+    if (!picked.includes(item)) picked.push(item);
+  }
+  return picked;
+}
+
 /** Exercises from finished lessons, shuffled for the day, mixing exercise types where possible. */
 export function practiceSet(progress: Progress, now: Date, learningPaths: PathMeta[] = paths, size = PRACTICE_SIZE): PracticeItem[] {
   const pool: PracticeItem[] = learningPaths.flatMap((p) =>
     p.lessons.filter((l) => progress.completedLessons[l.id]).flatMap((lesson) => lesson.exercises.map((exercise) => ({ lesson, exercise }))),
   );
   if (pool.length < size) return [];
-  const random = seeded(dayKey(now));
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  // At most two of each exercise type and one per lesson first, then fill up from the rest.
-  const picked: PracticeItem[] = [];
-  const perType: Record<string, number> = {};
-  const lessonsUsed = new Set<string>();
-  for (const item of pool) {
-    if (picked.length === size) break;
-    if ((perType[item.exercise.type] ?? 0) >= 2 || lessonsUsed.has(item.lesson.id)) continue;
-    picked.push(item);
-    perType[item.exercise.type] = (perType[item.exercise.type] ?? 0) + 1;
-    lessonsUsed.add(item.lesson.id);
-  }
-  for (const item of pool) {
-    if (picked.length === size) break;
-    if (!picked.includes(item)) picked.push(item);
-  }
-  return picked;
+  return pickMixed(pool, size, seeded(dayKey(now)), 2, 1);
+}
+
+/** A path challenge: questions from across the whole path, in a new random set each attempt. */
+export function challengeSet(path: PathMeta, random: () => number = Math.random, size = CHALLENGE_SIZE): PracticeItem[] {
+  const pool = path.lessons.flatMap((lesson) => lesson.exercises.map((exercise) => ({ lesson, exercise })));
+  return pickMixed(pool, Math.min(size, pool.length), random, Math.ceil(size / 4) + 1, 2);
 }
 
 export type PracticeStatus = "unavailable" | "ready" | "done";

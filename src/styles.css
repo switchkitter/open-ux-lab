@@ -221,6 +221,9 @@ html { scroll-padding-top: 88px; }
 .opt { text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; }
 .opt:hover:not(:disabled) { border-color: var(--accent); }
 .opt:disabled { cursor: default; }
+.choice.chosen, .opt.chosen, .spot-part.chosen { border-color: var(--accent); border-style: solid; background: var(--accent-soft); }
+.verdict.chosen { color: var(--fg); }
+.feedback.neutral { background: var(--accent-soft); }
 .choice.right, .opt.right { border-color: var(--good); background: var(--good-soft); }
 .choice.wrong, .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
 /* Sort into groups */
@@ -463,6 +466,20 @@ html:has(dialog[open]) { overflow: hidden; }
 .feedback-dialog .form-error p + p { margin-top: 4px; }
 .feedback-dialog .form-group { margin: 0; }
 .feedback-dialog .actions { margin-top: 0; }
+
+/* Path challenge */
+.challenge-panel { display: grid; gap: 10px; }
+.challenge-panel h2 { font-size: 20px; }
+.challenge-panel p { margin: 0; }
+.challenge-panel .actions { margin-top: 0; }
+.challenge-best { color: var(--muted); font-size: 15px; }
+.challenge-answers { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.challenge-answers li { display: grid; gap: 6px; border-width: 2px; }
+.challenge-answers li.right { border-color: var(--good); }
+.challenge-answers li.wrong { border-color: var(--bad); }
+.challenge-answers p { margin: 0; }
+.challenge-q { font-weight: 700; }
+.challenge-why { color: var(--muted); font-size: 15px; }
 
 .page-title { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }

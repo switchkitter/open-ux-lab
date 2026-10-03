@@ -230,7 +230,7 @@ function LessonSession({ lesson, path, progress, update }: Props) {
           {path.lessons.every((l) => progress.completedLessons[l.id]) && (
             <p className="notice">
               {`You've finished every lesson in ${path.title}. `}
-              <a href={hrefFor({ name: "path", id: path.id })}>Get your certificate</a>
+              <a href={hrefFor({ name: "challenge", id: path.id })}>Take the path challenge to earn your certificate</a>
             </p>
           )}
           <div className="actions">

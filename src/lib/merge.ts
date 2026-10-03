@@ -23,6 +23,7 @@ export function mergeProgress(local: Progress, remote: Progress, base: Progress 
     freezes: Math.min(MAX_FREEZES, Math.max(0, base ? local.freezes + remote.freezes - base.freezes : Math.max(local.freezes, remote.freezes))),
     levelRewarded: Math.max(local.levelRewarded, remote.levelRewarded),
     practiceDay: later(local.practiceDay, remote.practiceDay),
+    challenges: mergeChallenges(local.challenges, remote.challenges),
     badges: mergeBadges(local.badges, remote.badges),
     stats: mergeStats(local.stats, remote.stats, base?.stats ?? null),
   };
@@ -43,6 +44,18 @@ function mergeDayXp(l: Progress, r: Progress, b: Progress | null): Progress["day
   if (l.dayXp.day !== r.dayXp.day) return l.dayXp.day > r.dayXp.day ? l.dayXp : r.dayXp;
   const baseXp = b?.dayXp?.day === l.dayXp.day ? b.dayXp.xp : null;
   return { day: l.dayXp.day, xp: grown(l.dayXp.xp, r.dayXp.xp, baseXp) };
+}
+
+/** Best score from either device; the earliest pass. */
+function mergeChallenges(l: Progress["challenges"], r: Progress["challenges"]): Progress["challenges"] {
+  const merged = { ...r };
+  for (const [id, a] of Object.entries(l)) {
+    const b = merged[id];
+    merged[id] = b
+      ? { best: Math.max(a.best, b.best), passedDay: a.passedDay && b.passedDay ? (a.passedDay < b.passedDay ? a.passedDay : b.passedDay) : (a.passedDay ?? b.passedDay) }
+      : a;
+  }
+  return merged;
 }
 
 /** Earned on either device; keep the earlier date. */
