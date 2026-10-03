@@ -13,6 +13,7 @@ describe("routes", () => {
       { name: "privacy" },
       { name: "credits" },
       { name: "achievements" },
+      { name: "practice" },
       { name: "certificate", path: "forms", date: "2026-10-02", learner: "Siobhán D'Arcy / Ó Sé" },
     ];
     for (const r of routes) expect(parseRoute(hrefFor(r))).toEqual(r);

@@ -7,6 +7,7 @@ export const XP = {
   correctFirstTry: 10,
   lessonComplete: 20,
   reviewCorrect: 5,
+  practiceCorrect: 5,
 } as const;
 
 /**
@@ -65,6 +66,8 @@ export type Progress = {
   freezes: number;
   /** Highest level whose reward (a streak freeze) has been given. See lib/rewards.ts. */
   levelRewarded: number;
+  /** Last day the daily practice was finished. See lib/practice.ts. */
+  practiceDay: string | null;
   /** Achievement ID -> day it was earned. See lib/rewards.ts. IDs are stable, like exercise IDs. */
   badges: Record<string, string>;
   stats: LearningStats;
@@ -88,6 +91,7 @@ export function emptyProgress(): Progress {
     goalMetDay: null,
     freezes: 0,
     levelRewarded: 1,
+    practiceDay: null,
     badges: {},
     stats: emptyStats(),
   };
@@ -246,6 +250,21 @@ export function normalizeReviewItem(raw: unknown): ReviewItem {
   const step = typeof item.step === "number" ? item.step : typeof item.correctInARow === "number" ? item.correctInARow : 0;
   const due = typeof item.due === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.due) ? item.due : "0000-00-00";
   return { step: Math.max(0, Math.min(step, REVIEW_INTERVALS.length)), due };
+}
+
+/**
+ * Answer in daily practice. Right answers earn practice XP; a miss goes to the review pile, due today,
+ * the same as a miss in a lesson.
+ */
+export function recordPracticeAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
+  const seen = { ...p.seen, [exerciseId]: true as const };
+  if (correct) return gainXp({ ...p, seen }, XP.practiceCorrect, now);
+  return { ...p, seen, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
+}
+
+/** Marks today's practice as done (it also counts as activity for the streak). */
+export function completePractice(p: Progress, now: Date): Progress {
+  return recordActivity({ ...p, practiceDay: dayKey(now) }, now);
 }
 
 /** Marks a lesson complete. XP for completion is only awarded once; a perfect run counts every time. */

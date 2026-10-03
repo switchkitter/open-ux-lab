@@ -41,6 +41,10 @@
 - [x] Path certificates: link-only (no server storage), saved image, Add to LinkedIn
 - [ ] Cosmetic unlocks (accent color themes by level)
 
+## Practice
+- [x] Daily practice: 5 mixed exercises a day from finished lessons
+- [ ] Path challenge: a scored round at the end of each path
+
 ## 0.4 — Ready to share
 - [x] Privacy notice (#/privacy) and self-service account deletion
 - [x] Self-hosted fonts (no third-party requests)

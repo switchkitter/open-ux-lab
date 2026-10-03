@@ -22,6 +22,7 @@ export function mergeProgress(local: Progress, remote: Progress, base: Progress 
     // Freezes are earned and spent on both sides, so combine the changes since the base.
     freezes: Math.min(MAX_FREEZES, Math.max(0, base ? local.freezes + remote.freezes - base.freezes : Math.max(local.freezes, remote.freezes))),
     levelRewarded: Math.max(local.levelRewarded, remote.levelRewarded),
+    practiceDay: later(local.practiceDay, remote.practiceDay),
     badges: mergeBadges(local.badges, remote.badges),
     stats: mergeStats(local.stats, remote.stats, base?.stats ?? null),
   };

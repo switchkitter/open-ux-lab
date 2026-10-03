@@ -32,7 +32,7 @@ export default function PrivacyPage() {
           <h2>Using the app without an account</h2>
           <ul>
             <li>
-              Your progress (XP, level, streak and streak freezes, daily goal, achievements, completed lessons, which exercises you've answered, and your review pile) is
+              Your progress (XP, level, streak and streak freezes, daily goal, daily practice, achievements, completed lessons, which exercises you've answered, and your review pile) is
               saved in your browser on your device. It isn't sent to us.
             </li>
             <li>

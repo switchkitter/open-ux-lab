@@ -44,6 +44,7 @@ export function normalizeProgress(raw: unknown): Progress {
     goalMetDay: day(raw.goalMetDay),
     freezes: Math.min(count(raw.freezes), MAX_FREEZES),
     levelRewarded: Math.max(1, count(raw.levelRewarded)),
+    practiceDay: day(raw.practiceDay),
     badges,
     stats,
   };

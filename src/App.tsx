@@ -14,6 +14,7 @@ import CreditsPage from "./pages/CreditsPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
 import PathPage from "./pages/PathPage";
+import PracticePage from "./pages/PracticePage";
 import PrivacyPage from "./pages/PrivacyPage";
 import ReviewPage from "./pages/ReviewPage";
 import SkillsPage from "./pages/SkillsPage";
@@ -44,6 +45,7 @@ export default function App() {
       : route.name === "skills" ? "Your skills"
       : route.name === "credits" ? "Sources and credits"
       : route.name === "achievements" ? "Your achievements"
+      : route.name === "practice" ? "Daily practice"
       : route.name === "certificate" ? `Certificate: ${readCertificate(route.path, route.date, route.learner)?.path.title ?? "link not valid"}`
       : "";
     if (firstRender.current) {
@@ -72,6 +74,8 @@ export default function App() {
     page = <PrivacyPage />;
   } else if (route.name === "certificate") {
     page = <CertificatePage certificate={readCertificate(route.path, route.date, route.learner)} />;
+  } else if (route.name === "practice") {
+    page = <PracticePage progress={progress} update={update} />;
   } else if (route.name === "achievements") {
     page = <AchievementsPage progress={progress} update={update} />;
   } else if (route.name === "credits") {
