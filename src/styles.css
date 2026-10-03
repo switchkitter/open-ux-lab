@@ -381,6 +381,10 @@ html { scroll-padding-top: 88px; }
 /* Two equal buttons spanning the card, so their outer edges line up with the review row above. */
 .you-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
 .you-links .btn { justify-content: center; text-align: center; }
+.you-links .btn { white-space: nowrap; }
+/* Too narrow for two buttons with icons side by side: stack them. */
+@media (max-width: 360px) { .you-links { grid-template-columns: 1fr; } }
+.you-link-icon { flex: none; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .you .btn.small { min-height: 40px; }
 
 /* Achievements page */

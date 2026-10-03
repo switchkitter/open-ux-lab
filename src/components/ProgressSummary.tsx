@@ -62,12 +62,23 @@ export default function ProgressSummary({ progress }: { progress: Progress }) {
 
       <div className="you-links">
         <a className="btn ghost small" href={hrefFor({ name: "achievements" })}>
+          <LinkIcon d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3" />
           Achievements
         </a>
         <a className="btn ghost small" href={hrefFor({ name: "skills" })}>
+          <LinkIcon d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14" />
           Skill map
         </a>
       </div>
     </section>
+  );
+}
+
+/** A small decorative line icon in the accent color; the link text names the destination. */
+function LinkIcon({ d }: { d: string }) {
+  return (
+    <svg className="you-link-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+      <path d={d} />
+    </svg>
   );
 }
