@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { researchHero } from "./hero-research";
 import { at, check, from, hero } from "./kit";
 import { visualHero } from "./scenes-visual";
+import { writingHero } from "./scenes-writing";
 
 /**
  * Banner illustrations for learning paths, shown at the top of each path page. Each one gathers
@@ -235,4 +236,6 @@ export const pathHeroes: Record<string, ReactNode> = {
 
   // Visual design basics: type specimen, layout grid, palette and components.
   "visual-design": visualHero,
+  // UX writing: a clear button label, a helpful error, a specific dialog, an empty state and a success message.
+  "ux-writing": writingHero,
 };

@@ -348,6 +348,59 @@ export const lessonIcons: Record<string, ReactNode> = {
       <path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5" />
     </>,
   ),
+
+  // ---- UX writing and microcopy ----
+  // Plain, familiar words: a speech bubble
+  w1: icon(
+    <>
+      <path d="M4 5h16v11H9l-5 4z" />
+      <path d="M8 9h8M8 12.5h5" />
+    </>,
+  ),
+  // Buttons and links: a labeled button above a link underline
+  w2: icon(
+    <>
+      <rect x="3" y="5" width="18" height="8" rx="4" />
+      <path d="M7.5 9h9M6 18h12" />
+    </>,
+  ),
+  // Error messages: an alert sign
+  w3: icon(
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7.5v5.5M12 16.5v.01" />
+    </>,
+  ),
+  // Empty states: an empty tray
+  w4: icon(<path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1.5 2.5h5L16 13h5" />),
+  // Confirmation dialogs: a dialog with a question mark
+  w5: icon(
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5v.4M12 16.5v.01" />
+    </>,
+  ),
+  // Success and status messages: a check in a circle
+  w6: icon(
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12.5l2.8 2.8L16.5 9" />
+    </>,
+  ),
+  // Voice and tone: a speaker with sound waves
+  w7: icon(
+    <>
+      <path d="M4 9v6h4l5 4V5L8 9z" />
+      <path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a7.5 7.5 0 0 1 0 11" />
+    </>,
+  ),
+  // Writing for scanning: lines with bold starts
+  w8: icon(
+    <>
+      <path d="M4 6h5M4 12h5M4 18h5" strokeWidth="3" />
+      <path d="M12 6h8M12 12h6M12 18h8" />
+    </>,
+  ),
 };
 
 /** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
@@ -386,4 +439,6 @@ export const pathIcons: Record<string, ReactNode> = {
       <rect x="10" y="10" width="11" height="11" rx="2" />
     </>,
   ),
+  // UX writing and microcopy: a pencil on a line
+  "ux-writing": icon(<path d="M4 20h7M15.5 4.5l4 4L9 19H5v-4z" />),
 };

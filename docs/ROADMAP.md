@@ -12,6 +12,7 @@
 - [x] Laws of UX path: 8 lessons, 16 exercises
 - [x] Form design path (GOV.UK, USWDS): 8 lessons, 16 exercises
 - [x] UX research methods path (GOV.UK Service Manual, NN/g, Pew): 8 lessons, 24 exercises, new User research skill
+- [x] UX writing and microcopy path (GOV.UK, USWDS, NN/g, WCAG, Material, Digital.gov): 8 lessons, 24 exercises
 - [x] Visual design basics path (GOV.UK, USWDS, WCAG, NN/g, Material): 8 lessons, 24 exercises
 - [x] Third exercise type: "spot the problem" (8 exercises, keyboard and screen reader accessible)
 - [x] A spot-the-problem exercise in every lesson (34)

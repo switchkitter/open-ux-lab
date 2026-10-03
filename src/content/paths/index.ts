@@ -4,9 +4,10 @@ import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
 import { lawsOfUxPath } from "./laws-of-ux";
 import { researchPath } from "./research";
+import { uxWritingPath } from "./ux-writing";
 import { visualDesignPath } from "./visual-design";
 
-export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath, uxWritingPath];
 
 /** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
 export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [];
