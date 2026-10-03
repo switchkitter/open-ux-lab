@@ -129,7 +129,7 @@ const lessons: Lesson[] = [
       "Tab through one form in your product without a mouse, then press its main button twice quickly. Note any state that's missing, invisible or confusing.",
     sources: [
       nng("button-states-communicate-interaction", "Button States: Communicate Interaction"),
-      { title: "Material Design 3: Interaction states", url: "https://m3.material.io/foundations/interaction/states/overview" },
+      { title: "Material Design 3: States", url: "https://m3.material.io/foundations/interaction/states/overview" },
       understanding("focus-visible", "Focus Visible"),
       govuk("components/button", "Button"),
     ],
@@ -537,7 +537,7 @@ const lessons: Lesson[] = [
       nng("animation-purpose-ux", "The Role of Animation and Motion in UX"),
       nng("animation-duration", "Executing UX Animations: Duration and Motion Characteristics"),
       understanding("animation-from-interactions", "Animation from Interactions"),
-      { title: "Material Design 3: Motion", url: "https://m3.material.io/styles/motion/overview" },
+      { title: "Material Design 3: Motion", url: "https://m3.material.io/styles/motion/overview/how-it-works" },
     ],
     exercises: [
       {

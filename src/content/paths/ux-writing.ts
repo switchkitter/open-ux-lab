@@ -540,7 +540,7 @@ const lessons: Lesson[] = [
       "Collect ten messages from different parts of your product. Do they sound like one product? Mark any that would feel wrong to someone having a bad day.",
     sources: [
       nng("tone-of-voice-dimensions", "The Four Dimensions of Tone of Voice"),
-      { title: "Material Design 3: UX writing best practices", url: "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices" },
+      { title: "Material Design 3: Style guide (UX writing best practices)", url: "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices" },
     ],
     exercises: [
       {
@@ -620,7 +620,7 @@ const lessons: Lesson[] = [
     fieldExercise:
       "On one of your help pages, read only the headings and the first two words of each line. Could someone find what they need from those alone?",
     sources: [
-      nng("microcontent-how-to-write-headlines-page-titles-and-subject-lines", "Microcontent: A Few Small Words Have a Mega Impact"),
+      nng("microcontent-how-to-write-headlines-page-titles-and-subject-lines", "Microcontent: How to Write Headlines, Page Titles, and Subject Lines"),
       nng("f-shaped-pattern-reading-web-content", "F-Shaped Pattern of Reading on the Web"),
       understanding("headings-and-labels", "Headings and Labels"),
     ],

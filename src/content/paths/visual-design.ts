@@ -209,7 +209,7 @@ const lessons: Lesson[] = [
     sources: [
       govuk("styles/spacing", "Spacing"),
       uswds("design-tokens/spacing-units", "Spacing units"),
-      { title: "Material Design 3: Spacing", url: "https://m3.material.io/foundations/layout/understanding-layout/spacing" },
+      { title: "Material Design 3: Spacing", url: "https://m3.material.io/foundations/layout/grids-spacing/spacing" },
     ],
     exercises: [
       {
