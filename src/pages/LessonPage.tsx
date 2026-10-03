@@ -151,6 +151,12 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           <p>{`${firstTry} of ${total} right on the first try.`}</p>
           {firstTry < total && <p>Missed exercises are waiting in your review pile.</p>}
           <RewardsList before={before} after={progress} />
+          {path.lessons.every((l) => progress.completedLessons[l.id]) && (
+            <p className="notice">
+              {`You've finished every lesson in ${path.title}. `}
+              <a href={hrefFor({ name: "path", id: path.id })}>Get your certificate</a>
+            </p>
+          )}
           <div className="actions">
             {nextLesson && (
               <a className="btn" href={hrefFor({ name: "lesson", id: nextLesson.id })}>

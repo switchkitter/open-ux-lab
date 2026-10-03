@@ -8,6 +8,8 @@ import { useRoute } from "./lib/route";
 import Header from "./components/Header";
 import AccountPage from "./pages/AccountPage";
 import AchievementsPage from "./pages/AchievementsPage";
+import CertificatePage from "./pages/CertificatePage";
+import { readCertificate } from "./lib/certificate";
 import CreditsPage from "./pages/CreditsPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
@@ -27,7 +29,10 @@ export default function App() {
 
   // Title and focus on every route change. On first load, keep the browser's default focus.
   const firstRender = useRef(true);
-  const routeKey = route.name === "lesson" || route.name === "path" ? `${route.name}/${route.id}` : route.name;
+  const routeKey =
+    route.name === "lesson" || route.name === "path" ? `${route.name}/${route.id}`
+    : route.name === "certificate" ? `${route.name}/${route.path}/${route.date}/${route.learner}`
+    : route.name;
   useEffect(() => {
     const found = route.name === "lesson" ? findLesson(route.id) : undefined;
     const title =
@@ -39,6 +44,7 @@ export default function App() {
       : route.name === "skills" ? "Your skills"
       : route.name === "credits" ? "Sources and credits"
       : route.name === "achievements" ? "Your achievements"
+      : route.name === "certificate" ? `Certificate: ${readCertificate(route.path, route.date, route.learner)?.path.title ?? "link not valid"}`
       : "";
     if (firstRender.current) {
       firstRender.current = false;
@@ -64,6 +70,8 @@ export default function App() {
     page = <AccountPage status={syncStatus} syncNow={() => void syncNow()} progress={progress} update={update} />;
   } else if (route.name === "privacy") {
     page = <PrivacyPage />;
+  } else if (route.name === "certificate") {
+    page = <CertificatePage certificate={readCertificate(route.path, route.date, route.learner)} />;
   } else if (route.name === "achievements") {
     page = <AchievementsPage progress={progress} update={update} />;
   } else if (route.name === "credits") {

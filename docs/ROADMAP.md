@@ -35,7 +35,7 @@
 
 ## Motivation
 - [x] Levels (Intern to UX legend), each earning a streak freeze; achievements (17 badges); daily XP goal; streak freezes. Nothing is locked behind XP.
-- [ ] Path certificates (shareable page per finished path)
+- [x] Path certificates: link-only (no server storage), saved image, Add to LinkedIn
 - [ ] Cosmetic unlocks (accent color themes by level)
 
 ## 0.4 — Ready to share

@@ -1,5 +1,6 @@
 import { pathHeroes } from "../art";
 import { paths } from "../content/paths";
+import CertificateOffer from "../components/CertificateOffer";
 import LessonList from "../components/LessonList";
 import type { LearningPath } from "../content/types";
 import { pathStatus } from "../lib/pathStatus";
@@ -45,6 +46,7 @@ export default function PathPage({ path, progress }: { path: LearningPath; progr
           </div>
         </div>
       </section>
+      {s.state === "complete" && <CertificateOffer path={path} />}
       <section aria-labelledby="lessons-heading">
         <h2 id="lessons-heading" className="lessons-heading">
           Lessons

@@ -389,6 +389,30 @@ html { scroll-padding-top: 88px; }
 .reward .badge-icon { width: 32px; height: 32px; }
 .rewards-more { margin: 10px 0 0; }
 
+/* Certificates */
+.certificate-offer { display: grid; gap: 10px; }
+.certificate-offer h2 { font-size: 20px; }
+.certificate-offer p { margin: 0; }
+.certificate {
+  display: grid; justify-items: center; gap: 6px; text-align: center; padding: 36px 24px;
+  background: var(--surface); border: 6px double var(--accent); border-radius: 12px;
+}
+.certificate p { margin: 0; }
+.cert-brand { font-family: var(--f-display); font-weight: 800; font-size: 20px; margin-bottom: 12px; }
+.cert-brand span { color: var(--accent); }
+.cert-name { font-size: clamp(30px, 7vw, 48px); font-weight: 800; margin: 12px 0 4px; overflow-wrap: anywhere; }
+.cert-line { color: var(--muted); font-size: 17px; }
+.cert-path { font-family: var(--f-display); font-weight: 700; font-size: clamp(22px, 5vw, 30px); color: var(--accent); }
+.cert-detail { color: var(--muted); font-size: 15px; }
+.cert-seal { margin-top: 14px; }
+.cert-seal circle { fill: var(--mark); stroke: var(--mark-ink); stroke-width: 2.5; }
+.cert-seal path { fill: none; stroke: var(--mark-ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.cert-date { font-weight: 700; }
+.cert-share { display: grid; gap: 10px; }
+.cert-share h2 { font-size: 20px; }
+.cert-share .actions { margin-top: 4px; }
+.cert-try { margin: 0; }
+
 .page-title { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 .skill { display: grid; gap: 8px; align-content: start; }

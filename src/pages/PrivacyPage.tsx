@@ -125,9 +125,17 @@ export default function PrivacyPage() {
           )}
           <p>Counts are also never sent if your browser uses Global Privacy Control or Do Not Track.</p>
 
+          <h2>Certificates</h2>
+          <p>
+            When you finish a path you can make a certificate. The name you type goes only into the certificate's link, so
+            anyone you share the link with can see it. We don't receive or store it. This browser remembers the name you
+            last used so the form is filled in next time. If you choose “Add to LinkedIn”, the certificate's title, date
+            and link are sent to LinkedIn so it can fill in its form.
+          </p>
+
           <h2>Data stored in your browser</h2>
           <p>
-            The app stores your progress and settings (such as whether sound effects are on, or whether to send usage counts) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
+            The app stores your progress and settings (such as whether sound effects are on, whether to send usage counts, or the name you last put on a certificate) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
             needed for the app to work, so there's no cookie banner. Clearing this site's data in your browser removes them.
           </p>
 

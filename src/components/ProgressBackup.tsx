@@ -1,6 +1,7 @@
 import { useRef, useState, type ChangeEvent } from "react";
 import { backupFileName, describeProgress, importBackup, makeBackup, readBackup } from "../lib/backup";
 import type { Progress } from "../lib/progress";
+import { saveFile } from "../lib/saveFile";
 import type { UpdateProgress } from "../lib/useProgress";
 
 type Props = { progress: Progress; update: UpdateProgress };
@@ -14,30 +15,9 @@ export default function ProgressBackup({ progress, update }: Props) {
   async function save() {
     const now = new Date();
     const file = new File([makeBackup(progress, now)], backupFileName(now), { type: "application/json" });
-    // Phones (including the installed app on iPhone) handle files through the share sheet: "Save to Files".
-    const touch = window.matchMedia?.("(pointer: coarse)").matches;
-    if (touch && navigator.canShare?.({ files: [file] })) {
-      try {
-        await navigator.share({ files: [file], title: "Open UX Lab progress" });
-        setMessage({ kind: "ok", text: "Progress file ready. Keep it somewhere you can reach from your other device." });
-      } catch (err) {
-        if ((err as Error).name !== "AbortError") download(file);
-      }
-      return;
-    }
-    download(file);
-  }
-
-  function download(file: File) {
-    const url = URL.createObjectURL(file);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = file.name;
-    document.body.append(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    setMessage({ kind: "ok", text: `Saved ${file.name} to your downloads.` });
+    const result = await saveFile(file, "Open UX Lab progress");
+    if (result === "shared") setMessage({ kind: "ok", text: "Progress file ready. Keep it somewhere you can reach from your other device." });
+    if (result === "downloaded") setMessage({ kind: "ok", text: `Saved ${file.name} to your downloads.` });
   }
 
   async function load(e: ChangeEvent<HTMLInputElement>) {

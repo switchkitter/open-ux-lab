@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 /**
- * Tiny hash router: #/ , #/path/heuristics , #/lesson/h1 , #/review , #/account , #/privacy , #/skills , #/credits , #/achievements
+ * Tiny hash router: #/ , #/path/heuristics , #/lesson/h1 , #/review , #/account , #/privacy , #/skills , #/credits , #/achievements , #/certificate/forms/2026-10-02/Name
  * Swap for a real router when the app needs nested routes or server rendering.
  */
-export type Route = { name: "home" } | { name: "path"; id: string } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" } | { name: "credits" } | { name: "achievements" };
+export type Route = { name: "home" } | { name: "path"; id: string } | { name: "lesson"; id: string } | { name: "review" } | { name: "account" } | { name: "privacy" } | { name: "skills" } | { name: "credits" } | { name: "achievements" }
+  | { name: "certificate"; path: string; date: string; learner: string };
 
 export function parseRoute(hash: string): Route {
   const parts = hash.replace(/^#\/?/, "").split("/").filter(Boolean);
@@ -16,6 +17,13 @@ export function parseRoute(hash: string): Route {
   if (parts[0] === "skills") return { name: "skills" };
   if (parts[0] === "credits") return { name: "credits" };
   if (parts[0] === "achievements") return { name: "achievements" };
+  if (parts[0] === "certificate" && parts[1] && parts[2] && parts[3]) {
+    try {
+      return { name: "certificate", path: parts[1], date: parts[2], learner: decodeURIComponent(parts.slice(3).join("/")) };
+    } catch {
+      // A badly encoded name: treat the link as unknown.
+    }
+  }
   return { name: "home" };
 }
 
@@ -37,6 +45,8 @@ export function hrefFor(route: Route): string {
       return "#/credits";
     case "achievements":
       return "#/achievements";
+    case "certificate":
+      return `#/certificate/${route.path}/${route.date}/${encodeURIComponent(route.learner)}`;
     default:
       return "#/";
   }
