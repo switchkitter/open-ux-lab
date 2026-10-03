@@ -401,6 +401,59 @@ export const lessonIcons: Record<string, ReactNode> = {
       <path d="M12 6h8M12 12h6M12 18h8" />
     </>,
   ),
+
+  // ---- Interaction design ----
+  // Affordances and signifiers: a pointer clicking
+  i1: icon(<path d="M9 9l10 4-4.5 1.5L13 19zM5.5 5.5L4 4M9 4.5V2.5M4.5 9H2.5" />),
+  // Component states: a switch
+  i2: icon(
+    <>
+      <rect x="2" y="7" width="20" height="10" rx="5" />
+      <circle cx="16" cy="12" r="3" />
+    </>,
+  ),
+  // Response time and loading: a stopwatch
+  i3: icon(
+    <>
+      <circle cx="12" cy="13.5" r="7.5" />
+      <path d="M12 10v3.5l2.5 2M10 2.5h4M12 2.5V6" />
+    </>,
+  ),
+  // Navigation patterns: a compass
+  i4: icon(
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M15.5 8.5l-2 5-5 2 2-5z" />
+    </>,
+  ),
+  // Progressive disclosure: an accordion with one row open
+  i5: icon(
+    <>
+      <rect x="3" y="4" width="18" height="6" rx="1.5" />
+      <path d="M15.5 6.3l1.5 1.5 1.5-1.5M6 14h12M6 18h8" />
+    </>,
+  ),
+  // Modals, panels and inline: one window over another
+  i6: icon(
+    <>
+      <rect x="3" y="3" width="13" height="12" rx="2" />
+      <rect x="8" y="9" width="13" height="12" rx="2" />
+    </>,
+  ),
+  // Motion with a purpose: a moving dot with speed lines
+  i7: icon(
+    <>
+      <circle cx="16" cy="12" r="4" />
+      <path d="M3 9h7M2 12h8M3 15h7" />
+    </>,
+  ),
+  // Touch, pointer and keyboard: a keyboard
+  i8: icon(
+    <>
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" />
+    </>,
+  ),
 };
 
 /** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
@@ -441,4 +494,11 @@ export const pathIcons: Record<string, ReactNode> = {
   ),
   // UX writing and microcopy: a pencil on a line
   "ux-writing": icon(<path d="M4 20h7M15.5 4.5l4 4L9 19H5v-4z" />),
+  // Interaction design: a pointer on a window
+  "interaction-design": icon(
+    <>
+      <rect x="3" y="3" width="13" height="13" rx="2" />
+      <path d="M12 12l9 3.5-4 1.5-1.5 4z" />
+    </>,
+  ),
 };

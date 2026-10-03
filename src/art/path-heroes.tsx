@@ -3,6 +3,7 @@ import { researchHero } from "./hero-research";
 import { at, check, from, hero } from "./kit";
 import { visualHero } from "./scenes-visual";
 import { writingHero } from "./scenes-writing";
+import { interactionHero } from "./scenes-interaction";
 
 /**
  * Banner illustrations for learning paths, shown at the top of each path page. Each one gathers
@@ -238,4 +239,6 @@ export const pathHeroes: Record<string, ReactNode> = {
   "visual-design": visualHero,
   // UX writing: a clear button label, a helpful error, a specific dialog, an empty state and a success message.
   "ux-writing": writingHero,
+  // Interaction design: component states, tabs and an accordion, and a big tap target on a phone.
+  "interaction-design": interactionHero,
 };

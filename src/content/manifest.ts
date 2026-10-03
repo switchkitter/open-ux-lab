@@ -1712,5 +1712,244 @@ export const manifest: PathMeta[] = [
         ]
       }
     ]
+  },
+  {
+    "id": "interaction-design",
+    "title": "Interaction design",
+    "description": "Signifiers, component states, response times, navigation, progressive disclosure, modals, motion, and touch and keyboard input.",
+    "status": "live",
+    "lessons": [
+      {
+        "id": "i1",
+        "code": "I1",
+        "title": "Affordances and signifiers",
+        "subtitle": "Show what can be done",
+        "minutes": 5,
+        "skills": [
+          "conventions",
+          "layout"
+        ],
+        "exercises": [
+          {
+            "id": "i1-open-report",
+            "type": "compare"
+          },
+          {
+            "id": "i1-false-signifier",
+            "type": "choice"
+          },
+          {
+            "id": "i1-spot-false-link",
+            "type": "spot"
+          },
+          {
+            "id": "i1-sort-signifiers",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i2",
+        "code": "I2",
+        "title": "Component states",
+        "subtitle": "Design every state, not just the default",
+        "minutes": 5,
+        "skills": [
+          "feedback",
+          "accessibility"
+        ],
+        "exercises": [
+          {
+            "id": "i2-double-pay",
+            "type": "compare"
+          },
+          {
+            "id": "i2-disabled",
+            "type": "choice"
+          },
+          {
+            "id": "i2-spot-color-only",
+            "type": "spot"
+          },
+          {
+            "id": "i2-sort-states",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i3",
+        "code": "I3",
+        "title": "Response time and loading",
+        "subtitle": "What to show while people wait",
+        "minutes": 5,
+        "skills": [
+          "feedback"
+        ],
+        "exercises": [
+          {
+            "id": "i3-skeleton",
+            "type": "compare"
+          },
+          {
+            "id": "i3-long-task",
+            "type": "choice"
+          },
+          {
+            "id": "i3-spot-silent",
+            "type": "spot"
+          },
+          {
+            "id": "i3-sort-indicator",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i4",
+        "code": "I4",
+        "title": "Navigation patterns",
+        "subtitle": "Tabs, menus, breadcrumbs and when to use each",
+        "minutes": 5,
+        "skills": [
+          "conventions",
+          "layout"
+        ],
+        "exercises": [
+          {
+            "id": "i4-current-location",
+            "type": "compare"
+          },
+          {
+            "id": "i4-tabs-for-steps",
+            "type": "choice"
+          },
+          {
+            "id": "i4-spot-hidden-nav",
+            "type": "spot"
+          },
+          {
+            "id": "i4-sort-pattern",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i5",
+        "code": "I5",
+        "title": "Progressive disclosure",
+        "subtitle": "Show the basics, reveal the rest",
+        "minutes": 5,
+        "skills": [
+          "effort",
+          "layout"
+        ],
+        "exercises": [
+          {
+            "id": "i5-filters",
+            "type": "compare"
+          },
+          {
+            "id": "i5-hidden-fee",
+            "type": "choice"
+          },
+          {
+            "id": "i5-spot-vague-reveal",
+            "type": "spot"
+          },
+          {
+            "id": "i5-sort-compose",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i6",
+        "code": "I6",
+        "title": "Modals, panels and inline",
+        "subtitle": "Interrupt only when you must",
+        "minutes": 5,
+        "skills": [
+          "control",
+          "effort"
+        ],
+        "exercises": [
+          {
+            "id": "i6-rename",
+            "type": "compare"
+          },
+          {
+            "id": "i6-when-modal",
+            "type": "choice"
+          },
+          {
+            "id": "i6-spot-trap",
+            "type": "spot"
+          },
+          {
+            "id": "i6-sort-pattern",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i7",
+        "code": "I7",
+        "title": "Motion with a purpose",
+        "subtitle": "Animation that explains, not decorates",
+        "minutes": 5,
+        "skills": [
+          "feedback",
+          "accessibility"
+        ],
+        "exercises": [
+          {
+            "id": "i7-panel-speed",
+            "type": "compare"
+          },
+          {
+            "id": "i7-reduce-motion",
+            "type": "choice"
+          },
+          {
+            "id": "i7-spot-endless",
+            "type": "spot"
+          },
+          {
+            "id": "i7-sort-purpose",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "i8",
+        "code": "I8",
+        "title": "Touch, pointer and keyboard",
+        "subtitle": "Design for fingers, mice and keyboards",
+        "minutes": 5,
+        "skills": [
+          "control",
+          "accessibility"
+        ],
+        "exercises": [
+          {
+            "id": "i8-swipe-delete",
+            "type": "compare"
+          },
+          {
+            "id": "i8-hover-actions",
+            "type": "choice"
+          },
+          {
+            "id": "i8-spot-tiny",
+            "type": "spot"
+          },
+          {
+            "id": "i8-sort-input",
+            "type": "sort"
+          }
+        ]
+      }
+    ]
   }
 ];

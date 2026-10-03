@@ -594,6 +594,7 @@ html:has(dialog[open]) { overflow: hidden; }
 .scene-svg .a-tip { transform-box: view-box; transform-origin: 168px 55px; animation: art-zoom-big 0.45s ease-out both; }
 
 .scene-svg .origin-left { transform-origin: left center; }
+.scene-svg .origin-top { transform-origin: center top; }
 .scene-svg .a-from { animation: art-from 0.7s ease-in-out both; }
 .scene-svg .a-tab { animation: art-tab 2s 0.2s ease-in-out both; }
 .scene-svg .a-draw { stroke-dasharray: 1; stroke-dashoffset: 0; animation: art-draw 1.4s 0.2s ease-in-out both; }
