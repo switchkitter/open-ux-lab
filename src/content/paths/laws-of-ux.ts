@@ -139,12 +139,12 @@ const lessons: Lesson[] = [
         question: "A dialog has “Delete project” and “Cancel” buttons. People rarely mean to delete a project. How should Fitts's Law shape the design?",
         options: [
           "Make Delete the biggest, most prominent button so people can find it fast",
-          "Make Cancel the easy target, and Delete clearly labeled but smaller",
+          "Keep Cancel where a quick click lands, and set Delete apart in red",
           "Make both buttons tiny so nobody clicks either one by accident",
           "Put Delete in a screen corner, where it's fastest to reach with a mouse",
         ],
         correct: 1,
-        why: "Fitts's Law tells you how to make a target easy to hit, so it also tells you how to make one a little harder. The safe, common choice should be the easy target, and the destructive one should be findable but not where a quick click lands. Tiny buttons slow everyone down, and a corner makes Delete faster to hit by accident.",
+        why: "Fitts's Law tells you how to make a target easy to hit, so it also tells you how to avoid accidental hits. The safe choice should sit where a quick click lands, and the destructive one should be clearly labeled and distinct, in red and a little apart, rather than bigger. Making Delete the biggest target invites slips, tiny buttons slow everyone down, and a corner makes Delete faster to hit by accident.",
       },
       {
         id: "l2-spot-tiny-continue",
@@ -562,7 +562,7 @@ const lessons: Lesson[] = [
         groups: ["For a good reason", "For no reason"],
         items: [
           { id: "primary", text: "The one main button on a form", group: 0 },
-          { id: "error", text: "A field with an error, shown in red", group: 0 },
+          { id: "error", text: "A field with an error, shown in red with a message", group: 0 },
           { id: "popular", text: "The plan most customers pick, marked “Most popular”", group: 0 },
           { id: "badges", text: "A flashing “NEW” badge on every menu item", group: 1 },
           { id: "orange", text: "One random word in bright orange in the middle of a paragraph", group: 1 },
@@ -598,10 +598,10 @@ const lessons: Lesson[] = [
         type: "compare",
         question: "The last screen after someone books a car service. Which ending leaves a better impression?",
         a: `<div class="mk"><div class="mk-title">You're booked!</div><div>Thanks for choosing Northside Auto.</div><div class="mk-row"><span class="mk-btn">Done</span></div></div>`,
-        b: `<div class="mk"><div class="mk-title">You're booked for Tuesday 14 October at 9:00 AM</div><div>Northside Auto, 21 Mill Road</div><div class="mk-muted">We've emailed your confirmation. You can change or cancel up to 24 hours before.</div><div class="mk-row"><span class="mk-btn">Add to calendar</span><span class="mk-btn sec">View booking</span></div></div>`,
+        b: `<div class="mk"><div class="mk-title">You're booked for Tuesday 13 October at 9:00 AM</div><div>Northside Auto, 21 Mill Road</div><div class="mk-muted">We've emailed your confirmation. You can change or cancel up to 24 hours before.</div><div class="mk-row"><span class="mk-btn">Add to calendar</span><span class="mk-btn sec">View booking</span></div></div>`,
         describe: {
           a: "A screen saying “You're booked!”, then “Thanks for choosing Northside Auto.” and a Done button.",
-          b: "A screen saying “You're booked for Tuesday 14 October at 9:00 AM” at Northside Auto, 21 Mill Road, noting that the confirmation was emailed and you can change or cancel up to 24 hours before. Buttons: Add to calendar, View booking.",
+          b: "A screen saying “You're booked for Tuesday 13 October at 9:00 AM” at Northside Auto, 21 Mill Road, noting that the confirmation was emailed and you can change or cancel up to 24 hours before. Buttons: Add to calendar, View booking.",
         },
         correct: "b",
         why: "Both end on a friendly note, but B also confirms exactly when and where the booking is, says what happens next and offers useful next steps. A's warm “You're booked!” leaves people checking their email to find out the date and time, and that last moment of doubt colors how they remember the whole flow.",
@@ -627,22 +627,22 @@ const lessons: Lesson[] = [
         parts: [
           {
             id: "cart",
-            label: "Step 1, Cart: product photos and a clear total",
+            label: "Step 1, Cart: 2 items, $84.00",
             html: `<div class="mk-muted">Step 1 · Cart</div><div>2 items · $84.00</div>`,
           },
           {
             id: "delivery",
-            label: "Step 2, Delivery: address filled in with one tap",
+            label: "Step 2, Delivery: Address filled in for you, with a check mark",
             html: `<div class="mk-muted">Step 2 · Delivery</div><div>Address filled in for you ✓</div>`,
           },
           {
             id: "payment",
-            label: "Step 3, Payment: a one-tap pay button",
+            label: "Step 3, Payment: button, Pay with one tap",
             html: `<div class="mk-muted">Step 3 · Payment</div><span class="mk-btn">Pay with one tap</span>`,
           },
           {
             id: "end",
-            label: "Last screen: the words Request processed., with no order number, delivery date or next step",
+            label: "Last screen: Request processed.",
             html: `<div class="mk-muted">Last screen</div><div>Request processed.</div>`,
           },
         ],

@@ -71,7 +71,7 @@ const lessons: Lesson[] = [
           },
           {
             id: "controls",
-            label: "Video controls: Play, Volume and Full screen buttons only",
+            label: "Video controls: Play, Volume and Full screen buttons",
             html: `<div class="mk-row"><span class="mk-btn sec">▶ Play</span><span class="mk-btn sec">Volume</span><span class="mk-btn sec">Full screen</span></div>`,
           },
           {
@@ -286,7 +286,7 @@ const lessons: Lesson[] = [
           { id: "icon", text: "The icon in an icon-only button", group: 1 },
           { id: "border", text: "The border that shows where a text field is", group: 1 },
         ],
-        why: "Normal-size text needs 4.5:1, because small letters are harder to make out. Large text, about 24px or 18.5px bold and up, needs 3:1, as do the parts of controls and graphics people need to see, like icons and input borders. Hint text is the one teams most often make too pale: it's normal-size text, so it needs 4.5:1 too.",
+        why: "Normal-size text needs 4.5:1, because small letters are harder to make out. Large text, about 24px, or 19px bold, and up, needs 3:1, as do the parts of controls and graphics people need to see, like icons and input borders. Hint text is the one teams most often make too pale: it's normal-size text, so it needs 4.5:1 too.",
       },
     ],
   },
@@ -720,7 +720,7 @@ const lessons: Lesson[] = [
         question: "A data table puts Edit and Delete icons 2px apart, each 14px square. People on tablets keep deleting the wrong row. What's the best fix?",
         options: [
           "Add a confirmation dialog to Delete, so a mis-tap doesn't delete anything",
-          "Make each target at least 24px with space between, or move Delete into a menu",
+          "Make targets at least 24px, ideally about 44, or move Delete into a menu",
           "Make the Delete icon red so people notice it before they tap",
           "Add tooltips to both icons that explain what each one does",
         ],

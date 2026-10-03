@@ -554,7 +554,7 @@ const lessons: Lesson[] = [
           b: "A message titled “Oops! Too many attempts”, saying “Please try again later.”",
         },
         correct: "a",
-        why: "Being locked out is stressful and might mean someone is trying to break in, so A stays calm, explains why it happened and how long it lasts, and offers a way back in. B's “Oops!” makes light of it, and “later” doesn't say how long to wait or what else people can do, so many will keep trying and stay locked out.",
+        why: "Being locked out is stressful and might mean someone is trying to break in, so A stays calm, explains why it happened and how long it lasts, and offers a way back in. B's “Oops!” makes light of it, and “later” doesn't say how long to wait or what else people can do, so many will keep trying and stay locked out. If your product avoids confirming which accounts exist, keep A's calm, specific tone and send the details by email instead.",
       },
       {
         id: "w7-voice-vs-tone",

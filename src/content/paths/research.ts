@@ -254,8 +254,8 @@ const lessons: Lesson[] = [
         groups: ["Works", "Gives it away"],
         items: [
           { id: "tasks", text: "Which of these do you do at work? (a list of tasks)", group: 0 },
-          { id: "count", text: "Roughly how many invoices do you send in a month?", group: 0 },
-          { id: "role", text: "What's your job title?", group: 0 },
+          { id: "volumes", text: "Roughly how many of each do you handle a month: invoices, purchase orders, expense claims?", group: 0 },
+          { id: "tools", text: "Which of these tools have you used in the last month? (a list of tools)", group: 0 },
           { id: "yesno", text: "Do you manage invoices? Yes or No", group: 1 },
           { id: "looking", text: "We're looking for people who handle invoices. Is that you?", group: 1 },
         ],
@@ -485,7 +485,7 @@ const lessons: Lesson[] = [
         question: "Which survey question will give biased answers?",
         title: "Customer survey",
         parts: [
-          { id: "q1", label: "Question 1: How often do you use the mobile app? Options: Daily, Weekly, Monthly, Never", html: line("Q1", "How often do you use the mobile app? ○ Daily ○ Weekly ○ Monthly ○ Never") },
+          { id: "q1", label: "Question 1: How often do you use the mobile app? Options: Daily, Weekly, Monthly, Less often, Never", html: line("Q1", "How often do you use the mobile app? ○ Daily ○ Weekly ○ Monthly ○ Never") },
           { id: "q2", label: "Question 2: Which features do you use? Select all that apply, including Other", html: line("Q2", "Which features do you use? Select all that apply, including Other") },
           { id: "q3", label: "Question 3: Don't you agree the new design is easier to use? Options: Yes, No", html: line("Q3", "Don't you agree the new design is easier to use? ○ Yes ○ No") },
           { id: "q4", label: "Question 4 (optional): Anything else you'd like to tell us?", html: line("Q4", "Anything else you'd like to tell us? (optional)") },
