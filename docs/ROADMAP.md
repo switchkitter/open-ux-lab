@@ -18,7 +18,7 @@
 - [x] A spot-the-problem exercise in every lesson (34)
 - [x] Shuffle option order in choice exercises
 - [x] Fourth exercise type: sort into groups (7 exercises, one per path; radio buttons, works with keyboard and screen readers)
-- [ ] More sort exercises across lessons
+- [x] A sort exercise in every lesson (58)
 
 ## Visual polish
 - [x] Icons and animated scenes for the heuristics path, lesson tiles, small UI motion
