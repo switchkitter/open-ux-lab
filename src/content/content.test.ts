@@ -103,6 +103,21 @@ describe("content integrity", () => {
     }
   });
 
+  it("doesn't let option length give multiple choice away", () => {
+    // Neither "pick the longest" nor "pick the shortest" should work. The right answer clearly stands out
+    // when it's the longest or shortest option by more than 10% of the nearest other option.
+    const standsOut = (e: { options: string[]; correct: number }) => {
+      const right = e.options[e.correct].length;
+      const others = e.options.filter((_, i) => i !== e.correct).map((o) => o.length);
+      return right > Math.max(...others) * 1.1 || right < Math.min(...others) * 0.9;
+    };
+    for (const path of paths) {
+      const choices = path.lessons.flatMap((l) => l.exercises).flatMap((e) => (e.type === "choice" ? [e] : []));
+      const flagged = choices.filter(standsOut).map((e) => e.id);
+      expect(flagged.length, `${path.id}: right answer's length stands out in ${flagged.join(", ")}`).toBeLessThanOrEqual(Math.ceil(choices.length * 0.25));
+    }
+  });
+
   it("doesn't let the answer position give compare exercises away", () => {
     // "Always pick B" shouldn't work: keep each path roughly balanced and avoid long runs.
     for (const path of paths) {
