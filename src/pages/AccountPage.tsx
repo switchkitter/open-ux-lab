@@ -215,7 +215,7 @@ function SignedIn({ status, syncNow, backup, onDeleted }: SignedInProps) {
   const [signOutError, setSignOutError] = useState<string | null>(null);
   return (
     <>
-      <h1>Your progress is syncing</h1>
+      <h1>Your progress is synced</h1>
       <p>
         Signed in as <strong>{status.user.email ?? "your account"}</strong>. Progress you make on any device where you're
         signed in is combined automatically.

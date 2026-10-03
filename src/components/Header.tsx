@@ -7,13 +7,19 @@ import type { SyncStatus } from "../lib/useCloudSync";
 
 type Props = { progress: Progress; totalLessons: number; syncStatus: SyncStatus };
 
-const syncLabel: Record<SyncStatus["state"], string | null> = {
+/**
+ * The account link. It shows a settled state, not activity: progress is always saved on the device
+ * first, so a background sync never needs the learner to wait. "Syncing…" would suggest they can't
+ * leave. Only a failed sync changes it. `spoken` names the destination for screen readers and
+ * includes the visible words (WCAG 2.5.3).
+ */
+const syncLabel: Record<SyncStatus["state"], { shown: string; spoken: string; mark?: string } | null> = {
   off: null,
   checking: null,
-  "signed-out": "Sign in to sync",
-  syncing: "Account: syncing…",
-  synced: "Account: synced",
-  error: "Account: not synced",
+  "signed-out": { shown: "Sign in", spoken: "Sign in" },
+  syncing: { shown: "Synced", spoken: "Account, progress synced", mark: "✓" },
+  synced: { shown: "Synced", spoken: "Account, progress synced", mark: "✓" },
+  error: { shown: "Not synced", spoken: "Account, progress not synced" },
 };
 
 export default function Header({ progress, totalLessons, syncStatus }: Props) {
@@ -46,7 +52,10 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
             </span>
             {sync && (
               <a className={`chip sync ${syncStatus.state}`} href={hrefFor({ name: "account" })}>
-                {sync}
+                <Spoken text={sync.spoken}>
+                  {sync.mark && <span className="sync-mark">{sync.mark}</span>}
+                  {sync.shown}
+                </Spoken>
               </a>
             )}
           </div>

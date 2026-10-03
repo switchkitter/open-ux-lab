@@ -108,6 +108,7 @@ html { scroll-padding-top: 88px; }
 .chip.sync { color: var(--accent); text-decoration: none; }
 .chip.sync:hover { border-color: var(--accent); }
 .chip.sync.error { color: var(--bad); border-color: var(--bad); }
+.chip.sync .sync-mark { color: var(--good); font-weight: 700; margin-right: 4px; }
 
 /* Page */
 .main {
