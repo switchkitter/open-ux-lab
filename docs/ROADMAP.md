@@ -39,7 +39,8 @@
 - [x] Accounts and synced progress (Supabase, email code sign-in, three-way merge), live
 - [ ] Content moved to Markdown/MDX files so non-developers can contribute
 - [x] Accessibility audit of the app itself (axe-core on every screen, keyboard walk-through, 320px reflow; Oct 2026)
-- [ ] Manual screen reader pass (NVDA or Narrator on Windows, VoiceOver on iPhone)
+- [x] VoiceOver pass on iPhone (Oct 2026): fixed split announcements, feedback read in one go, header covering focus, and added text descriptions to every compare design
+- [ ] Screen reader pass on Windows (NVDA or Narrator)
 - [x] License for code (MIT) and content (CC BY 4.0)
 - [x] Link preview (Open Graph image and tags)
 - [x] Sign-in emails from hello@openuxlab.com (Brevo domain authentication)

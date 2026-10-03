@@ -25,10 +25,9 @@ export default function HomePage({ progress }: { progress: Progress }) {
       {dueCount > 0 && (
         <section className="panel review">
           <div>
-            <h2 className="review-title">{plural(dueCount)} to review today</h2>
+            <h2 className="review-title">{`${plural(dueCount)} to review today`}</h2>
             <p>
-              Each time you get one right, it comes back later: after {intervals} days. Get it right once more after
-              that and it's cleared.
+              {`Each time you get one right, it comes back later: after ${intervals} days. Get it right once more after that and it's cleared.`}
             </p>
           </div>
           <a className="btn" href={hrefFor({ name: "review" })}>
@@ -79,11 +78,11 @@ export default function HomePage({ progress }: { progress: Progress }) {
                   </span>
                   <span className="path-card-desc">{path.description}</span>
                   <span className="path-card-meta">
-                    {st.total} lessons · about {st.minutes} min
+                    {`${st.total} lessons · about ${st.minutes} min`}
                   </span>
                   <span className="meter">
                     <span id={`card-${path.id}-progress`}>
-                      {st.done} of {st.total} lessons done
+                      {`${st.done} of ${st.total} lessons done`}
                     </span>
                     <span className="meter-track" aria-hidden="true">
                       <i style={{ width: `${(st.done / st.total) * 100}%` }} />

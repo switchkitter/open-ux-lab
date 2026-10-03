@@ -81,6 +81,13 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 
 /* Top bar */
 .bar { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+/* Keep focused items clear of the sticky header (WCAG 2.4.11). On phones the header wraps to two rows,
+   so it scrolls away instead: screen readers there scroll items to the top edge, under a sticky bar. */
+html { scroll-padding-top: 88px; }
+@media (max-width: 720px) {
+  .bar { position: static; }
+  html { scroll-padding-top: 0; }
+}
 .bar-in {
   max-width: 760px; margin: 0 auto; padding: 12px 16px;
   display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
@@ -190,7 +197,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .opt:disabled { cursor: default; }
 .choice.right, .opt.right { border-color: var(--good); background: var(--good-soft); }
 .choice.wrong, .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
-.feedback { margin-top: 18px; padding: 14px 16px; border-radius: 10px; max-width: 64ch; }
+.feedback { position: relative; margin-top: 18px; padding: 14px 16px; border-radius: 10px; max-width: 64ch; }
 .feedback.good { background: var(--good-soft); }
 .feedback.bad { background: var(--bad-soft); }
 .feedback strong { display: block; margin-bottom: 4px; }
@@ -294,7 +301,7 @@ h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balanc
 .verdict.wrong { color: var(--bad); }
 .opt .verdict { display: block; margin-top: 6px; }
 .review.quiet { background: transparent; }
-.feedback-note { margin: 8px 0 0; font-weight: 700; }
+.feedback-note { display: block; margin: 8px 0 0; font-weight: 700; }
 
 /* Spot the problem: one mockup, each part a button */
 .mk.spot { margin-top: 16px; max-width: 520px; padding: 14px; gap: 6px; font-size: 14px; }

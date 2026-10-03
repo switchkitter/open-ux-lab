@@ -17,12 +17,11 @@ export default function PrivacyPage() {
         ← Home
       </a>
       <article className="lesson privacy">
-        <div className="eyebrow">Last updated {site.privacyUpdated}</div>
+        <div className="eyebrow">{`Last updated ${site.privacyUpdated}`}</div>
         <h1>Privacy</h1>
         <div className="prose">
           <p>
-            Open UX Lab is a free learning app run by {site.owner}, an individual rather than a company. This page explains
-            what data the app handles and why.
+            {`Open UX Lab is a free learning app run by ${site.owner}, an individual rather than a company. This page explains what data the app handles and why.`}
           </p>
           <p>
             <strong>In short:</strong> you can use the app without giving us any personal information. We keep anonymous

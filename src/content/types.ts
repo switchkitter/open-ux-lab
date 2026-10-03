@@ -29,6 +29,11 @@ export type CompareExercise = {
   /** Trusted HTML using the .mk-* mockup classes in styles.css */
   a: string;
   b: string;
+  /**
+   * What each design shows, in neutral words: everything a screen reader user hears for it, so it
+   * includes the key text and the visual details (size, color, position) the question turns on.
+   */
+  describe: { a: string; b: string };
   correct: "a" | "b";
   why: string;
 };

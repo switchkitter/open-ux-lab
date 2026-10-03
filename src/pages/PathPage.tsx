@@ -26,13 +26,13 @@ export default function PathPage({ path, progress }: { path: LearningPath; progr
         {pathHeroes[path.id] && <figure className={`path-banner tone-${paths.indexOf(path) % 3}`}>{pathHeroes[path.id]}</figure>}
         <div>
           <div className="eyebrow">
-            Path · {s.total} lessons · about {s.minutes} min
+            {`Path · ${s.total} lessons · about ${s.minutes} min`}
           </div>
           <h1 className="page-title">{path.title}</h1>
           <p className="lede">{path.description}</p>
           <div className="meter path-meter">
             <span>
-              {s.done} of {s.total} done
+              {`${s.done} of ${s.total} done`}
             </span>
             <span className="meter-track" aria-hidden="true">
               <i style={{ width: `${(s.done / s.total) * 100}%` }} />

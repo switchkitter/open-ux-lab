@@ -15,7 +15,7 @@ export default function LessonList({ path, progress }: { path: LearningPath; pro
         ) : lesson.id === nextId ? (
           <span className="status next">Up next</span>
         ) : (
-          <span className="status todo">{lesson.minutes} min</span>
+          <span className="status todo">{`${lesson.minutes} min`}</span>
         );
         return (
           <li key={lesson.id}>

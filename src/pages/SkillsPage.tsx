@@ -15,9 +15,9 @@ export default function SkillsPage({ progress }: { progress: Progress }) {
         <div className="eyebrow">Skill map</div>
         <h1 className="page-title">Your skills</h1>
         <p className="lede">
-          Each skill draws on lessons from several paths. An exercise counts as solid once you've answered it and it isn't
-          waiting in your review pile.{" "}
-          {started === 0 ? "Finish a lesson to start filling this in." : `You've started ${started} of ${map.length} skills.`}
+          {`Each skill draws on lessons from several paths. An exercise counts as solid once you've answered it and it isn't waiting in your review pile. ${
+            started === 0 ? "Finish a lesson to start filling this in." : `You've started ${started} of ${map.length} skills.`
+          }`}
         </p>
       </section>
       <ul className="skills">
@@ -34,8 +34,7 @@ export default function SkillsPage({ progress }: { progress: Progress }) {
                 <i style={{ width: `${pct}%` }} />
               </div>
               <p className="skill-count">
-                {s.solid} of {s.total} exercises solid
-                {s.inReview > 0 && ` · ${s.inReview} in review`}
+                {`${s.solid} of ${s.total} exercises solid${s.inReview > 0 ? ` · ${s.inReview} in review` : ""}`}
               </p>
               {s.next ? (
                 <p className="skill-next">

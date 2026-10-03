@@ -1,9 +1,10 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
 import { count } from "../lib/analytics";
 import { play } from "../lib/useSound";
 import Mockup from "./Mockup";
+import Spoken from "./Spoken";
 
 type Props = {
   /** Which lesson the exercise comes from, shown in review where exercises are mixed. */
@@ -23,7 +24,6 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
   const [picked, setPicked] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
-  const uid = useId();
   // Choice options appear in a new random order each time, so learners can't memorize positions.
   // Keys stay as original indices, which is what exercise.correct refers to.
   const [order] = useState(() => (exercise.type === "choice" ? shuffledIndices(exercise.options.length) : []));
@@ -84,7 +84,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
     <section>
       {exercise.type === "compare" ? (
         <>
-          <div className="eyebrow">{eyebrow} · Which is better?</div>
+          <div className="eyebrow">{`${eyebrow} · Which is better?`}</div>
           <h1 className="q">{exercise.question}</h1>
           <p className="qhint">Pick a design.</p>
           <div className="pair">
@@ -95,21 +95,21 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
                 className={`choice ${stateClass(k)}`}
                 disabled={answered}
                 onClick={() => pick(k)}
-                aria-label={`Design ${k.toUpperCase()}${verdict(k) ? `, ${verdict(k)!.toLowerCase()}` : ""}`}
-                aria-describedby={`${uid}-${k}`}
+                // The description stands in for the mockup, which often differs from the other one only visually.
+                aria-label={`Design ${k.toUpperCase()}${verdict(k) ? `, ${verdict(k)!.toLowerCase()}` : ""}: ${exercise.describe[k]}`}
               >
                 <span className="tag">
                   {k.toUpperCase()}
                   {verdictMark(k)}
                 </span>
-                <Mockup id={`${uid}-${k}`} html={exercise[k]} />
+                <Mockup html={exercise[k]} />
               </button>
             ))}
           </div>
         </>
       ) : exercise.type === "spot" ? (
         <>
-          <div className="eyebrow">{eyebrow} · Spot the problem</div>
+          <div className="eyebrow">{`${eyebrow} · Spot the problem`}</div>
           <h1 className="q">{exercise.question}</h1>
           <p className="qhint">Select the part of the screen with the problem.</p>
           <div className="mk spot" role="group" aria-label="Screen to check">
@@ -127,7 +127,7 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
         </>
       ) : (
         <>
-          <div className="eyebrow">{eyebrow} · Question</div>
+          <div className="eyebrow">{`${eyebrow} · Question`}</div>
           <h1 className="q">{exercise.question}</h1>
           <div className="opts">
             {order.map((i) => (
@@ -149,9 +149,11 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
       {answered && (
         <>
           <div className={`feedback ${isCorrect ? "good" : "bad"}`} ref={feedbackRef} tabIndex={-1}>
-            <strong>{isCorrect ? "Right." : "Not quite."}</strong>
-            {exercise.why}
-            {note && <p className="feedback-note">{note}</p>}
+            {/* Read as one item, so VoiceOver doesn't stop after the bold verdict. */}
+            <Spoken text={[isCorrect ? "Right." : "Not quite.", exercise.why, note].filter(Boolean).join(" ")}>
+              <strong>{isCorrect ? "Right." : "Not quite."}</strong> {exercise.why}
+              {note && <span className="feedback-note">{note}</span>}
+            </Spoken>
           </div>
           <div className="actions">
             <button className="btn" type="button" onClick={onNext}>

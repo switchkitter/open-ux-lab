@@ -43,9 +43,7 @@ export default function ReviewPage({ progress, update }: Props) {
         <div className="eyebrow">Review</div>
         <h1 className="done-title">{queue.length === 0 ? "Nothing to review" : "Review complete"}</h1>
         {queue.length > 0 && (
-          <div className="big">
-            {right}/{queue.length}
-          </div>
+          <div className="big">{`${right} of ${queue.length} right`}</div>
         )}
         <p>{scheduleSummary(progress)}</p>
         <div className="actions">

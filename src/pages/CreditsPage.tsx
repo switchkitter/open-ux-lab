@@ -61,8 +61,7 @@ export default function CreditsPage() {
               const publishers = [...new Set(sources.map((s) => s.split(":")[0]))];
               return (
                 <li key={license.url}>
-                  {publishers.join(" and ")} ({sources.length} {sources.length === 1 ? "page" : "pages"}, listed below):
-                  published under <Ext href={license.url}>{license.name}</Ext>.
+                  {`${publishers.join(" and ")} (${sources.length} ${sources.length === 1 ? "page" : "pages"}, listed below): published under `} <Ext href={license.url}>{license.name}</Ext>.
                 </li>
               );
             })}
@@ -82,7 +81,7 @@ export default function CreditsPage() {
                 {sourcesFor(path).map((s) => (
                   <li key={s.url}>
                     <Ext href={s.url}>{s.title}</Ext>
-                    <span className="credit-used"> · used in {s.lessons.join(", ")}</span>
+                    <span className="credit-used">{` · used in ${s.lessons.join(", ")}`}</span>
                   </li>
                 ))}
               </ul>

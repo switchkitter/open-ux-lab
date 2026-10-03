@@ -70,7 +70,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
       {step === 0 && (
         <article className="lesson">
           <div className="eyebrow">
-            {path.title} · Lesson {path.lessons.indexOf(lesson) + 1} of {path.lessons.length}
+            {`${path.title} · Lesson ${path.lessons.indexOf(lesson) + 1} of ${path.lessons.length}`}
           </div>
           <h1>{lesson.title}</h1>
           {lessonScenes[lesson.id] && <figure className="scene">{lessonScenes[lesson.id]}</figure>}
@@ -139,14 +139,13 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
       {step === doneStep && (
         <section className="panel done-card">
           <div className="eyebrow">Lesson complete</div>
-          <h1 className="done-title">{lesson.title}: done</h1>
+          <h1 className="done-title">{`${lesson.title}: done`}</h1>
           <Burst>
-            <div className="big">+{firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP</div>
+            <div className="big">{`+${firstTry * XP.correctFirstTry + (wasComplete ? 0 : XP.lessonComplete)} XP`}</div>
           </Burst>
-          <p>
-            {firstTry} of {total} right on the first try.
-            {firstTry < total && " Missed exercises are waiting in your review pile."}
-          </p>
+          {/* One string per sentence: VoiceOver on iPhone reads each JSX text piece as a separate item. */}
+          <p>{`${firstTry} of ${total} right on the first try.`}</p>
+          {firstTry < total && <p>Missed exercises are waiting in your review pile.</p>}
           <div className="actions">
             {nextLesson && (
               <a className="btn" href={hrefFor({ name: "lesson", id: nextLesson.id })}>

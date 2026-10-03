@@ -95,6 +95,19 @@ describe("content integrity", () => {
     }
   });
 
+  it("describes both designs of every compare exercise in neutral words", () => {
+    // The description is all a screen reader user gets, so it can't be missing, identical or give the answer away.
+    for (const e of exercises) {
+      if (e.type !== "compare") continue;
+      for (const text of [e.describe.a, e.describe.b]) {
+        expect(text.length, e.id).toBeGreaterThan(20);
+        expect(text.length, e.id).toBeLessThan(260);
+        expect(text, e.id).not.toMatch(/(better|worse|easier|harder|clearer|clearly|confusing|cluttered|correct|wrong|good|bad)/i);
+      }
+      expect(e.describe.a, e.id).not.toBe(e.describe.b);
+    }
+  });
+
   it("keeps spot-the-problem exercises to problems that come across in words", () => {
     // Purely visual problems (like low contrast) can't be found with a screen reader; use compare instead.
     for (const e of exercises) {

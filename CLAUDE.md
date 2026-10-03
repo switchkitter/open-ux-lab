@@ -8,7 +8,7 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 - **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, optional accounts with cross-device sync (Supabase, email codes), progress backup to a file (save and load, no account needed), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
 - **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
-- **Checks:** `npm run typecheck`, `npm test` (75+ tests, including content integrity) and `npm run build` pass on Node 24; CI runs tests and build on every push. Accessibility audited with axe-core, keyboard and 320px reflow (Oct 2026); a manual VoiceOver pass is still to do.
+- **Checks:** `npm run typecheck`, `npm test` (75+ tests, including content integrity) and `npm run build` pass on Node 24; CI runs tests and build on every push. Accessibility audited with axe-core, keyboard and 320px reflow, plus a first VoiceOver pass on iPhone (Oct 2026).
 - **Dependencies:** `npm audit` is clean (Vitest upgraded to 5 in Oct 2026). Vitest 5 needs Node 22.12+ or 24+.
 
 ## Stack
@@ -55,6 +55,7 @@ See `CONTENT_GUIDELINES.md`. In short:
 - Every lesson links to at least one trusted source for depth.
 - Content from openly licensed sources (e.g. GOV.UK Design System, USWDS, W3C) may be adapted only if its license allows it, with attribution. Check the license first and set `license` on the source (a content test requires it for GOV.UK and USWDS links); the lesson page then shows the attribution.
 - Exercise mockups are small HTML snippets using the `.mk-*` classes (a content test fails if a class doesn't exist in `styles.css`). `.mk-say` shows what a screen reader announces; `.mk-faint` deliberately fails contrast and may only appear in the wrong design. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
+- Every compare exercise has `describe: { a, b }`: what a screen reader user hears for each design instead of the mockup. Neutral words, key text plus the visual details the question turns on (a content test checks length and bans judging words).
 - Exercise IDs are stable keys for learners' review piles. Never rename or reuse an ID once shipped.
 - Lesson `code` (H1, A3...) is for authors only. Don't show it in the UI; use the lesson title.
 
@@ -73,6 +74,8 @@ See `CONTENT_GUIDELINES.md`. In short:
 - Every screen has exactly one `h1` (exercise questions are the `h1` on exercise screens). After a route change or a lesson/review step, call `announceScreen()` from `src/lib/focus.ts`: it sets the tab title and moves focus to the `h1`.
 - Never show state by color alone: answer states use text labels ("Your answer", "Correct answer") as well as color. Use `--mark-ink` (not `--mark`) for gold text.
 - Links that open a new tab include visually hidden "(opens in a new tab)" text.
+- VoiceOver on iPhone reads every JSX text piece and inline element as a separate swipe. Build non-interactive sentences with numbers as one template string (`{`${n} of ${total} done`}`), and wrap styled phrases (bold numbers, the logo) in `Spoken` (`src/components/Spoken.tsx`), which gives screen readers one string.
+- The header is sticky only above 720px wide; on phones it scrolls away so it can't cover the item VoiceOver or the keyboard moves to (WCAG 2.4.11). Desktop uses `scroll-padding-top`.
 
 ## Roadmap
 
