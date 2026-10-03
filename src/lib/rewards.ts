@@ -1,5 +1,5 @@
-import { paths } from "../content/paths";
-import type { LearningPath } from "../content/types";
+import { paths } from "../content/catalog";
+import type { PathMeta } from "../content/types";
 import { MAX_FREEZES, currentStreak, dayKey, missedDays, type Progress } from "./progress";
 
 /**
@@ -35,7 +35,7 @@ export function levelFor(xp: number): LevelStatus {
   };
 }
 
-type Context = { progress: Progress; paths: LearningPath[]; now: Date };
+type Context = { progress: Progress; paths: PathMeta[]; now: Date };
 
 export type Badge = {
   /** Stable key in progress.badges. Never rename or reuse once shipped. */
@@ -47,8 +47,8 @@ export type Badge = {
 };
 
 const lessonsDone = (c: Context) => Object.keys(c.progress.completedLessons).length;
-const pathDone = (p: LearningPath, c: Context) => p.lessons.every((l) => c.progress.completedLessons[l.id]);
-const pathStarted = (p: LearningPath, c: Context) => p.lessons.some((l) => c.progress.completedLessons[l.id]);
+const pathDone = (p: PathMeta, c: Context) => p.lessons.every((l) => c.progress.completedLessons[l.id]);
+const pathStarted = (p: PathMeta, c: Context) => p.lessons.some((l) => c.progress.completedLessons[l.id]);
 const totalLessons = (c: Context) => c.paths.reduce((n, p) => n + p.lessons.length, 0);
 
 export const BADGES: readonly Badge[] = [
@@ -75,7 +75,7 @@ export const BADGES: readonly Badge[] = [
  * Hands out what the learner has earned: a streak freeze for each new level (up to MAX_FREEZES held)
  * and any new achievements. Safe to run any number of times; returns the same object when nothing changes.
  */
-export function settle(progress: Progress, now: Date, learningPaths: LearningPath[] = paths): Progress {
+export function settle(progress: Progress, now: Date, learningPaths: PathMeta[] = paths): Progress {
   let p = progress;
   const { level } = levelFor(p.xp);
   if (level > p.levelRewarded) {

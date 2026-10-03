@@ -1,10 +1,10 @@
 import { lessonIcons } from "../art";
-import type { LearningPath } from "../content/types";
+import type { PathMeta } from "../content/types";
 import type { Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 
 /** The lessons in a path, in order, each with its icon, status and a link. */
-export default function LessonList({ path, progress }: { path: LearningPath; progress: Progress }) {
+export default function LessonList({ path, progress }: { path: PathMeta; progress: Progress }) {
   const nextId = path.lessons.find((l) => !progress.completedLessons[l.id])?.id;
   return (
     <ol className="path">

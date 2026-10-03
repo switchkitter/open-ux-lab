@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "manifest": "vitest run src/content/manifest.test.ts --mode manifest"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

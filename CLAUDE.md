@@ -24,13 +24,15 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 - `npm test` — run tests once
 - `npm run typecheck` — TypeScript check
 - `npm run build` — typecheck + production build
+- `npm run manifest` — regenerate the content catalog (`src/content/manifest.ts`) after adding or changing lessons or exercises; a test fails until you do
 
 Run `npm run typecheck` and `npm test` after every change.
 
 ## Layout
 
 - `src/content/types.ts` — content model (LearningPath → Lesson → Exercise). Exercise types: compare, choice, spot, sort (see the Exercise types section of `CONTENT_GUIDELINES.md`)
-- `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
+- `src/content/paths/*.ts` — one file per learning path (full lessons). A new path goes in `paths/index.ts` (for tests and the catalog) and `content/load.ts` (for loading), then run `npm run manifest`.
+- `src/content/catalog.ts`, `src/content/manifest.ts`, `src/content/load.ts` — app code uses the catalog (paths and lessons without lesson text or exercises, generated into `manifest.ts`) and loads full lessons per path on demand through `load.ts` (`useLesson`, `useExercises`, `useAllPaths`, with `LoadingScreen`). Never import `content/paths` from app code: it would put every lesson back in the main download (a test checks). First visit downloads about 120 KB compressed; each path is a separate ~14 KB file, precached for offline use.
 - `src/content/skills.ts` — skills for the skill map. Every lesson lists its `skills`; `src/lib/skills.ts` computes progress per skill from `progress.seen` and the review pile. A content test requires each skill to have at least 3 lessons.
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
 - `src/lib/progress.ts` — pure progress logic (XP, streaks, spaced review with `REVIEW_INTERVALS`). Keep it free of React and storage. Review items are `{ step, due }`; `normalizeReviewItem` migrates older stored shapes, so never remove that migration.

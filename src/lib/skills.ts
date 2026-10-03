@@ -1,6 +1,6 @@
-import { paths } from "../content/paths";
+import { paths } from "../content/catalog";
 import { skills, type SkillId } from "../content/skills";
-import type { LearningPath, Lesson } from "../content/types";
+import type { LessonMeta, PathMeta } from "../content/types";
 import type { Progress } from "./progress";
 
 export type SkillProgress = {
@@ -15,13 +15,13 @@ export type SkillProgress = {
   inReview: number;
   level: "Not started" | "Getting started" | "Developing" | "Strong";
   /** Best lesson to do next for this skill: the first one with exercises not yet solid. */
-  next: Lesson | null;
+  next: LessonMeta | null;
 };
 
 /** How far along each skill is, based on which of its lessons' exercises are solid. */
-export function skillMap(progress: Progress, learningPaths: LearningPath[] = paths): SkillProgress[] {
+export function skillMap(progress: Progress, learningPaths: PathMeta[] = paths): SkillProgress[] {
   const isSolid = (id: string) => progress.seen[id] && !progress.review[id];
-  const builds = (l: Lesson, id: SkillId) => (l.skills as readonly string[]).includes(id);
+  const builds = (l: LessonMeta, id: SkillId) => (l.skills as readonly string[]).includes(id);
 
   return skills.map((skill) => {
     // Lessons for this skill, starting with the path that covers it most (the Forms path for Forms),
@@ -49,7 +49,7 @@ export function skillMap(progress: Progress, learningPaths: LearningPath[] = pat
  * exercise in a completed lesson as answered, except spot-the-problem exercises, which were added
  * to lessons later and so may not have been seen. Runs only when nothing has been recorded yet.
  */
-export function backfillSeen(progress: Progress, learningPaths: LearningPath[] = paths): Progress {
+export function backfillSeen(progress: Progress, learningPaths: PathMeta[] = paths): Progress {
   if (Object.keys(progress.seen).length || !Object.keys(progress.completedLessons).length) return progress;
   const seen: Record<string, true> = {};
   for (const lesson of learningPaths.flatMap((p) => p.lessons)) {

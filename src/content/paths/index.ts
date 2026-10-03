@@ -1,4 +1,4 @@
-import type { Exercise, LearningPath, Lesson } from "../types";
+import type { LearningPath } from "../types";
 import { accessibilityPath } from "./accessibility";
 import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
@@ -7,25 +7,10 @@ import { researchPath } from "./research";
 import { uxWritingPath } from "./ux-writing";
 import { visualDesignPath } from "./visual-design";
 
+/**
+ * Every path with its full lessons, for tests and for generating the catalog (`npm run manifest`).
+ * App code must not import this file: it uses content/catalog.ts and loads lessons through
+ * content/load.ts, so lessons stay out of the main download. Add a new path here, in load.ts, and
+ * then run `npm run manifest`.
+ */
 export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath, uxWritingPath];
-
-/** Paths shown as "coming" on the home screen. Move one into `paths` when its lessons exist. */
-export const plannedPaths: Pick<LearningPath, "id" | "title" | "description">[] = [];
-
-export function findLesson(lessonId: string): { path: LearningPath; lesson: Lesson } | undefined {
-  for (const path of paths) {
-    const lesson = path.lessons.find((l) => l.id === lessonId);
-    if (lesson) return { path, lesson };
-  }
-  return undefined;
-}
-
-export function findExercise(exerciseId: string): { lesson: Lesson; exercise: Exercise } | undefined {
-  for (const path of paths) {
-    for (const lesson of path.lessons) {
-      const exercise = lesson.exercises.find((e) => e.id === exerciseId);
-      if (exercise) return { lesson, exercise };
-    }
-  }
-  return undefined;
-}

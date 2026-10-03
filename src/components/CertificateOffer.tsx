@@ -1,10 +1,10 @@
 import { useRef, useState, type FormEvent } from "react";
-import type { LearningPath } from "../content/types";
+import type { PathMeta } from "../content/types";
 import { MAX_NAME, certificateHref, cleanName, loadCertificateName, readCertificate, saveCertificateName } from "../lib/certificate";
 import { dayKey } from "../lib/progress";
 
 /** Shown on a finished path: asks for the name to put on the certificate, then opens it. */
-export default function CertificateOffer({ path }: { path: LearningPath }) {
+export default function CertificateOffer({ path }: { path: PathMeta }) {
   const [name, setName] = useState(loadCertificateName);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);

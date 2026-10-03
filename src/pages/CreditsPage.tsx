@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { paths } from "../content/paths";
+import { useAllPaths } from "../content/load";
 import { site } from "../content/site";
 import { openLicenses, sourcesFor } from "../lib/credits";
 import { hrefFor } from "../lib/route";
@@ -32,6 +32,9 @@ const SOFTWARE = [
  * generated from the lessons, so new lessons appear here automatically.
  */
 export default function CreditsPage() {
+  // Source lists come from the full lessons, which load on demand.
+  const all = useAllPaths();
+  const paths = all.state === "ready" ? all.value : [];
   const licenses = openLicenses(paths);
   return (
     <>
@@ -52,6 +55,20 @@ export default function CreditsPage() {
             reuse it if you credit Open UX Lab. The code is MIT licensed. Both are on{" "}
             <Ext href={site.repoUrl}>GitHub</Ext>.
           </p>
+
+          {all.state === "loading" && (
+            <p className="loading-note" role="status">
+              Loading the source lists…
+            </p>
+          )}
+          {all.state === "error" && (
+            <div className="form-error" role="alert">
+              <p>We couldn't load the source lists. Check your connection and try again.</p>
+              <button className="btn small" type="button" onClick={all.retry}>
+                Try again
+              </button>
+            </div>
+          )}
 
           <h2>Openly licensed sources</h2>
           <p>Some lessons draw closely on guidance that its publishers make available under open licenses:</p>

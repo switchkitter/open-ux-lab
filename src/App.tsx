@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { findLesson, paths } from "./content/paths";
+import { findLesson, paths, totalLessons } from "./content/catalog";
 import { count } from "./lib/analytics";
 import { announceScreen } from "./lib/focus";
 import { useCloudSync } from "./lib/useCloudSync";
@@ -23,7 +23,6 @@ export default function App() {
   const [progress, update] = useProgress();
   const { status: syncStatus, syncNow } = useCloudSync(progress, update);
   const route = useRoute();
-  const totalLessons = paths.reduce((n, p) => n + p.lessons.length, 0);
 
   // One anonymous "visit" count per app load (see lib/analytics.ts).
   useEffect(() => count("visit"), []);
@@ -64,7 +63,7 @@ export default function App() {
   } else if (route.name === "lesson") {
     const found = findLesson(route.id);
     page = found ? (
-      <LessonPage key={found.lesson.id} lesson={found.lesson} path={found.path} progress={progress} update={update} />
+      <LessonPage key={found.lesson.id} lessonId={found.lesson.id} path={found.path} progress={progress} update={update} />
     ) : (
       <HomePage progress={progress} />
     );

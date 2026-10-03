@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import type { LearningPath, Lesson } from "../content/types";
+import LoadingScreen, { useRefocusAfterLoad } from "../components/LoadingScreen";
+import { useLesson } from "../content/load";
+import type { Lesson, PathMeta } from "../content/types";
 import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
 import FeedbackButton from "../components/FeedbackButton";
@@ -16,13 +18,35 @@ import { hrefFor } from "../lib/route";
 
 type Props = {
   lesson: Lesson;
-  path: LearningPath;
+  path: PathMeta;
   progress: Progress;
   update: UpdateProgress;
 };
 
+/** Loads the lesson (its path's file), showing its title straight away. */
+export default function LessonPage({ lessonId, path, progress, update }: Omit<Props, "lesson"> & { lessonId: string }) {
+  const loaded = useLesson(path.id, lessonId);
+  useRefocusAfterLoad(loaded.state === "ready");
+  if (loaded.state !== "ready" || !loaded.value) {
+    const index = path.lessons.findIndex((l) => l.id === lessonId);
+    return (
+      <LoadingScreen
+        back={
+          <a className="back" href={hrefFor({ name: "path", id: path.id })}>
+            <span aria-hidden="true">←</span> {path.title}
+          </a>
+        }
+        eyebrow={`${path.title} · Lesson ${index + 1} of ${path.lessons.length}`}
+        title={path.lessons[index]?.title ?? ""}
+        state={loaded.state === "ready" ? { state: "loading" } : loaded}
+      />
+    );
+  }
+  return <LessonSession lesson={loaded.value} path={path} progress={progress} update={update} />;
+}
+
 /** Steps: 0 = reading, 1..n = exercises, n + 1 = done. */
-export default function LessonPage({ lesson, path, progress, update }: Props) {
+function LessonSession({ lesson, path, progress, update }: Props) {
   const total = lesson.exercises.length;
   const doneStep = total + 1;
   const [step, setStep] = useState(0);

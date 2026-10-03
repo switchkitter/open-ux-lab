@@ -1,5 +1,5 @@
-import { paths } from "../content/paths";
-import type { LearningPath } from "../content/types";
+import { paths } from "../content/catalog";
+import type { PathMeta } from "../content/types";
 import { hrefFor } from "./route";
 
 /**
@@ -10,7 +10,7 @@ import { hrefFor } from "./route";
 export const MAX_NAME = 60;
 const NAME_KEY = "open-ux-lab:certificate-name";
 
-export type Certificate = { path: LearningPath; learner: string; date: string };
+export type Certificate = { path: PathMeta; learner: string; date: string };
 
 /** Trims, collapses spaces, removes control characters and limits the length. */
 export function cleanName(raw: string): string {
@@ -30,7 +30,7 @@ function isRealDay(day: string): boolean {
 }
 
 /** The certificate a link describes, or null if the link is broken or edited into nonsense. */
-export function readCertificate(pathId: string, date: string, learner: string, learningPaths: LearningPath[] = paths): Certificate | null {
+export function readCertificate(pathId: string, date: string, learner: string, learningPaths: PathMeta[] = paths): Certificate | null {
   const path = learningPaths.find((p) => p.id === pathId);
   const name = cleanName(learner);
   if (!path || !name || !isRealDay(date)) return null;

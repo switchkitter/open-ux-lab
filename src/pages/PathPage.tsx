@@ -1,14 +1,14 @@
 import { pathHeroes } from "../art";
-import { paths } from "../content/paths";
+import { paths } from "../content/catalog";
 import CertificateOffer from "../components/CertificateOffer";
 import LessonList from "../components/LessonList";
-import type { LearningPath } from "../content/types";
+import type { PathMeta } from "../content/types";
 import { pathStatus } from "../lib/pathStatus";
 import type { Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 
 /** One learning path: its overview, progress, a single main action, and its lessons. */
-export default function PathPage({ path, progress }: { path: LearningPath; progress: Progress }) {
+export default function PathPage({ path, progress }: { path: PathMeta; progress: Progress }) {
   const s = pathStatus(path, progress);
   const first = path.lessons[0];
   const action =

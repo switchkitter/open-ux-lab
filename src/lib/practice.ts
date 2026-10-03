@@ -1,5 +1,5 @@
-import { paths } from "../content/paths";
-import type { Exercise, LearningPath, Lesson } from "../content/types";
+import { paths } from "../content/catalog";
+import type { ExerciseMeta, LessonMeta, PathMeta } from "../content/types";
 import { dayKey, type Progress } from "./progress";
 
 /**
@@ -9,7 +9,8 @@ import { dayKey, type Progress } from "./progress";
 
 export const PRACTICE_SIZE = 5;
 
-export type PracticeItem = { lesson: Lesson; exercise: Exercise };
+/** Which exercises to practice; PracticePage loads the full exercises. */
+export type PracticeItem = { lesson: LessonMeta; exercise: ExerciseMeta };
 
 /** A small, fast pseudo-random generator, so a day's set is the same every time it's built. */
 function seeded(seed: string): () => number {
@@ -24,7 +25,7 @@ function seeded(seed: string): () => number {
 }
 
 /** Exercises from finished lessons, shuffled for the day, mixing exercise types where possible. */
-export function practiceSet(progress: Progress, now: Date, learningPaths: LearningPath[] = paths, size = PRACTICE_SIZE): PracticeItem[] {
+export function practiceSet(progress: Progress, now: Date, learningPaths: PathMeta[] = paths, size = PRACTICE_SIZE): PracticeItem[] {
   const pool: PracticeItem[] = learningPaths.flatMap((p) =>
     p.lessons.filter((l) => progress.completedLessons[l.id]).flatMap((lesson) => lesson.exercises.map((exercise) => ({ lesson, exercise }))),
   );
@@ -54,7 +55,7 @@ export function practiceSet(progress: Progress, now: Date, learningPaths: Learni
 
 export type PracticeStatus = "unavailable" | "ready" | "done";
 
-export function practiceStatus(progress: Progress, now: Date, learningPaths: LearningPath[] = paths): PracticeStatus {
+export function practiceStatus(progress: Progress, now: Date, learningPaths: PathMeta[] = paths): PracticeStatus {
   if (progress.practiceDay === dayKey(now)) return "done";
   return practiceSet(progress, now, learningPaths).length ? "ready" : "unavailable";
 }

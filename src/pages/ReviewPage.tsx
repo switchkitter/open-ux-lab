@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
 import RewardsList from "../components/RewardsList";
-import { findExercise } from "../content/paths";
+import LoadingScreen, { useRefocusAfterLoad } from "../components/LoadingScreen";
+import { useExercises } from "../content/load";
+import type { Exercise, Lesson } from "../content/types";
 import { dueReviewIds, nextReview, recordActivity, recordReviewAnswer, reviewOutcome, whenLabel, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
 import { count } from "../lib/analytics";
@@ -12,11 +14,18 @@ type Props = { progress: Progress; update: UpdateProgress };
 
 export default function ReviewPage({ progress, update }: Props) {
   // Snapshot the due items when review starts so answering doesn't reshuffle the queue.
-  const [queue] = useState(() =>
-    dueReviewIds(progress, new Date())
-      .map(findExercise)
-      .filter((x): x is NonNullable<typeof x> => Boolean(x)),
-  );
+  const [ids] = useState(() => dueReviewIds(progress, new Date()));
+  const loaded = useExercises(ids);
+  useRefocusAfterLoad(loaded.state === "ready");
+  if (loaded.state !== "ready") {
+    return <LoadingScreen back={<a className="back" href={hrefFor({ name: "home" })}>
+        <span aria-hidden="true">←</span> Home
+      </a>} eyebrow="Review" title="Review" state={loaded} />;
+  }
+  return <ReviewSession progress={progress} update={update} queue={loaded.value} />;
+}
+
+function ReviewSession({ progress, update, queue }: Props & { queue: { lesson: Lesson; exercise: Exercise }[] }) {
   const [index, setIndex] = useState(0);
   // Progress when review started, to show what was earned on the done screen.
   const [before] = useState(progress);

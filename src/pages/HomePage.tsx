@@ -1,6 +1,6 @@
 import { pathIcons } from "../art";
 import ProgressSummary from "../components/ProgressSummary";
-import { paths, plannedPaths } from "../content/paths";
+import { paths, plannedPaths } from "../content/catalog";
 import type { Progress } from "../lib/progress";
 import { pathStatus } from "../lib/pathStatus";
 import { hrefFor } from "../lib/route";

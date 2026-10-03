@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
+import LoadingScreen, { useRefocusAfterLoad } from "../components/LoadingScreen";
 import RewardsList from "../components/RewardsList";
+import { useExercises } from "../content/load";
+import type { Exercise, Lesson } from "../content/types";
 import { announceScreen } from "../lib/focus";
 import { practiceSet } from "../lib/practice";
 import { completePractice, dayKey, recordPracticeAnswer, type Progress } from "../lib/progress";
@@ -14,7 +17,20 @@ export default function PracticePage({ progress, update }: Props) {
   // Done already today (here or on another device): one set a day.
   const [alreadyDone] = useState(() => progress.practiceDay === dayKey(new Date()));
   // Snapshot the set when practice starts, so answering doesn't change it.
-  const [queue] = useState(() => (alreadyDone ? [] : practiceSet(progress, new Date())));
+  const [ids] = useState(() => (alreadyDone ? [] : practiceSet(progress, new Date()).map((i) => i.exercise.id)));
+  const loaded = useExercises(ids);
+  useRefocusAfterLoad(loaded.state === "ready");
+  if (loaded.state !== "ready") {
+    return <LoadingScreen back={<a className="back" href={hrefFor({ name: "home" })}>
+        <span aria-hidden="true">←</span> Home
+      </a>} eyebrow="Daily practice" title="Daily practice" state={loaded} />;
+  }
+  return <PracticeSession progress={progress} update={update} queue={loaded.value} alreadyDone={alreadyDone} />;
+}
+
+type SessionProps = Props & { queue: { lesson: Lesson; exercise: Exercise }[]; alreadyDone: boolean };
+
+function PracticeSession({ progress, update, queue, alreadyDone }: SessionProps) {
   const [before] = useState(progress);
   const [index, setIndex] = useState(0);
   const [right, setRight] = useState(0);

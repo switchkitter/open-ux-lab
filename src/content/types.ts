@@ -121,3 +121,12 @@ export type LearningPath = {
   status: "live" | "planned";
   lessons: Lesson[];
 };
+
+/**
+ * The catalog: what the app needs about every path and lesson without loading lesson text and
+ * exercises (home page, path pages, skill map, achievements, daily practice, certificates).
+ * Generated from the path files into manifest.ts; full lessons load per path (see content/load.ts).
+ */
+export type ExerciseMeta = Pick<Exercise, "id" | "type">;
+export type LessonMeta = Pick<Lesson, "id" | "code" | "title" | "subtitle" | "minutes" | "skills"> & { exercises: ExerciseMeta[] };
+export type PathMeta = Pick<LearningPath, "id" | "title" | "description" | "status"> & { lessons: LessonMeta[] };
