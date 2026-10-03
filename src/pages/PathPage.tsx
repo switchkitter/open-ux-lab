@@ -12,7 +12,7 @@ export default function PathPage({ path, progress }: { path: PathMeta; progress:
   const s = pathStatus(path, progress);
   const first = path.lessons[0];
   const action =
-    s.state === "complete"
+    (s.state === "complete" || s.state === "challenge")
       ? { label: "Practice again from the start", id: first.id }
       : s.state === "not-started"
         ? { label: `Start: ${first.title}`, id: first.id }
@@ -41,13 +41,13 @@ export default function PathPage({ path, progress }: { path: PathMeta; progress:
           </div>
           <div className="actions">
             {/* On a finished path the challenge (or the certificate) below is the main action, so this one is secondary. */}
-            <a className={s.state === "complete" ? "btn ghost" : "btn"} href={hrefFor({ name: "lesson", id: action.id })}>
+            <a className={s.next ? "btn" : "btn ghost"} href={hrefFor({ name: "lesson", id: action.id })}>
               {action.label}
             </a>
           </div>
         </div>
       </section>
-      {s.state === "complete" && <ChallengePanel path={path} progress={progress} />}
+      {!s.next && <ChallengePanel path={path} progress={progress} />}
       <section aria-labelledby="lessons-heading">
         <h2 id="lessons-heading" className="lessons-heading">
           Lessons

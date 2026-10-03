@@ -65,7 +65,13 @@ export default function HomePage({ progress }: { progress: Progress }) {
                       </span>
                     </span>
                     <span className={`path-card-next ${st.state}`} id={`card-${path.id}-next`}>
-                      {st.state === "complete" ? "Completed" : st.state === "not-started" ? `Start with: ${st.next!.title}` : `Up next: ${st.next!.title}`}
+                      {st.state === "complete"
+                        ? "Completed"
+                        : st.state === "challenge"
+                          ? "Up next: Path challenge"
+                          : st.state === "not-started"
+                            ? `Start with: ${st.next!.title}`
+                            : `Up next: ${st.next!.title}`}
                     </span>
                   </span>
                 </a>

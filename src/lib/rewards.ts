@@ -56,7 +56,7 @@ export const BADGES: readonly Badge[] = [
   { id: "lessons-10", name: "Getting the hang of it", how: "Finish 10 lessons.", earned: (c) => lessonsDone(c) >= 10 },
   { id: "lessons-25", name: "Twenty-five down", how: "Finish 25 lessons.", earned: (c) => lessonsDone(c) >= 25 },
   { id: "all-lessons", name: "Completionist", how: "Finish every lesson in the app.", earned: (c) => lessonsDone(c) >= totalLessons(c) },
-  { id: "path-done", name: "Path finished", how: "Finish every lesson in one learning path.", earned: (c) => c.paths.some((p) => pathDone(p, c)) },
+  { id: "path-done", name: "Every lesson done", how: "Finish every lesson in one learning path.", earned: (c) => c.paths.some((p) => pathDone(p, c)) },
   { id: "explorer", name: "Explorer", how: "Finish at least one lesson in every learning path.", earned: (c) => c.paths.every((p) => pathStarted(p, c)) },
   { id: "challenge-1", name: "Proven", how: "Pass a path challenge.", earned: (c) => Object.values(c.progress.challenges).some((r) => r.passedDay) },
   { id: "flawless", name: "Flawless", how: "Get every exercise in a lesson right on the first try.", earned: (c) => c.progress.stats.perfectLessons >= 1 },

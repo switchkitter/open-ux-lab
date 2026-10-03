@@ -19,8 +19,12 @@ describe("pathStatus", () => {
     expect(s.next?.id).toBe("h2");
   });
 
-  it("is complete when every lesson is done", () => {
+  it("waits for the challenge once every lesson is done, and is complete only after passing it", () => {
     const completedLessons = Object.fromEntries(heuristics.lessons.map((l) => [l.id, true as const]));
-    expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons })).toMatchObject({ done: 10, next: null, state: "complete" });
+    expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons })).toMatchObject({ done: 10, next: null, state: "challenge" });
+    const challenges = { heuristics: { best: 6, passedDay: null } };
+    expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons, challenges }).state).toBe("challenge");
+    const passed = { heuristics: { best: 9, passedDay: "2026-10-03" } };
+    expect(pathStatus(heuristics, { ...emptyProgress(), completedLessons, challenges: passed }).state).toBe("complete");
   });
 });
