@@ -118,7 +118,6 @@ html { scroll-padding-top: 88px; }
   background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
   font-weight: 700; font-size: 14px; padding: 4px 14px;
 }
-.account-link.signed-out:hover { filter: brightness(1.1); }
 
 /* Page */
 .main {
@@ -166,6 +165,17 @@ html { scroll-padding-top: 88px; }
 }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+/* Hover only where there's a pointer, so a tap on a phone doesn't leave a "stuck" hover color.
+   Mixing toward --fg darkens in light mode and lightens in dark mode: text contrast only improves. */
+.btn { transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease; }
+@media (hover: hover) {
+  .btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 82%, var(--fg)); }
+  .btn.ghost:hover:not(:disabled) { background: var(--surface); border-color: var(--fg); }
+  .btn.danger:hover:not(:disabled) { background: color-mix(in srgb, var(--bad) 82%, var(--fg)); }
+  .btn.ghost.danger:hover:not(:disabled) { background: var(--bad-soft); border-color: var(--bad); }
+  .account-link.signed-out:hover { background: color-mix(in srgb, var(--accent) 82%, var(--fg)); }
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
 
 .roadmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
 .road { border: 1px dashed var(--line); border-radius: 10px; padding: 14px; }
