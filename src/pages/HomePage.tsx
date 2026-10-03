@@ -1,4 +1,5 @@
 import { pathIcons } from "../art";
+import ProgressSummary from "../components/ProgressSummary";
 import { paths, plannedPaths } from "../content/paths";
 import { REVIEW_INTERVALS, dueReviewIds, nextReview, whenLabel, type Progress } from "../lib/progress";
 import { pathStatus } from "../lib/pathStatus";
@@ -21,6 +22,8 @@ export default function HomePage({ progress }: { progress: Progress }) {
           public sources and link to them for the full story.
         </p>
       </section>
+
+      <ProgressSummary progress={progress} />
 
       {dueCount > 0 && (
         <section className="panel review">

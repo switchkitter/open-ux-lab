@@ -22,6 +22,29 @@ export type ReviewItem = {
   due: string;
 };
 
+/** Counts of good learning habits, for achievements. Only ever grow. */
+export type LearningStats = {
+  /** Review exercises answered right. */
+  reviewCorrect: number;
+  /** Exercises cleared from the review pile for good. */
+  cleared: number;
+  /** Spot-the-problem exercises right on the first try (in a lesson). */
+  spotFirstTry: number;
+  /** Lessons finished with every exercise right on the first try. */
+  perfectLessons: number;
+  /** Days the daily goal was reached. */
+  goalDays: number;
+};
+
+export const DAILY_GOALS = [
+  { xp: 20, name: "Light", hint: "a few exercises" },
+  { xp: 50, name: "Steady", hint: "about one lesson" },
+  { xp: 100, name: "Intense", hint: "about two lessons" },
+] as const;
+export const DEFAULT_GOAL = 50;
+/** Streak freezes are earned by leveling up; you can hold this many. */
+export const MAX_FREEZES = 2;
+
 export type Progress = {
   version: 1;
   completedLessons: Record<string, true>;
@@ -32,10 +55,42 @@ export type Progress = {
   review: Record<string, ReviewItem>;
   /** Exercises answered at least once, for the skill map. Only ever grows. */
   seen: Record<string, true>;
+  /** XP earned on one local day (today, or the last day with XP). */
+  dayXp: { day: string; xp: number } | null;
+  /** Daily goal in XP (one of DAILY_GOALS). */
+  goal: number;
+  /** Last day the daily goal was reached, so each day counts once. */
+  goalMetDay: string | null;
+  /** Streak freezes held: each covers one missed day. */
+  freezes: number;
+  /** Highest level whose reward (a streak freeze) has been given. See lib/rewards.ts. */
+  levelRewarded: number;
+  /** Achievement ID -> day it was earned. See lib/rewards.ts. IDs are stable, like exercise IDs. */
+  badges: Record<string, string>;
+  stats: LearningStats;
 };
 
+export function emptyStats(): LearningStats {
+  return { reviewCorrect: 0, cleared: 0, spotFirstTry: 0, perfectLessons: 0, goalDays: 0 };
+}
+
 export function emptyProgress(): Progress {
-  return { version: 1, completedLessons: {}, xp: 0, streak: 0, lastActiveDay: null, review: {}, seen: {} };
+  return {
+    version: 1,
+    completedLessons: {},
+    xp: 0,
+    streak: 0,
+    lastActiveDay: null,
+    review: {},
+    seen: {},
+    dayXp: null,
+    goal: DEFAULT_GOAL,
+    goalMetDay: null,
+    freezes: 0,
+    levelRewarded: 1,
+    badges: {},
+    stats: emptyStats(),
+  };
 }
 
 export function dayKey(date: Date): string {
@@ -93,20 +148,72 @@ export function nextReview(p: Progress, now: Date): { day: string; count: number
   return { day: upcoming[0], count: upcoming.filter((d) => d === upcoming[0]).length };
 }
 
-/** Updates the daily streak. Call when the learner finishes a lesson or review. */
+/** XP earned today (0 if the last XP was on an earlier day). */
+export function xpToday(p: Progress, now: Date): number {
+  return p.dayXp && p.dayXp.day === dayKey(now) ? p.dayXp.xp : 0;
+}
+
+/** Adds XP, counting it toward today's goal. */
+export function gainXp(p: Progress, amount: number, now: Date): Progress {
+  const today = dayKey(now);
+  const dayXp = { day: today, xp: xpToday(p, now) + amount };
+  const reached = dayXp.xp >= p.goal && p.goalMetDay !== today;
+  return {
+    ...p,
+    xp: p.xp + amount,
+    dayXp,
+    ...(reached && { goalMetDay: today, stats: { ...p.stats, goalDays: p.stats.goalDays + 1 } }),
+  };
+}
+
+/** Changes the daily goal. Reaching the new goal with XP already earned today counts straight away. */
+export function setGoal(p: Progress, goal: number, now: Date): Progress {
+  const today = dayKey(now);
+  const reached = xpToday(p, now) >= goal && p.goalMetDay !== today;
+  return { ...p, goal, ...(reached && { goalMetDay: today, stats: { ...p.stats, goalDays: p.stats.goalDays + 1 } }) };
+}
+
+function bump(p: Progress, stat: keyof LearningStats): Progress {
+  return { ...p, stats: { ...p.stats, [stat]: p.stats[stat] + 1 } };
+}
+
+/** Days missed between the last active day and today (0 if active yesterday or today). */
+export function missedDays(p: Progress, now: Date): number {
+  return p.lastActiveDay ? Math.max(0, -daysUntil(p.lastActiveDay, now) - 1) : 0;
+}
+
+/**
+ * Updates the daily streak. Call when the learner finishes a lesson or review.
+ * Missed days are covered by streak freezes, one per day, if there are enough; otherwise the streak restarts.
+ */
 export function recordActivity(p: Progress, now: Date): Progress {
   const today = dayKey(now);
   if (p.lastActiveDay === today) return p;
-  const yesterday = new Date(now);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const streak = p.lastActiveDay === dayKey(yesterday) ? p.streak + 1 : 1;
-  return { ...p, streak, lastActiveDay: today };
+  if (!p.lastActiveDay) return { ...p, streak: 1, lastActiveDay: today };
+  const missed = missedDays(p, now);
+  if (missed === 0) return { ...p, streak: p.streak + 1, lastActiveDay: today };
+  if (p.streak > 0 && missed <= p.freezes) return { ...p, streak: p.streak + 1, lastActiveDay: today, freezes: p.freezes - missed };
+  return { ...p, streak: 1, lastActiveDay: today };
+}
+
+/** The streak as it stands today: 0 once more days have been missed than freezes can cover. */
+export function currentStreak(p: Progress, now: Date): number {
+  return missedDays(p, now) <= p.freezes ? p.streak : 0;
 }
 
 /** Answer given inside a lesson. Wrong answers go to the review pile, due straight away. */
-export function recordLessonAnswer(p: Progress, exerciseId: string, correct: boolean, now: Date): Progress {
+export function recordLessonAnswer(
+  p: Progress,
+  exerciseId: string,
+  correct: boolean,
+  now: Date,
+  type?: "compare" | "choice" | "spot",
+): Progress {
   const seen = { ...p.seen, [exerciseId]: true as const };
-  if (correct) return { ...p, seen, xp: p.xp + XP.correctFirstTry };
+  if (correct) {
+    const next = gainXp({ ...p, seen }, XP.correctFirstTry, now);
+    return type === "spot" ? bump(next, "spotFirstTry") : next;
+  }
   return { ...p, seen, review: { ...p.review, [exerciseId]: { step: 0, due: dayKey(now) } } };
 }
 
@@ -123,9 +230,11 @@ export function recordReviewAnswer(p: Progress, exerciseId: string, correct: boo
     return { ...p, seen, review };
   }
   const step = review[exerciseId]?.step ?? 0;
-  if (step >= REVIEW_INTERVALS.length) delete review[exerciseId];
+  const clears = step >= REVIEW_INTERVALS.length;
+  if (clears) delete review[exerciseId];
   else review[exerciseId] = { step: step + 1, due: addDays(today, REVIEW_INTERVALS[step]) };
-  return { ...p, seen, xp: p.xp + XP.reviewCorrect, review };
+  const next = bump(gainXp({ ...p, seen, review }, XP.reviewCorrect, now), "reviewCorrect");
+  return clears ? bump(next, "cleared") : next;
 }
 
 /**
@@ -139,12 +248,9 @@ export function normalizeReviewItem(raw: unknown): ReviewItem {
   return { step: Math.max(0, Math.min(step, REVIEW_INTERVALS.length)), due };
 }
 
-/** Marks a lesson complete. XP for completion is only awarded once. */
-export function completeLesson(p: Progress, lessonId: string): Progress {
-  if (p.completedLessons[lessonId]) return p;
-  return {
-    ...p,
-    xp: p.xp + XP.lessonComplete,
-    completedLessons: { ...p.completedLessons, [lessonId]: true },
-  };
+/** Marks a lesson complete. XP for completion is only awarded once; a perfect run counts every time. */
+export function completeLesson(p: Progress, lessonId: string, now: Date, perfect = false): Progress {
+  const next = perfect ? bump(p, "perfectLessons") : p;
+  if (p.completedLessons[lessonId]) return next;
+  return gainXp({ ...next, completedLessons: { ...p.completedLessons, [lessonId]: true } }, XP.lessonComplete, now);
 }

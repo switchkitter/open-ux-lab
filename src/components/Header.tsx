@@ -1,4 +1,4 @@
-import type { Progress } from "../lib/progress";
+import { currentStreak, type Progress } from "../lib/progress";
 import { hrefFor } from "../lib/route";
 import SoundToggle from "./SoundToggle";
 import UpdatePrompt from "./UpdatePrompt";
@@ -25,6 +25,7 @@ const syncLabel: Record<SyncStatus["state"], { shown: string; spoken: string; ma
 export default function Header({ progress, totalLessons, syncStatus }: Props) {
   const sync = syncLabel[syncStatus.state];
   const done = Object.keys(progress.completedLessons).length;
+  const streak = currentStreak(progress, new Date());
   return (
     <header className="bar">
       <div className="bar-in">
@@ -41,8 +42,8 @@ export default function Header({ progress, totalLessons, syncStatus }: Props) {
               </Spoken>
             </span>
             <span className="chip">
-              <Spoken text={`${progress.streak}-day streak`}>
-                <b>{progress.streak}</b>-day streak
+              <Spoken text={`${streak}-day streak`}>
+                <b>{streak}</b>-day streak
               </Spoken>
             </span>
             <span className="chip">

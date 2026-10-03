@@ -1,4 +1,4 @@
-import { dayKey, type Progress, type ReviewItem } from "./progress";
+import { MAX_FREEZES, dayKey, emptyStats, type LearningStats, type Progress, type ReviewItem } from "./progress";
 
 /**
  * Three-way merge of progress from two devices.
@@ -15,7 +15,45 @@ export function mergeProgress(local: Progress, remote: Progress, base: Progress 
     ...mergeStreak(local, remote),
     review: mergeReview(local.review, remote.review, base?.review ?? {}),
     seen: { ...remote.seen, ...local.seen },
+    dayXp: mergeDayXp(local, remote, base),
+    // A setting, not a count: this device's choice wins.
+    goal: local.goal,
+    goalMetDay: later(local.goalMetDay, remote.goalMetDay),
+    // Freezes are earned and spent on both sides, so combine the changes since the base.
+    freezes: Math.min(MAX_FREEZES, Math.max(0, base ? local.freezes + remote.freezes - base.freezes : Math.max(local.freezes, remote.freezes))),
+    levelRewarded: Math.max(local.levelRewarded, remote.levelRewarded),
+    badges: mergeBadges(local.badges, remote.badges),
+    stats: mergeStats(local.stats, remote.stats, base?.stats ?? null),
   };
+}
+
+/** Counts that only grow: add what each side gained since the base, like XP. */
+function grown(l: number, r: number, b: number | null): number {
+  return b === null ? Math.max(l, r) : Math.max(l, r, l + r - b);
+}
+
+function mergeStats(l: LearningStats, r: LearningStats, b: LearningStats | null): LearningStats {
+  const keys = Object.keys(emptyStats()) as (keyof LearningStats)[];
+  return Object.fromEntries(keys.map((k) => [k, grown(l[k], r[k], b ? b[k] : null)])) as LearningStats;
+}
+
+function mergeDayXp(l: Progress, r: Progress, b: Progress | null): Progress["dayXp"] {
+  if (!l.dayXp || !r.dayXp) return l.dayXp ?? r.dayXp;
+  if (l.dayXp.day !== r.dayXp.day) return l.dayXp.day > r.dayXp.day ? l.dayXp : r.dayXp;
+  const baseXp = b?.dayXp?.day === l.dayXp.day ? b.dayXp.xp : null;
+  return { day: l.dayXp.day, xp: grown(l.dayXp.xp, r.dayXp.xp, baseXp) };
+}
+
+/** Earned on either device; keep the earlier date. */
+function mergeBadges(l: Record<string, string>, r: Record<string, string>): Record<string, string> {
+  const merged = { ...r };
+  for (const [id, d] of Object.entries(l)) if (!merged[id] || d < merged[id]) merged[id] = d;
+  return merged;
+}
+
+function later(a: string | null, b: string | null): string | null {
+  if (!a || !b) return a ?? b;
+  return a > b ? a : b;
 }
 
 function mergeStreak(a: Progress, b: Progress): Pick<Progress, "streak" | "lastActiveDay"> {

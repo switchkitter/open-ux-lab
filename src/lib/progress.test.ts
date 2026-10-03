@@ -4,6 +4,7 @@ import {
   XP,
   addDays,
   completeLesson,
+  currentStreak,
   dayKey,
   dueReviewIds,
   emptyProgress,
@@ -13,7 +14,9 @@ import {
   recordLessonAnswer,
   recordReviewAnswer,
   reviewOutcome,
+  setGoal,
   whenLabel,
+  xpToday,
 } from "./progress";
 
 describe("streaks", () => {
@@ -114,9 +117,57 @@ describe("stored review items from older versions", () => {
 
 describe("lesson completion", () => {
   it("awards completion XP only once", () => {
-    let p = completeLesson(emptyProgress(), "h1");
-    p = completeLesson(p, "h1");
+    let p = completeLesson(emptyProgress(), "h1", new Date(2026, 9, 1));
+    p = completeLesson(p, "h1", new Date(2026, 9, 1));
     expect(p.xp).toBe(XP.lessonComplete);
     expect(p.completedLessons.h1).toBe(true);
+  });
+});
+
+describe("daily goal", () => {
+  it("counts XP per day and records each day the goal is reached once", () => {
+    let p = { ...emptyProgress(), goal: 20 };
+    p = recordLessonAnswer(p, "a", true, new Date(2026, 9, 1, 9));
+    expect(xpToday(p, new Date(2026, 9, 1, 18))).toBe(10);
+    expect(p.stats.goalDays).toBe(0);
+    p = recordLessonAnswer(p, "b", true, new Date(2026, 9, 1, 10));
+    p = recordLessonAnswer(p, "c", true, new Date(2026, 9, 1, 11));
+    expect(p.stats.goalDays).toBe(1);
+    expect(xpToday(p, new Date(2026, 9, 2))).toBe(0);
+  });
+
+  it("counts straight away when lowering the goal below today's XP", () => {
+    let p = recordLessonAnswer(emptyProgress(), "a", true, new Date(2026, 9, 1));
+    p = recordLessonAnswer(p, "b", true, new Date(2026, 9, 1));
+    p = setGoal(p, 20, new Date(2026, 9, 1));
+    expect(p.goalMetDay).toBe("2026-10-01");
+  });
+});
+
+describe("streak freezes", () => {
+  const active = (day: string, streak: number, freezes: number) => ({ ...emptyProgress(), lastActiveDay: day, streak, freezes });
+
+  it("cover missed days, one freeze each", () => {
+    expect(recordActivity(active("2026-09-29", 5, 2), new Date(2026, 9, 2))).toMatchObject({ streak: 6, freezes: 0 });
+  });
+
+  it("aren't spent when there aren't enough to cover the gap", () => {
+    expect(recordActivity(active("2026-09-28", 5, 2), new Date(2026, 9, 2))).toMatchObject({ streak: 1, freezes: 2 });
+  });
+
+  it("keep the streak showing while they cover the gap", () => {
+    expect(currentStreak(active("2026-09-30", 5, 1), new Date(2026, 9, 2))).toBe(5);
+    expect(currentStreak(active("2026-09-30", 5, 0), new Date(2026, 9, 2))).toBe(0);
+  });
+});
+
+describe("learning stats", () => {
+  it("count spot-the-problem first tries, perfect lessons, review answers and cleared items", () => {
+    const now = new Date(2026, 9, 1);
+    let p = recordLessonAnswer(emptyProgress(), "s", true, now, "spot");
+    p = completeLesson(p, "h1", now, true);
+    p = { ...p, review: { r: { step: 3, due: "2026-10-01" } } };
+    p = recordReviewAnswer(p, "r", true, now);
+    expect(p.stats).toMatchObject({ spotFirstTry: 1, perfectLessons: 1, reviewCorrect: 1, cleared: 1 });
   });
 });

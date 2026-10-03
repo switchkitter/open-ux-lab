@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { LearningPath, Lesson } from "../content/types";
 import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
+import RewardsList from "../components/RewardsList";
 import { lessonScenes } from "../art";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
@@ -22,6 +23,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   const [step, setStep] = useState(0);
   const [firstTry, setFirstTry] = useState(0);
   const [wasComplete] = useState(() => Boolean(progress.completedLessons[lesson.id]));
+  // Progress when the lesson opened, to show what was earned on the done screen.
+  const [before] = useState(progress);
   const total = lesson.exercises.length;
   const doneStep = total + 1;
 
@@ -41,7 +44,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
 
   function next() {
     if (step === total) {
-      update((p) => recordActivity(completeLesson(p, lesson.id), new Date()));
+      update((p) => recordActivity(completeLesson(p, lesson.id, new Date(), firstTry === total), new Date()));
       count("lesson_completed", lesson.id);
       play("complete");
     }
@@ -130,7 +133,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           noteFor={(correct) => (correct ? null : "Added to your review pile, so you can practice it again.")}
           onAnswer={(correct) => {
             if (correct) setFirstTry((n) => n + 1);
-            update((p) => recordLessonAnswer(p, lesson.exercises[step - 1].id, correct, new Date()));
+            const exercise = lesson.exercises[step - 1];
+            update((p) => recordLessonAnswer(p, exercise.id, correct, new Date(), exercise.type));
           }}
           onNext={next}
         />
@@ -146,6 +150,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           {/* One string per sentence: VoiceOver on iPhone reads each JSX text piece as a separate item. */}
           <p>{`${firstTry} of ${total} right on the first try.`}</p>
           {firstTry < total && <p>Missed exercises are waiting in your review pile.</p>}
+          <RewardsList before={before} after={progress} />
           <div className="actions">
             {nextLesson && (
               <a className="btn" href={hrefFor({ name: "lesson", id: nextLesson.id })}>

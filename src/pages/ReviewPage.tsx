@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ExerciseCard from "../components/ExerciseCard";
+import RewardsList from "../components/RewardsList";
 import { findExercise } from "../content/paths";
 import { dueReviewIds, nextReview, recordActivity, recordReviewAnswer, reviewOutcome, whenLabel, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
@@ -17,6 +18,8 @@ export default function ReviewPage({ progress, update }: Props) {
       .filter((x): x is NonNullable<typeof x> => Boolean(x)),
   );
   const [index, setIndex] = useState(0);
+  // Progress when review started, to show what was earned on the done screen.
+  const [before] = useState(progress);
   const [right, setRight] = useState(0);
 
   const firstIndex = useRef(true);
@@ -46,6 +49,7 @@ export default function ReviewPage({ progress, update }: Props) {
           <div className="big">{`${right} of ${queue.length} right`}</div>
         )}
         <p>{scheduleSummary(progress)}</p>
+        {queue.length > 0 && <RewardsList before={before} after={progress} />}
         <div className="actions">
           <a className="btn" href={hrefFor({ name: "home" })}>
             Home

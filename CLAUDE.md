@@ -5,7 +5,7 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 ## Status
 
 - **Content:** 6 learning paths, 50 lessons, 150 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8), UX research methods (8), Visual design basics (8); every lesson has 3 exercises: a compare, a multiple choice and a spot-the-problem. 10 skills on the skill map.
-- **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, optional accounts with cross-device sync (Supabase, email codes), progress backup to a file (save and load, no account needed), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
+- **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, levels, achievements, a daily goal and streak freezes, optional accounts with cross-device sync (Supabase, email codes), progress backup to a file (save and load, no account needed), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
 - **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
 - **Checks:** `npm run typecheck`, `npm test` (75+ tests, including content integrity) and `npm run build` pass on Node 24; CI runs tests and build on every push. Accessibility audited with axe-core, keyboard and 320px reflow, plus a first VoiceOver pass on iPhone (Oct 2026).
@@ -16,7 +16,7 @@ A free, Uxcel-style UX learning app: short lessons followed by exercises (pick t
 - Vite + React 19 + TypeScript (strict)
 - Vitest for unit tests
 - Plain CSS with design tokens in `src/styles.css` (no CSS framework)
-- Tiny hash router in `src/lib/route.ts` (`#/`, `#/path/:id`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`, `#/skills`, `#/credits`)
+- Tiny hash router in `src/lib/route.ts` (`#/`, `#/path/:id`, `#/lesson/:id`, `#/review`, `#/account`, `#/privacy`, `#/skills`, `#/credits`, `#/achievements`)
 
 ## Commands
 
@@ -34,7 +34,8 @@ Run `npm run typecheck` and `npm test` after every change.
 - `src/content/skills.ts` — skills for the skill map. Every lesson lists its `skills`; `src/lib/skills.ts` computes progress per skill from `progress.seen` and the review pile. A content test requires each skill to have at least 3 lessons.
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)
 - `src/lib/progress.ts` — pure progress logic (XP, streaks, spaced review with `REVIEW_INTERVALS`). Keep it free of React and storage. Review items are `{ step, due }`; `normalizeReviewItem` migrates older stored shapes, so never remove that migration.
-- `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device.
+- `src/lib/store.ts` — `ProgressStore` interface + localStorage implementation. localStorage stays the source of truth on each device. `normalizeProgress` brings anything stored (browser, server, backup file) to the current shape and fills in fields added later; new `Progress` fields need a default there, a rule in `merge.ts`, and a mention in the privacy notice.
+- `src/lib/rewards.ts` — levels (`LEVELS`), achievements (`BADGES`) and `settle()`, which `useProgress` runs after every change to hand out a streak freeze per new level (max 2) and new badges. Rewards never lock content. Badge IDs are stable keys in `progress.badges`: never rename or reuse them. XP goes through `gainXp` so it counts toward the daily goal (`progress.goal`, `dayXp`).
 - `src/lib/merge.ts`, `src/lib/sync.ts` — pure three-way merge and one sync round (pull, merge, push). Tested with fakes.
 - `src/lib/backup.ts`, `src/components/ProgressBackup.tsx` — save progress to a JSON file and load it elsewhere (account page; linked from the home footer). Loading combines with this browser's progress through `mergeProgress` with no base, so it never removes anything; hand-edited values with the wrong shape are dropped. On touch devices saving uses the share sheet (iPhone: Save to Files), otherwise a download.
 - `src/lib/cloud.ts`, `src/lib/useCloudSync.ts` — optional Supabase sync (email code sign-in). Off unless `VITE_SUPABASE_URL` and `VITE_SUPABASE_KEY` are set (GitHub repo variables `SUPABASE_URL`/`SUPABASE_KEY` for the deployed site). Schema and row level security: `supabase/schema.sql`.

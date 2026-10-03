@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { mergeProgress } from "./merge";
-import { emptyProgress, type Progress } from "./progress";
+import { emptyProgress, emptyStats, type Progress } from "./progress";
 
 const p = (over: Partial<Progress>): Progress => ({ ...emptyProgress(), ...over });
 
@@ -79,5 +79,27 @@ describe("mergeProgress", () => {
     it("handles a device with no activity yet", () => {
       expect(mergeProgress(p({}), p({ streak: 2, lastActiveDay: "2026-10-01" }), null)).toMatchObject({ streak: 2 });
     });
+  });
+});
+
+describe("merging rewards and goals", () => {
+  it("adds up stats and today's XP earned on each device since the last sync", () => {
+    const base = p({ stats: { ...emptyStats(), reviewCorrect: 2 }, dayXp: { day: "2026-10-02", xp: 10 } });
+    const local = p({ stats: { ...emptyStats(), reviewCorrect: 5 }, dayXp: { day: "2026-10-02", xp: 30 } });
+    const remote = p({ stats: { ...emptyStats(), reviewCorrect: 4 }, dayXp: { day: "2026-10-02", xp: 20 } });
+    const m = mergeProgress(local, remote, base);
+    expect(m.stats.reviewCorrect).toBe(7);
+    expect(m.dayXp).toEqual({ day: "2026-10-02", xp: 40 });
+  });
+
+  it("keeps badges from both devices with the earlier date", () => {
+    const m = mergeProgress(p({ badges: { a: "2026-10-02", b: "2026-10-01" } }), p({ badges: { b: "2026-09-30", c: "2026-10-01" } }), null);
+    expect(m.badges).toEqual({ a: "2026-10-02", b: "2026-09-30", c: "2026-10-01" });
+  });
+
+  it("combines freezes earned and spent on each device, within the limit", () => {
+    const base = p({ freezes: 1 });
+    expect(mergeProgress(p({ freezes: 0 }), p({ freezes: 2 }), base).freezes).toBe(1);
+    expect(mergeProgress(p({ freezes: 2 }), p({ freezes: 2 }), base).freezes).toBe(2);
   });
 });

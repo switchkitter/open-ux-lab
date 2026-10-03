@@ -1,4 +1,4 @@
-import { emptyProgress, normalizeReviewItem, type Progress, type ReviewItem } from "./progress";
+import { DAILY_GOALS, DEFAULT_GOAL, MAX_FREEZES, emptyProgress, emptyStats, normalizeReviewItem, type LearningStats, type Progress, type ReviewItem } from "./progress";
 
 /**
  * Where progress lives. Today it's the browser; later this can be swapped
@@ -11,14 +11,42 @@ export interface ProgressStore {
 
 const KEY = "open-ux-lab:progress";
 
-/** Fills in missing fields so progress from storage or the server always has the current shape. */
+const DAY = /^\d{4}-\d{2}-\d{2}$/;
+const isRecord = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
+const count = (n: unknown) => (typeof n === "number" && Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0);
+const day = (v: unknown) => (typeof v === "string" && DAY.test(v) ? v : null);
+const flags = (o: unknown) => Object.fromEntries(Object.entries(isRecord(o) ? o : {}).filter(([, v]) => v === true)) as Record<string, true>;
+
+/**
+ * Brings progress from storage, the server or a backup file to the current shape: fills in fields added
+ * since it was saved (older progress has no goal, badges or stats) and drops values with the wrong type.
+ */
 export function normalizeProgress(raw: unknown): Progress {
-  if (!raw || typeof raw !== "object") return emptyProgress();
-  const p = { ...emptyProgress(), ...(raw as Partial<Progress>), version: 1 as const };
+  if (!isRecord(raw)) return emptyProgress();
+  const base = emptyProgress();
   const review: Record<string, ReviewItem> = {};
-  for (const [id, item] of Object.entries(p.review ?? {})) review[id] = normalizeReviewItem(item);
-  const seen = p.seen && typeof p.seen === "object" ? p.seen : {};
-  return { ...p, review, seen };
+  for (const [id, item] of Object.entries(isRecord(raw.review) ? raw.review : {})) review[id] = normalizeReviewItem(item);
+  const lastActiveDay = day(raw.lastActiveDay);
+  const dayXp = isRecord(raw.dayXp) && day(raw.dayXp.day) ? { day: day(raw.dayXp.day)!, xp: count(raw.dayXp.xp) } : null;
+  const rawStats = isRecord(raw.stats) ? raw.stats : {};
+  const stats = Object.fromEntries(Object.keys(emptyStats()).map((k) => [k, count(rawStats[k])])) as LearningStats;
+  const badges = Object.fromEntries(Object.entries(isRecord(raw.badges) ? raw.badges : {}).filter(([, v]) => day(v))) as Record<string, string>;
+  return {
+    ...base,
+    completedLessons: flags(raw.completedLessons),
+    xp: count(raw.xp),
+    streak: lastActiveDay ? count(raw.streak) : 0,
+    lastActiveDay,
+    review,
+    seen: flags(raw.seen),
+    dayXp,
+    goal: DAILY_GOALS.some((g) => g.xp === raw.goal) ? (raw.goal as number) : DEFAULT_GOAL,
+    goalMetDay: day(raw.goalMetDay),
+    freezes: Math.min(count(raw.freezes), MAX_FREEZES),
+    levelRewarded: Math.max(1, count(raw.levelRewarded)),
+    badges,
+    stats,
+  };
 }
 
 export const localProgressStore: ProgressStore = {

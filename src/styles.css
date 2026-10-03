@@ -344,6 +344,50 @@ html { scroll-padding-top: 88px; }
 .spot-part .mockup > * { margin: 0; }
 
 /* Skill map */
+/* Progress summary (home) */
+.you { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 24px; }
+.you-part { display: grid; gap: 6px; align-content: start; }
+.you-title { font-family: var(--f-display); font-weight: 700; font-size: 20px; margin: 0; }
+.you-bar { height: 8px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.you-bar i { display: block; height: 100%; background: var(--accent); transition: width 0.4s; }
+.you-bar.goal i { background: var(--mark); }
+.you-bar.goal.met i { background: var(--good); }
+.you-note { margin: 0; color: var(--muted); font-size: 14px; }
+.you-link { grid-column: 1 / -1; font-weight: 700; justify-self: start; display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Achievements page */
+.ach-section { display: grid; gap: 10px; }
+.ach-section h2 { font-size: 20px; }
+.ach-section p { margin: 0; }
+.levels { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.levels li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 8px 10px; border-radius: 8px; color: var(--muted); }
+.levels li.reached { color: var(--fg); }
+.levels li.current { background: var(--accent-soft); color: var(--fg); font-weight: 700; }
+.levels-state { font-size: 14px; font-variant-numeric: tabular-nums; }
+.goal-options { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+.goal-options legend { padding: 0; margin-bottom: 8px; font-weight: 700; }
+.goal-hint { color: var(--muted); }
+.badges { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.badge-card { display: flex; gap: 12px; align-items: flex-start; padding: 14px; }
+.badge-card h3 { font-size: 17px; }
+.badge-card p { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.badge-card .badge-state { font-weight: 700; color: var(--fg); }
+.badge-card.locked .badge-state { color: var(--muted); }
+.badge-icon { flex: none; }
+.badge-icon .badge-ribbon { fill: var(--accent); }
+.badge-icon .badge-disc { fill: var(--mark-soft); stroke: var(--mark-ink); stroke-width: 2; }
+.badge-icon .badge-mark { fill: none; stroke: var(--mark-ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.badge-icon.locked .badge-ribbon { fill: var(--line); }
+.badge-icon.locked .badge-disc { fill: var(--surface); stroke: var(--muted); stroke-dasharray: 3 3; }
+.badge-icon.locked .badge-mark { stroke: var(--muted); stroke-width: 1.8; }
+
+/* Rewards on done screens */
+.rewards { margin-top: 16px; text-align: left; }
+.rewards ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.reward { position: relative; display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 10px; background: var(--mark-soft); }
+.reward .badge-icon { width: 32px; height: 32px; }
+.rewards-more { margin: 10px 0 0; }
+
 .page-title { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 .skill { display: grid; gap: 8px; align-content: start; }

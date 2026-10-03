@@ -33,8 +33,8 @@ export function readBackup(text: string): ReadResult {
     return { ok: false, error: notOurs };
   }
   if (!isRecord(data) || data.app !== APP || data.kind !== KIND || !isRecord(data.progress)) return { ok: false, error: notOurs };
-  const raw = isRecord(data.progress.review) ? data.progress : { ...data.progress, review: {} };
-  return { ok: true, progress: clean(normalizeProgress(raw)) };
+  // normalizeProgress also drops hand-edited values with the wrong shape.
+  return { ok: true, progress: normalizeProgress(data.progress) };
 }
 
 /** Combines a loaded backup with this browser's progress, keeping everything from both. */
@@ -47,22 +47,6 @@ export function describeProgress(p: Progress): string {
   const lessons = Object.keys(p.completedLessons).length;
   const review = Object.keys(p.review).length;
   return `${lessons} ${lessons === 1 ? "lesson" : "lessons"}, ${p.xp} XP, ${review} in your review pile`;
-}
-
-/** A file can be edited by hand, so keep only values with the right shape. */
-function clean(p: Progress): Progress {
-  const flags = (o: unknown) => Object.fromEntries(Object.entries(isRecord(o) ? o : {}).filter(([, v]) => v === true)) as Record<string, true>;
-  const count = (n: unknown) => (typeof n === "number" && Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0);
-  const day = typeof p.lastActiveDay === "string" && /^\d{4}-\d{2}-\d{2}$/.test(p.lastActiveDay) ? p.lastActiveDay : null;
-  return {
-    version: 1,
-    completedLessons: flags(p.completedLessons),
-    xp: count(p.xp),
-    streak: day ? count(p.streak) : 0,
-    lastActiveDay: day,
-    review: p.review,
-    seen: flags(p.seen),
-  };
 }
 
 function isRecord(v: unknown): v is Record<string, unknown> {
