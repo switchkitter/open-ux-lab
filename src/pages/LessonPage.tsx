@@ -4,11 +4,13 @@ import Burst from "../components/Burst";
 import ExerciseCard from "../components/ExerciseCard";
 import FeedbackButton from "../components/FeedbackButton";
 import RewardsList from "../components/RewardsList";
+import Spoken from "../components/Spoken";
 import { lessonScenes } from "../art";
 import { XP, completeLesson, recordActivity, recordLessonAnswer, type Progress } from "../lib/progress";
 import type { UpdateProgress } from "../lib/useProgress";
 import { count } from "../lib/analytics";
 import { announceScreen } from "../lib/focus";
+import { clearPlace, loadPlace, savePlace } from "../lib/lessonPlace";
 import { play } from "../lib/useSound";
 import { hrefFor } from "../lib/route";
 
@@ -21,13 +23,15 @@ type Props = {
 
 /** Steps: 0 = reading, 1..n = exercises, n + 1 = done. */
 export default function LessonPage({ lesson, path, progress, update }: Props) {
+  const total = lesson.exercises.length;
+  const doneStep = total + 1;
   const [step, setStep] = useState(0);
   const [firstTry, setFirstTry] = useState(0);
   const [wasComplete] = useState(() => Boolean(progress.completedLessons[lesson.id]));
   // Progress when the lesson opened, to show what was earned on the done screen.
   const [before] = useState(progress);
-  const total = lesson.exercises.length;
-  const doneStep = total + 1;
+  // Where the learner stopped last time, if they left partway through the exercises.
+  const [place, setPlace] = useState(() => loadPlace(lesson.id, total));
 
   useEffect(() => count("lesson_opened", lesson.id), [lesson.id]);
 
@@ -44,12 +48,44 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
   }, [step, doneStep, total, lesson.title]);
 
   function next() {
-    if (step === total) {
-      update((p) => recordActivity(completeLesson(p, lesson.id, new Date(), firstTry === total), new Date()));
-      count("lesson_completed", lesson.id);
-      play("complete");
-    }
+    if (step === total) play("complete");
     setStep((s) => s + 1);
+  }
+
+  function startPractice() {
+    clearPlace(lesson.id);
+    setPlace(null);
+    setFirstTry(0);
+    setStep(1);
+  }
+
+  function resume() {
+    if (!place) return;
+    setFirstTry(place.firstTry);
+    setStep(place.step);
+  }
+
+  function dismissPlace() {
+    clearPlace(lesson.id);
+    setPlace(null);
+    announceScreen(lesson.title);
+  }
+
+  // Answers are saved as they're given. The last answer also completes the lesson, so leaving before
+  // pressing "Finish lesson" loses nothing; earlier answers save the place to continue from.
+  function answer(correct: boolean) {
+    const exercise = lesson.exercises[step - 1];
+    const right = firstTry + (correct ? 1 : 0);
+    setFirstTry(right);
+    const now = new Date();
+    if (step === total) {
+      clearPlace(lesson.id);
+      update((p) => recordActivity(completeLesson(recordLessonAnswer(p, exercise.id, correct, now, exercise.type), lesson.id, now, right === total), now));
+      count("lesson_completed", lesson.id);
+    } else {
+      savePlace(lesson.id, { step: step + 1, firstTry: right });
+      update((p) => recordLessonAnswer(p, exercise.id, correct, now, exercise.type));
+    }
   }
 
   const licenses = lesson.sources
@@ -69,6 +105,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
             <i key={i} className={i <= step ? "on" : ""} />
           ))}
         </div>
+        {step >= 1 && step <= total && <p className="saved-note">Your answers are saved as you go, so you can leave and continue later.</p>}
       </div>
 
       {step === 0 && (
@@ -77,6 +114,23 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
             {`${path.title} · Lesson ${path.lessons.indexOf(lesson) + 1} of ${path.lessons.length}`}
           </div>
           <h1>{lesson.title}</h1>
+          {place && (
+            <div className="panel resume">
+              <p>
+                <Spoken text={`You stopped at exercise ${place.step} of ${total}. Your earlier answers are saved.`}>
+                  <strong>{`You stopped at exercise ${place.step} of ${total}.`}</strong> Your earlier answers are saved.
+                </Spoken>
+              </p>
+              <div className="actions">
+                <button className="btn" type="button" onClick={resume}>
+                  {`Continue from exercise ${place.step}`}
+                </button>
+                <button className="btn ghost" type="button" onClick={dismissPlace}>
+                  Start again
+                </button>
+              </div>
+            </div>
+          )}
           {lessonScenes[lesson.id] && <figure className="scene">{lessonScenes[lesson.id]}</figure>}
           <div className="prose">
             {lesson.body.map((para, i) => (
@@ -118,8 +172,8 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
             </div>
           </div>
           <div className="actions">
-            <button className="btn" type="button" onClick={next}>
-              Start practice ({total} exercises)
+            <button className={place ? "btn ghost" : "btn"} type="button" onClick={startPractice}>
+              {`Start practice (${total} exercises)`}
             </button>
           </div>
           <FeedbackButton target={{ type: "lesson", id: lesson.id, title: lesson.title }} />
@@ -133,11 +187,7 @@ export default function LessonPage({ lesson, path, progress, update }: Props) {
           exercise={lesson.exercises[step - 1]}
           nextLabel={step === total ? "Finish lesson" : "Next exercise"}
           noteFor={(correct) => (correct ? null : "Added to your review pile, so you can practice it again.")}
-          onAnswer={(correct) => {
-            if (correct) setFirstTry((n) => n + 1);
-            const exercise = lesson.exercises[step - 1];
-            update((p) => recordLessonAnswer(p, exercise.id, correct, new Date(), exercise.type));
-          }}
+          onAnswer={answer}
           onNext={next}
         />
       )}

@@ -189,6 +189,10 @@ html { scroll-padding-top: 88px; }
 .steps { display: flex; gap: 4px; margin-top: 14px; }
 .steps i { flex: 1; height: 4px; border-radius: 2px; background: var(--line); }
 .steps i.on { background: var(--accent); }
+.saved-note { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+.resume { position: relative; display: grid; gap: 10px; margin-top: 14px; border-color: var(--accent); background: var(--accent-soft); }
+.resume p { margin: 0; }
+.resume .actions { margin-top: 0; }
 .lesson h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 800; letter-spacing: -0.015em; margin-top: 6px; }
 .prose { max-width: 64ch; margin-top: 18px; }
 .prose p { margin: 0 0 14px; }
