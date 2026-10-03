@@ -326,7 +326,7 @@ const lessons: Lesson[] = [
           "Error prevention when people navigate away",
         ],
         correct: 1,
-        why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent.",
+        why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent. The header doesn't look any busier for it, and nothing goes wrong by accident; people just can't get home the way they expect.",
       },
       {
         id: "h4-spot-odd-actions",
@@ -420,7 +420,7 @@ const lessons: Lesson[] = [
           "Split the field into three boxes so people type each part separately",
         ],
         correct: 2,
-        why: "The format rule exists for the system, not the person. Accepting what people naturally type removes the error entirely, which beats explaining the rule or reporting the error better.",
+        why: "The format rule exists for the system, not the person. Accepting what people naturally type removes the error entirely, which beats explaining the rule or reporting the error better. Three separate boxes add a new rule of their own and break pasting a number copied from elsewhere.",
       },
       {
         id: "h5-spot-delete",
@@ -521,7 +521,7 @@ const lessons: Lesson[] = [
           "Make the shipping step more memorable with larger text and icons",
         ],
         correct: 1,
-        why: "Showing the choice where it's needed removes the memory burden. A Back link makes people leave the task to check, and an email arrives too late.",
+        why: "Showing the choice where it's needed removes the memory burden. A Back link makes people leave the task to check, an email arrives too late, and a more memorable shipping step still asks people to remember it.",
       },
       {
         id: "h6-spot-remember-code",
@@ -614,7 +614,7 @@ const lessons: Lesson[] = [
           "Replacing buttons with shortcuts to save space",
         ],
         correct: 2,
-        why: "Showing shortcuts beside the normal controls teaches them gradually. Beginners still have the visible button, and experts learn the shortcut by seeing it.",
+        why: "Showing shortcuts beside the normal controls teaches them gradually. Beginners still have the visible button, and experts learn the shortcut by seeing it. A shortcut with no hint, or a hidden swipe, only helps people who already know it, and a hidden swipe that deletes can also cause accidents. Replacing buttons with shortcuts leaves beginners nothing to click.",
       },
       {
         id: "h7-spot-one-at-a-time",
@@ -707,7 +707,7 @@ const lessons: Lesson[] = [
           "Limiting the palette to one or two colors across the product",
         ],
         correct: 2,
-        why: "The heuristic is about relevance. A rich screen can be minimalist if everything on it serves the task, and a sparse one can fail if it hides what people need.",
+        why: "The heuristic is about relevance. A rich screen can be minimalist if everything on it serves the task, and a sparse one can fail if it hides what people need. A flat style or a small palette is a visual choice; a screen can have both and still be full of clutter.",
       },
       {
         id: "h8-spot-promo-clutter",
@@ -801,7 +801,7 @@ const lessons: Lesson[] = [
           "In the browser console, where developers can see it",
         ],
         correct: 1,
-        why: "Errors next to the field connect the problem to its location. A summary at the top can help on long forms, but it should link to the fields rather than replace inline messages.",
+        why: "Errors next to the field connect the problem to its location. A summary at the top can help on long forms, but it should link to the fields rather than replace inline messages. A pop-up hides the form while people read the problem, and the browser console is never seen by the people filling in the form.",
       },
       {
         id: "h9-spot-error-code",
@@ -902,7 +902,7 @@ const lessons: Lesson[] = [
           "Reports FAQ",
         ],
         correct: 1,
-        why: "Task-based titles match what people are trying to do and what they search for. Feature-based titles make people guess where their answer lives.",
+        why: "Task-based titles match what people are trying to do and what they search for. Feature-based titles like an overview or configuration parameters make people guess where their answer lives, and a FAQ page hides each answer among unrelated questions.",
       },
       {
         id: "h10-spot-manual-link",

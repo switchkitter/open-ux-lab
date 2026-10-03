@@ -75,7 +75,7 @@ const lessons: Lesson[] = [
           "Nothing, because blue underlined titles stand out well on the page",
         ],
         correct: 0,
-        why: "Blue underlined text is one of the strongest signals on the web that something is a link. Using it for static titles promises an action that doesn't exist, and it also makes the real links on the page less trustworthy. The color itself isn't the issue, and standing out isn't worth breaking that expectation.",
+        why: "Blue underlined text is one of the strongest signals on the web that something is a link. Using it for static titles promises an action that doesn't exist, and it also makes the real links on the page less trustworthy. The color itself isn't the issue, looking dated is a matter of taste rather than a usability problem, and standing out isn't worth breaking that expectation.",
       },
       {
         id: "i1-spot-false-link",
@@ -158,7 +158,7 @@ const lessons: Lesson[] = [
           "Gray buttons look unprofessional and make the form feel broken",
         ],
         correct: 0,
-        why: "A disabled button says “not yet” without saying why, so people scan the form looking for what they missed. Either keep the button enabled and show clear errors when it's pressed, or explain what's still needed. Hiding the button is worse, since people can't even see where they're heading.",
+        why: "A disabled button says “not yet” without saying why, so people scan the form looking for what they missed. Either keep the button enabled and show clear errors when it's pressed, or explain what's still needed. Hiding the button is worse, since people can't even see where they're heading. Guidelines don't ban disabled buttons, and how the gray looks matters less than the missing explanation.",
       },
       {
         id: "i2-spot-color-only",

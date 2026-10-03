@@ -433,7 +433,7 @@ const lessons: Lesson[] = [
           "Nothing, as long as it has a clear hover state and a pointer cursor",
         ],
         correct: 0,
-        why: "A native button comes with keyboard focus, Enter and Space activation, and the button role for free. A div has none of these, so each must be added by hand, and teams often miss one. Switching to a button element is the simpler fix. A hover state only helps mouse users.",
+        why: "A native button comes with keyboard focus, Enter and Space activation, and the button role for free. A div has none of these, so each must be added by hand, and teams often miss one. Switching to a button element is the simpler fix. A hover state only helps mouse users. Looking slightly different or loading a little more script are minor next to people who can't use the control at all.",
       },
       {
         id: "a5-spot-keyboard-trap",

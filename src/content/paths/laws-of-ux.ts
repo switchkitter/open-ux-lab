@@ -50,7 +50,7 @@ const lessons: Lesson[] = [
           "Let each team choose the filter pattern that suits its own pages",
         ],
         correct: 1,
-        why: "People already know how checkbox filters work from other products, so a replacement has to be worth the learning it demands. A tutorial overlay admits the new control isn't self-explanatory and is often dismissed unread, and letting each team choose breaks consistency inside your own product.",
+        why: "People already know how checkbox filters work from other products, so a replacement has to be worth the learning it demands. Being memorable doesn't help if people can't work out how to filter. A tutorial overlay admits the new control isn't self-explanatory and is often dismissed unread, and letting each team choose breaks consistency inside your own product.",
       },
       {
         id: "l1-spot-hidden-cart",
@@ -436,7 +436,7 @@ const lessons: Lesson[] = [
           "There's no problem, as long as the button saves both sections at once",
         ],
         correct: 1,
-        why: "Because the button sits between the two groups, people can't tell which one it belongs to, and some will leave changes unsaved. Putting it inside the section it acts on, or clearly at the end of everything, makes the relationship obvious. A new color doesn't fix an unclear relationship, and saving both only helps if people can tell that it does.",
+        why: "Because the button sits between the two groups, people can't tell which one it belongs to, and some will leave changes unsaved. Putting it inside the section it acts on, or clearly at the end of everything, makes the relationship obvious. A new color doesn't fix an unclear relationship, moving it to the top of the page only puts it further from the fields, and saving both only helps if people can tell that it does.",
       },
       {
         id: "l5-spot-floating-save",
@@ -528,7 +528,7 @@ const lessons: Lesson[] = [
           "Nothing, except for people with color blindness, who can't see the colors",
         ],
         correct: 1,
-        why: "Emphasis works by contrast with what's around it. When most cards shout, none of them stands out, and people learn to ignore the red. Keep the strong treatment for the few items that need action now.",
+        why: "Emphasis works by contrast with what's around it. When most cards shout, none of them stands out, and people learn to ignore the red. Keep the strong treatment for the few items that need action now. The problem isn't only for people with color blindness: the “!” badges carry the meaning for them too, and everyone faces the same eight equal alarms.",
       },
       {
         id: "l6-spot-everything-bold",
@@ -617,7 +617,7 @@ const lessons: Lesson[] = [
           "Shorten the terms and conditions",
         ],
         correct: 1,
-        why: "The failing bank connection is the low point people will remember and judge the whole product by. A nicer ending or prettier welcome screen can't make up for a moment where one in five people gets stuck.",
+        why: "The failing bank connection is the low point people will remember and judge the whole product by. A nicer ending, a prettier welcome screen or shorter terms can't make up for a moment where one in five people gets stuck.",
       },
       {
         id: "l7-spot-flat-ending",

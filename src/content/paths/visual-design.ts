@@ -76,7 +76,7 @@ const lessons: Lesson[] = [
           "Nothing, because important information should always be bold",
         ],
         correct: 0,
-        why: "Emphasis only works by contrast with what's around it, so making everything prominent removes the hierarchy. Bold text isn't hard to read in itself, and adding colors would add more noise rather than fix the order of importance.",
+        why: "Emphasis only works by contrast with what's around it, so making everything prominent removes the hierarchy. Bold text isn't hard to read in itself, and adding colors would add more noise rather than fix the order of importance. Bolding everything important only works if most of the page isn't.",
       },
       {
         id: "v1-spot-competing",
@@ -236,7 +236,7 @@ const lessons: Lesson[] = [
           "Remove most of the gaps so more content fits on each screen",
         ],
         correct: 0,
-        why: "A small scale keeps spacing consistent while still letting gaps differ, so groups stay clear. Making every gap the same throws away the grouping that spacing communicates, and removing gaps makes everything run together.",
+        why: "A small scale keeps spacing consistent while still letting gaps differ, so groups stay clear. Keeping six near-identical values makes the differences hard to see and hard for the team to repeat. Making every gap the same throws away the grouping that spacing communicates, and removing gaps makes everything run together.",
       },
       {
         id: "v3-spot-misaligned",
