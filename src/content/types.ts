@@ -80,7 +80,22 @@ export type SpotExercise = {
   why: string;
 };
 
-export type Exercise = CompareExercise | ChoiceExercise | SpotExercise;
+/**
+ * Sort each item into one of two groups. Right only when every item is in its group. Items are
+ * shuffled on screen, so never refer to their order.
+ */
+export type SortExercise = {
+  id: string;
+  type: "sort";
+  question: string;
+  /** The two group names, short enough to fit on a button, e.g. ["Ask to confirm", "Offer undo"]. */
+  groups: [string, string];
+  /** 4 to 6 items, with at least one in each group. `group` is the index into `groups`. */
+  items: { id: string; text: string; group: 0 | 1 }[];
+  why: string;
+};
+
+export type Exercise = CompareExercise | ChoiceExercise | SpotExercise | SortExercise;
 
 export type Lesson = {
   id: string;

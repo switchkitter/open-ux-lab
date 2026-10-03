@@ -223,6 +223,23 @@ html { scroll-padding-top: 88px; }
 .opt:disabled { cursor: default; }
 .choice.right, .opt.right { border-color: var(--good); background: var(--good-soft); }
 .choice.wrong, .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+/* Sort into groups */
+.sort-items { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; max-width: 620px; }
+.sort-item { background: var(--surface); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.sort-item.right { border-color: var(--good); background: var(--good-soft); }
+.sort-item.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.sort-item fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.sort-text { padding: 0; font-weight: 700; }
+.sort-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sort-option {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--bg); cursor: pointer; font-size: 15px;
+}
+.sort-option input { width: 18px; height: 18px; margin: 0; flex: none; accent-color: var(--accent); }
+.sort-option.chosen { border-color: var(--accent); background: var(--accent-soft); font-weight: 700; }
+.sort-option:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sort-option:has(input:disabled) { cursor: default; }
+.sort-item .verdict { margin: 0; }
 .feedback { position: relative; margin-top: 18px; padding: 14px 16px; border-radius: 10px; max-width: 64ch; }
 .feedback.good { background: var(--good-soft); }
 .feedback.bad { background: var(--bad-soft); }

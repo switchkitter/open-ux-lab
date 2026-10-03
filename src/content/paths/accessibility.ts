@@ -322,6 +322,21 @@ const lessons: Lesson[] = [
         correct: "email",
         why: "The email field signals its error only with a red border, which many color-blind people can't see and screen readers don't announce. It needs a message in words, like the password field has: an icon and text that say what's wrong and how to fix it.",
       },
+      {
+        id: "a4-sort-color",
+        type: "sort",
+        question: "Which designs rely on color alone, and which also use text or shape?",
+        groups: ["Color alone", "Also text or shape"],
+        items: [
+          { id: "dots", text: "Server status shown as red and green dots, with no labels", group: 0 },
+          { id: "required", text: "Required fields shown only by red label text", group: 0 },
+          { id: "links", text: "Links in a paragraph shown only in blue, without underlines", group: 0 },
+          { id: "error", text: "A field with a red border and the message “Enter your email address”", group: 1 },
+          { id: "chart", text: "Chart lines in different colors, each with a different dash pattern and a label", group: 1 },
+          { id: "badge", text: "An “Overdue” badge in red with the word Overdue on it", group: 1 },
+        ],
+        why: "The first three only work if you can tell the colors apart, which many color-blind people can't, and they say nothing to screen readers. The others repeat the meaning in words or patterns, so color is a helpful extra rather than the only signal. Links are the easiest to miss: in body text they need an underline or another visible cue as well as color.",
+      },
     ],
   },
   {

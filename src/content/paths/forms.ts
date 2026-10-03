@@ -509,6 +509,20 @@ const lessons: Lesson[] = [
         correct: "parking",
         why: "A yes-or-no question hidden in a dropdown makes people open a menu just to see two answers. Radio buttons show both at once and take a single tap, which is exactly how the Preferred time question works.",
       },
+      {
+        id: "f6-sort-control",
+        type: "sort",
+        question: "Each question has a handful of short answers. Which need radio buttons, and which need checkboxes?",
+        groups: ["Radio buttons", "Checkboxes"],
+        items: [
+          { id: "speed", text: "Choose a delivery speed: standard, express or next day", group: 0 },
+          { id: "days", text: "Which days are you available? Monday to Friday", group: 1 },
+          { id: "payment", text: "How would you like to pay? Card, bank transfer or invoice", group: 0 },
+          { id: "alerts", text: "Which updates do you want by email? Orders, offers, newsletters", group: 1 },
+          { id: "terms", text: "I agree to the terms and conditions", group: 1 },
+        ],
+        why: "Radio buttons are for picking exactly one answer from a set, like a delivery speed or a payment method. Checkboxes are for picking any number, including none. A single statement people must agree to is also a checkbox: a lone radio button can't be unchecked once selected.",
+      },
     ],
   },
   {

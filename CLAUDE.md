@@ -1,10 +1,10 @@
 # Open UX Lab
 
-A free, Uxcel-style UX learning app: short lessons followed by exercises (pick the better design, multiple choice, spot the problem), with XP, streaks, spaced review and a skill map. It's live, installable as an app, and meant to be shared publicly.
+A free, Uxcel-style UX learning app: short lessons followed by exercises (pick the better design, multiple choice, spot the problem, sort into groups), with XP, streaks, spaced review and a skill map. It's live, installable as an app, and meant to be shared publicly.
 
 ## Status
 
-- **Content:** 7 learning paths, 58 lessons, 174 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8), UX research methods (8), Visual design basics (8), UX writing and microcopy (8); every lesson has 3 exercises: a compare, a multiple choice and a spot-the-problem. 10 skills on the skill map.
+- **Content:** 7 learning paths, 58 lessons, 181 exercises. Nielsen's 10 usability heuristics (10 lessons), Accessibility basics (8), Form design (8), Laws of UX (8), UX research methods (8), Visual design basics (8), UX writing and microcopy (8); every lesson has 3 exercises: a compare, a multiple choice and a spot-the-problem; 7 lessons (one per path) add a sort-into-groups exercise. 10 skills on the skill map.
 - **Features:** path cards and path pages, spaced review (1, 3, 7 days), skill map, XP and streaks, levels, achievements, a daily goal and streak freezes, path certificates, feedback on every lesson and exercise, optional accounts with cross-device sync (Supabase, email codes), progress backup to a file (save and load, no account needed), privacy page and account deletion, sources and credits page, original icons and animated scenes for every lesson and path, sound effects with a toggle, installable PWA with offline support and an update prompt, link previews.
 - **Progress:** saved in the browser (localStorage) on every device; synced through Supabase when the learner signs in.
 - **Live:** https://openuxlab.com (GitHub Pages custom domain, DNS at Namecheap; the old switchkitter.github.io/open-ux-lab/ address redirects there). Repo switchkitter/open-ux-lab. Every push to `main` runs tests and build, then deploys via `.github/workflows/deploy.yml`.
@@ -29,7 +29,7 @@ Run `npm run typecheck` and `npm test` after every change.
 
 ## Layout
 
-- `src/content/types.ts` — content model (LearningPath → Lesson → Exercise). Exercise types: compare, choice, spot (see the Exercise types section of `CONTENT_GUIDELINES.md`)
+- `src/content/types.ts` — content model (LearningPath → Lesson → Exercise). Exercise types: compare, choice, spot, sort (see the Exercise types section of `CONTENT_GUIDELINES.md`)
 - `src/content/paths/*.ts` — one file per learning path; register live paths in `paths/index.ts`
 - `src/content/skills.ts` — skills for the skill map. Every lesson lists its `skills`; `src/lib/skills.ts` computes progress per skill from `progress.seen` and the review pile. A content test requires each skill to have at least 3 lessons.
 - `src/content/content.test.ts` — integrity checks for all content (unique IDs, sources, valid answers, no scripts in mockups)

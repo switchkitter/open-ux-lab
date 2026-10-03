@@ -160,6 +160,21 @@ const lessons: Lesson[] = [
         correct: "duration",
         why: "People think about time off in days and hours, not 15-minute units, so they have to do arithmetic (32 units is 8 hours) and some will get it wrong. Asking for hours or days, in the words staff use, removes the translation. The date, reason and button already speak their language.",
       },
+      {
+        id: "h2-sort-words",
+        type: "sort",
+        question: "A travel booking app is reviewing its labels. Which use the system's words, and which use the traveler's?",
+        groups: ["System's words", "Traveler's words"],
+        items: [
+          { id: "pnr", text: "PNR locator", group: 0 },
+          { id: "booking", text: "Booking reference", group: 1 },
+          { id: "pax", text: "Pax count", group: 0 },
+          { id: "travelers", text: "Number of travelers", group: 1 },
+          { id: "fare", text: "Fare basis code", group: 0 },
+          { id: "checked", text: "Checked bags", group: 1 },
+        ],
+        why: "“PNR locator”, “pax count” and “fare basis code” are airline-industry terms that travelers rarely know, so they have to guess or look them up. “Booking reference”, “Number of travelers” and “Checked bags” say the same things in the words people already use when they talk about a trip.",
+      },
     ],
   },
   {

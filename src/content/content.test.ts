@@ -50,6 +50,14 @@ describe("content integrity", () => {
         expect(e.correct, e.id).toBeLessThan(e.options.length);
       } else if (e.type === "compare") {
         expect(["a", "b"]).toContain(e.correct);
+      } else if (e.type === "sort") {
+        expect(e.groups, e.id).toHaveLength(2);
+        expect(e.items.length, e.id).toBeGreaterThanOrEqual(4);
+        expect(e.items.length, e.id).toBeLessThanOrEqual(6);
+        expect(new Set(e.items.map((i) => i.id)).size, e.id).toBe(e.items.length);
+        // Both groups must be used, or the answer is guessable from the setup.
+        expect(new Set(e.items.map((i) => i.group)).size, e.id).toBe(2);
+        for (const g of e.groups) expect(g.length, `${e.id}: group name fits a button`).toBeLessThanOrEqual(28);
       } else {
         expect(spotParts(e).map((p) => p.id), e.id).toContain(e.correct);
       }

@@ -639,6 +639,20 @@ const lessons: Lesson[] = [
         correct: "tz",
         why: "The browser already knows the person's time zone, so the system can fill it in and let them change it if they need to. Asking for a UTC offset also makes people work out daylight saving time themselves, which is how meetings end up at the wrong hour.",
       },
+      {
+        id: "l8-sort-complexity",
+        type: "sort",
+        question: "An expense form for a company in Ireland. Which details should the system work out, and which only the employee can give?",
+        groups: ["System works it out", "Employee provides it"],
+        items: [
+          { id: "rate", text: "The exchange rate on the day of purchase", group: 0 },
+          { id: "today", text: "Today's date, for the claim", group: 0 },
+          { id: "total", text: "The total of all the receipts", group: 0 },
+          { id: "reason", text: "Why the expense was needed", group: 1 },
+          { id: "project", text: "Which client project it belongs to", group: 1 },
+        ],
+        why: "Exchange rates, today's date and adding up receipts are things software can do reliably, so asking people for them just adds work and mistakes. The reason for an expense and the project it belongs to live only in the employee's head, so those are the questions worth their time.",
+      },
     ],
   },
 ];

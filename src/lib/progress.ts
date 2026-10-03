@@ -207,7 +207,7 @@ export function recordLessonAnswer(
   exerciseId: string,
   correct: boolean,
   now: Date,
-  type?: "compare" | "choice" | "spot",
+  type?: "compare" | "choice" | "spot" | "sort",
 ): Progress {
   const seen = { ...p.seen, [exerciseId]: true as const };
   if (correct) {

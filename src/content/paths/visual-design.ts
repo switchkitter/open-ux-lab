@@ -155,6 +155,21 @@ const lessons: Lesson[] = [
         correct: "legal",
         why: "Tiny, tightly spaced, justified text is hard for everyone and impossible for some people to read, and legal wording is exactly what people need to understand. Give it normal body styling, perhaps a little smaller. The heading, body text and link are readable.",
       },
+      {
+        id: "v2-sort-readability",
+        type: "sort",
+        question: "Which typography choices help people read body text, and which get in the way?",
+        groups: ["Helps reading", "Gets in the way"],
+        items: [
+          { id: "size", text: "16px body text", group: 0 },
+          { id: "height", text: "Line height of about 1.5", group: 0 },
+          { id: "left", text: "Left-aligned paragraphs", group: 0 },
+          { id: "justified", text: "Justified paragraphs on a narrow phone screen", group: 1 },
+          { id: "long", text: "Lines of 140 characters on a wide screen", group: 1 },
+          { id: "caps", text: "Whole paragraphs in capital letters", group: 1 },
+        ],
+        why: "Comfortable size, generous line spacing and left alignment help the eye move along a line and find the next one. Justified text on narrow screens leaves uneven gaps between words, very long lines make it hard to find the start of the next line, and all-caps text removes the word shapes people recognize, so it reads more slowly.",
+      },
     ],
   },
   {

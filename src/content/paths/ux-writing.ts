@@ -360,6 +360,21 @@ const lessons: Lesson[] = [
         correct: "cancel",
         why: "In a dialog about cancelling, a button labeled just “Cancel” is ambiguous: does it cancel the subscription or close the dialog? “Keep subscription” removes the doubt. The two lines of text and the Cancel subscription button say clearly what will happen.",
       },
+      {
+        id: "w5-sort-confirm-undo",
+        type: "sort",
+        question: "Which actions should ask for confirmation, and which should just happen with an undo option?",
+        groups: ["Ask to confirm", "Do it, offer undo"],
+        items: [
+          { id: "workspace", text: "Permanently delete a shared workspace", group: 0 },
+          { id: "transfer", text: "Send a $4,000 bank transfer", group: 0 },
+          { id: "cancel", text: "Cancel a paid subscription today", group: 0 },
+          { id: "archive", text: "Archive an email", group: 1 },
+          { id: "move", text: "Move a task to another column", group: 1 },
+          { id: "trash", text: "Move a file to the trash", group: 1 },
+        ],
+        why: "Confirmation is worth the interruption when an action is permanent, costly or affects other people, like deleting a shared workspace or sending money. Frequent actions that are easy to reverse should just happen, with undo for the occasional slip. Moving a file to the trash fits there too: it can be restored, so a confirmation would only slow people down.",
+      },
     ],
   },
   {

@@ -42,6 +42,9 @@ Always confirm a source's current license before adapting its text. When unsure,
 - **Compare** ("Which is better?"): two mockups, one better. Good for visual problems such as contrast, spacing and hierarchy.
   - `describe.a` and `describe.b` are what a screen reader user hears for each design, instead of the mockup. Describe what's on screen in neutral words: the key text, plus the visual details the question turns on (sizes, colors, positions, alignment). Don't judge ("cluttered", "clear", "confusing"); the learner should reach the answer from the description, the same way a sighted learner does from the picture.
 - **Choice**: a question with 3–4 options. Options are shuffled on screen, so never refer to positions ("the first option", "all of the above").
+- **Sort into groups**: 4–6 items, each placed in one of two groups (for example “Ask to confirm” or “Offer undo”). Right only if every item is placed right.
+  - Use it where a principle splits real cases into two kinds. Both groups need at least one item, and each item should have one defensible answer; leave out borderline cases.
+  - Group names are short (they're button labels) and items are shuffled, so never refer to order. The `why` explains the rule and calls out the item people are most likely to misplace.
 - **Spot the problem**: one mockup split into parts; the learner selects the part that breaks the principle.
   - Only for problems that come across in words: labels, wording, error messages, control choice, link text, what an action does. Purely visual problems (contrast, alignment) can't be found with a screen reader, so use a compare exercise for those.
   - Each part's `label` is everything a screen reader user hears for it, so it must include the part's visible text and describe what's there in neutral words ("Field labeled Email", "Small text link: continue"). Never hint at which part is wrong.

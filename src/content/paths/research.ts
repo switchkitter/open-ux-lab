@@ -81,6 +81,21 @@ const lessons: Lesson[] = [
         correct: "method",
         why: "A 1-to-5 rating can tell you how hard setup feels, but not why, which is the question. Interviews or watching admins set up permissions would show where and why they struggle. The participants and timing fit the question well.",
       },
+      {
+        id: "r1-sort-say-do",
+        type: "sort",
+        question: "Which research methods mainly tell you what people say, and which show what they do?",
+        groups: ["What people say", "What people do"],
+        items: [
+          { id: "survey", text: "Survey", group: 0 },
+          { id: "interview", text: "Interview", group: 0 },
+          { id: "focus", text: "Focus group", group: 0 },
+          { id: "usability", text: "Usability test", group: 1 },
+          { id: "analytics", text: "Analytics", group: 1 },
+          { id: "ab", text: "A/B test", group: 1 },
+        ],
+        why: "Surveys, interviews and focus groups collect what people report: opinions, memories and predictions, which are useful but often differ from real behavior. Usability tests, analytics and A/B tests observe or measure what people actually do. Interviews are the one people misplace most: asking about real past events helps, but it's still people's own account.",
+      },
     ],
   },
   {

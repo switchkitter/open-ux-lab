@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { Exercise, SpotPart } from "../content/types";
 import { shuffledIndices } from "../lib/shuffle";
 import { count } from "../lib/analytics";
@@ -25,12 +25,20 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
   const [picked, setPicked] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
-  // Choice options appear in a new random order each time, so learners can't memorize positions.
-  // Keys stay as original indices, which is what exercise.correct refers to.
-  const [order] = useState(() => (exercise.type === "choice" ? shuffledIndices(exercise.options.length) : []));
+  const uid = useId();
+  // Choice options and sort items appear in a new random order each time, so learners can't memorize
+  // positions. Keys stay as original indices, which is what exercise.correct refers to.
+  const [order] = useState(() =>
+    exercise.type === "choice" ? shuffledIndices(exercise.options.length) : exercise.type === "sort" ? shuffledIndices(exercise.items.length) : [],
+  );
+  // Sort exercises: the group chosen for each item, and a message if some are left unplaced.
+  const [placed, setPlaced] = useState<Record<string, 0 | 1>>({});
+  const [sortError, setSortError] = useState<string | null>(null);
   const answered = picked !== null;
-  const correctKey = exercise.type === "choice" ? String(exercise.correct) : exercise.correct;
+  const correctKey = exercise.type === "choice" ? String(exercise.correct) : exercise.type === "sort" ? "all" : exercise.correct;
   const isCorrect = picked === correctKey;
+  const sortRight = exercise.type === "sort" ? exercise.items.filter((i) => placed[i.id] === i.group).length : 0;
+  const sortSummary = exercise.type === "sort" && answered ? `${sortRight} of ${exercise.items.length} in the right group.` : null;
 
   // Move focus to the verdict so screen readers read it straight away; Tab then reaches the Next button.
   useEffect(() => {
@@ -46,6 +54,17 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
     play(key === correctKey ? "correct" : "wrong");
     count(key === correctKey ? "exercise_right" : "exercise_wrong", exercise.id);
     onAnswer(key === correctKey);
+  }
+
+  function checkSort() {
+    if (exercise.type !== "sort" || answered) return;
+    const missing = order.map((i) => exercise.items[i]).find((item) => placed[item.id] === undefined);
+    if (missing) {
+      setSortError("Choose a group for every item");
+      document.getElementById(`${uid}-${missing.id}-0`)?.focus();
+      return;
+    }
+    pick(exercise.items.every((i) => placed[i.id] === i.group) ? "all" : "some");
   }
 
   const stateClass = (key: string) =>
@@ -126,6 +145,62 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
             )}
           </div>
         </>
+      ) : exercise.type === "sort" ? (
+        <>
+          <div className="eyebrow">{`${eyebrow} · Sort into groups`}</div>
+          <h1 className="q">{exercise.question}</h1>
+          <p className="qhint">{`Put each item in a group: ${exercise.groups[0]} or ${exercise.groups[1]}.`}</p>
+          {sortError && (
+            <p className="form-error" role="alert">
+              <span className="visually-hidden">Error: </span>
+              {sortError}
+            </p>
+          )}
+          <ul className="sort-items">
+            {order.map((i) => {
+              const item = exercise.items[i];
+              const choice = placed[item.id];
+              const ok = choice === item.group;
+              return (
+                <li key={item.id} className={`sort-item ${answered ? (ok ? "right" : "wrong") : ""}`}>
+                  <fieldset>
+                    <legend className="sort-text">{item.text}</legend>
+                    <div className="sort-options">
+                      {exercise.groups.map((g, gi) => (
+                        <label key={g} className={`sort-option ${choice === gi ? "chosen" : ""}`}>
+                          <input
+                            id={`${uid}-${item.id}-${gi}`}
+                            type="radio"
+                            name={`${uid}-${item.id}`}
+                            checked={choice === gi}
+                            disabled={answered}
+                            onChange={() => {
+                              setPlaced((p) => ({ ...p, [item.id]: gi as 0 | 1 }));
+                              setSortError(null);
+                            }}
+                          />
+                          <span>{g}</span>
+                        </label>
+                      ))}
+                    </div>
+                    {answered && (
+                      <p className={`verdict ${ok ? "right" : "wrong"}`}>
+                        <span aria-hidden="true">{ok ? "✓" : "✗"}</span> {ok ? "Right" : `Belongs in: ${exercise.groups[item.group]}`}
+                      </p>
+                    )}
+                  </fieldset>
+                </li>
+              );
+            })}
+          </ul>
+          {!answered && (
+            <div className="actions">
+              <button className="btn" type="button" onClick={checkSort}>
+                Check answers
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <>
           <div className="eyebrow">{`${eyebrow} · Question`}</div>
@@ -151,8 +226,9 @@ export default function ExerciseCard({ source, position, exercise, nextLabel, no
         <>
           <div className={`feedback ${isCorrect ? "good" : "bad"}`} ref={feedbackRef} tabIndex={-1}>
             {/* Read as one item, so VoiceOver doesn't stop after the bold verdict. */}
-            <Spoken text={[isCorrect ? "Right." : "Not quite.", exercise.why, note].filter(Boolean).join(" ")}>
-              <strong>{isCorrect ? "Right." : "Not quite."}</strong> {exercise.why}
+            <Spoken text={[isCorrect ? "Right." : "Not quite.", sortSummary, exercise.why, note].filter(Boolean).join(" ")}>
+              <strong>{isCorrect ? "Right." : "Not quite."}</strong> {sortSummary && `${sortSummary} `}
+              {exercise.why}
               {note && <span className="feedback-note">{note}</span>}
             </Spoken>
           </div>
