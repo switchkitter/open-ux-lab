@@ -24,6 +24,7 @@ Always confirm a source's current license before adapting its text. When unsure,
 3. **Always link.** Every lesson has at least one source link so learners can go deeper.
 4. **Original examples.** Mockups and scenarios are invented by us. Don't recreate screenshots of real products or brand assets.
 5. **No real people's data.** Names in mockups are fictional.
+6. **Every lesson stands on its own.** Lessons can be taken in any order, and practice, review and challenges mix exercises from across a path. Don't use a term before the lesson that teaches it, including in exercise options (such as naming a later heuristic as a distractor); describe the idea in plain words instead, or explain the term where it appears. Terms from other paths follow the same rule.
 
 ## Checklist for a new lesson
 
@@ -31,6 +32,7 @@ Always confirm a source's current license before adapting its text. When unsure,
 - [ ] 3–4 "In practice" bullets
 - [ ] One "Try it at work" field exercise
 - [ ] At least one https source
+- [ ] No terms that are only taught in later lessons or other paths (or they're explained where they appear)
 - [ ] One compare, one choice and one spot-the-problem exercise
 - [ ] Every exercise has a unique, stable `id`
 - [ ] `skills` lists the skills the lesson builds (see `src/content/skills.ts`)

@@ -118,7 +118,7 @@ const lessons: Lesson[] = [
     skills: ["layout", "accessibility"],
     body: [
       "Most of an interface is text, so type does most of the work. Body text needs to be big enough to read comfortably, usually 16 pixels or more on the web, with generous spacing between lines, about 1.5 times the font size, so the eye can find the start of the next line.",
-      "Line length matters too. Very long lines are tiring to follow and very short ones break the flow. About 45 to 90 characters per line suits most reading, with around 66 a good target for long text; WCAG's stricter AAA guidance says no more than 80. Set text left-aligned rather than justified, use one or two typefaces at most, and check your layout still works when people enlarge text or increase its spacing.",
+      "Line length matters too. Very long lines are tiring to follow and very short ones break the flow. About 45 to 90 characters per line suits most reading, with around 66 a good target for long text; the strictest level of the web accessibility guidelines (WCAG) says no more than 80. Set text left-aligned rather than justified, use one or two typefaces at most, and check your layout still works when people enlarge text or increase its spacing.",
     ],
     practice: [
       "Use 16px or larger for body text, and keep smaller text for short labels.",
@@ -154,7 +154,7 @@ const lessons: Lesson[] = [
         question: "Your body text is 16px. Which line height is the best starting point for paragraphs?",
         options: ["16px (1.0)", "24px (1.5)", "40px (2.5)", "Whatever fits the most text on screen"],
         correct: 1,
-        why: "About 1.5 times the font size gives the eye room to find the next line, and it's the spacing WCAG uses as a benchmark for readable text. 1.0 crams lines together, 2.5 spreads them so far apart that a paragraph stops reading as one block, and fitting more text isn't the goal.",
+        why: "About 1.5 times the font size gives the eye room to find the next line, and it's the spacing the web accessibility guidelines (WCAG) use as a benchmark for readable text. 1.0 crams lines together, 2.5 spreads them so far apart that a paragraph stops reading as one block, and fitting more text isn't the goal.",
       },
       {
         id: "v2-spot-legal",
@@ -278,7 +278,7 @@ const lessons: Lesson[] = [
     skills: ["layout", "accessibility"],
     body: [
       "Color is most useful when it means something. Keep a small palette: neutrals for most of the interface, one accent color for interactive elements, and a few colors with fixed meanings for success, warning and error. Use them the same way everywhere, so the accent always means “you can click this” and red always means “something's wrong”.",
-      "Every pairing needs enough contrast: 4.5:1 for normal text, and 3:1 for large text and interface parts. Color should support meaning, never carry it alone, as the Accessibility basics path explains. And the more colors compete for attention, the easier it is to miss the ones that matter.",
+      "Every pairing of text and background needs enough contrast, measured as a ratio from 1:1 (none) to 21:1 (black on white): at least 4.5:1 for normal text, and 3:1 for large text and interface parts. Color should support meaning, never carry it alone, as the Accessibility basics path explains. And the more colors compete for attention, the easier it is to miss the ones that matter.",
     ],
     practice: [
       "Limit the palette to neutrals, one accent, and success, warning and error colors.",

@@ -18,7 +18,7 @@ const lessons: Lesson[] = [
     practice: [
       "Respond to every click or tap within about a tenth of a second, even if only by changing the button state.",
       "For waits longer than about a second, show a loading indicator. For waits over about ten seconds, show how much is done and how long is left.",
-      "Confirm completed actions in place (a “Saved” label, a toast) instead of leaving people to guess.",
+      "Confirm completed actions in place (a “Saved” label, a short message that fades away) instead of leaving people to guess.",
       "Show location: highlight the current nav item and number the steps of a multi-step form.",
     ],
     fieldExercise:
@@ -322,11 +322,11 @@ const lessons: Lesson[] = [
         options: [
           "Internal consistency across the product's own pages",
           "External consistency with web conventions",
-          "Aesthetic and minimalist design of the header",
-          "Error prevention when people navigate away",
+          "Visibility of system status in the header",
+          "Match with the words people use every day",
         ],
         correct: 1,
-        why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent. The header doesn't look any busier for it, and nothing goes wrong by accident; people just can't get home the way they expect.",
+        why: "Clicking the logo to go home is a convention people learned on other sites. Breaking it is an external consistency problem, even if your app is internally consistent. The header still shows where people are, and its words still make sense; what breaks is the behavior people learned elsewhere, so they can't get home the way they expect.",
       },
       {
         id: "h4-spot-odd-actions",
@@ -675,7 +675,7 @@ const lessons: Lesson[] = [
     ],
     practice: [
       "Decide what the one job of each screen is and give it the most visual weight.",
-      "Move rarely used details behind progressive disclosure.",
+      "Move rarely used details behind a “More” link or an expanding section.",
       "Cut decorative color and badges that don't carry meaning.",
       "Write shorter copy: remove introductions and repeated explanations.",
     ],

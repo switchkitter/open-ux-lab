@@ -61,6 +61,7 @@ Run `npm run typecheck` and `npm test` after every change.
 See `CONTENT_GUIDELINES.md`. In short:
 - Write all lesson text, questions and explanations in original words. Never paste or closely paraphrase paragraphs from sources such as NN/g, IxDF, Laws of UX or Baymard.
 - Every lesson links to at least one trusted source for depth.
+- Every lesson stands on its own (lessons can be taken in any order): don't use a term before the lesson that teaches it, even in exercise options; say it in plain words or explain it where it appears.
 - Content from openly licensed sources (e.g. GOV.UK Design System, USWDS, W3C) may be adapted only if its license allows it, with attribution. Check the license first and set `license` on the source (a content test requires it for GOV.UK and USWDS links); the lesson page then shows the attribution.
 - Exercise mockups are small HTML snippets using the `.mk-*` classes (a content test fails if a class doesn't exist in `styles.css`). `.mk-say` shows what a screen reader announces; `.mk-faint` deliberately fails contrast and may only appear in the wrong design. They are rendered as trusted HTML, so never include scripts, event handlers or user input.
 - Every compare exercise has `describe: { a, b }`: what a screen reader user hears for each design instead of the mockup. Neutral words, key text plus the visual details the question turns on (a content test checks length and bans judging words).
