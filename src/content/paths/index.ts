@@ -2,6 +2,7 @@ import type { LearningPath } from "../types";
 import { accessibilityPath } from "./accessibility";
 import { formsPath } from "./forms";
 import { heuristicsPath } from "./heuristics";
+import { informationArchitecturePath } from "./information-architecture";
 import { interactionDesignPath } from "./interaction-design";
 import { lawsOfUxPath } from "./laws-of-ux";
 import { researchPath } from "./research";
@@ -14,4 +15,4 @@ import { visualDesignPath } from "./visual-design";
  * content/load.ts, so lessons stay out of the main download. Add a new path here, in load.ts, and
  * then run `npm run manifest`.
  */
-export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath, uxWritingPath, interactionDesignPath];
+export const paths: LearningPath[] = [heuristicsPath, accessibilityPath, formsPath, lawsOfUxPath, researchPath, visualDesignPath, uxWritingPath, interactionDesignPath, informationArchitecturePath];

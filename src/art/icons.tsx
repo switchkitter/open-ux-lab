@@ -454,6 +454,53 @@ export const lessonIcons: Record<string, ReactNode> = {
       <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" />
     </>,
   ),
+
+  // ---- Information architecture ----
+  // What information architecture is: shelves with things on them
+  ia1: icon(
+    <>
+      <path d="M3 9h18M3 15h18M3 21h18" />
+      <path d="M6 9V5h3v4M11 9V6h3v3M7 15v-3h3v3M15 15v-4h3v4M5 21v-3h4v3M13 21v-3h3v3" />
+    </>,
+  ),
+  // Organization schemes: a list with a sort arrow
+  ia2: icon(<path d="M4 6h9M4 12h7M4 18h5M18 5v14M15 16l3 3 3-3" />),
+  // Labels people understand: a tag
+  ia3: icon(
+    <>
+      <path d="M3 4h8l10 10-8 8L3 12z" />
+      <circle cx="7.5" cy="8.5" r="1.5" />
+    </>,
+  ),
+  // Breadth and depth: a wide, shallow tree
+  ia4: icon(
+    <>
+      <circle cx="12" cy="4" r="2" />
+      <path d="M12 6v4M4 14v-4h16v4M9.5 10v4M14.5 10v4" />
+      <circle cx="4" cy="16" r="2" />
+      <circle cx="9.5" cy="16" r="2" />
+      <circle cx="14.5" cy="16" r="2" />
+      <circle cx="20" cy="16" r="2" />
+    </>,
+  ),
+  // Wayfinding: a map pin
+  ia5: icon(
+    <>
+      <path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11z" />
+      <circle cx="12" cy="10" r="2" />
+    </>,
+  ),
+  // Search and filters: a funnel
+  ia6: icon(<path d="M3 4h18l-7 8.5V19l-4 2v-8.5z" />),
+  // Card sorting: two cards
+  ia7: icon(
+    <>
+      <rect x="3" y="7" width="11" height="14" rx="2" />
+      <path d="M8 7V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-5" />
+    </>,
+  ),
+  // Tree testing: an outline tree with a check
+  ia8: icon(<path d="M4 4h6M7 4v14h4M7 11h4M14 11l2 2 4-4M14 18h6" />),
 };
 
 /** Path icons, shown on the home page cards and path pages. Keyed by path ID. */
@@ -499,6 +546,15 @@ export const pathIcons: Record<string, ReactNode> = {
     <>
       <rect x="3" y="3" width="13" height="13" rx="2" />
       <path d="M12 12l9 3.5-4 1.5-1.5 4z" />
+    </>,
+  ),  // Information architecture: a site map
+  "information-architecture": icon(
+    <>
+      <rect x="9" y="3" width="6" height="5" rx="1" />
+      <rect x="2" y="16" width="6" height="5" rx="1" />
+      <rect x="9" y="16" width="6" height="5" rx="1" />
+      <rect x="16" y="16" width="6" height="5" rx="1" />
+      <path d="M12 8v8M5 16v-4h14v4" />
     </>,
   ),
 };

@@ -13,19 +13,20 @@
 - [x] Form design path (GOV.UK, USWDS): 8 lessons, 32 exercises
 - [x] UX research methods path (GOV.UK Service Manual, NN/g, Pew): 8 lessons, 32 exercises, new User research skill
 - [x] Interaction design path (NN/g, WCAG, GOV.UK, USWDS, Material): 8 lessons, 32 exercises
+- [x] Information architecture path (NN/g, GOV.UK, USWDS): 8 lessons, 32 exercises, new Information architecture skill
 - [x] UX writing and microcopy path (GOV.UK, USWDS, NN/g, WCAG, Material, Digital.gov): 8 lessons, 32 exercises
 - [x] Visual design basics path (GOV.UK, USWDS, WCAG, NN/g, Material): 8 lessons, 32 exercises
 - [x] Third exercise type: "spot the problem" (8 exercises, keyboard and screen reader accessible)
-- [x] A spot-the-problem exercise in every lesson (66)
+- [x] A spot-the-problem exercise in every lesson (74)
 - [x] Shuffle option order in choice exercises
 - [x] Fourth exercise type: sort into groups (7 exercises, one per path; radio buttons, works with keyboard and screen readers)
-- [x] A sort exercise in every lesson (66)
-- [x] Every lesson has 4 exercises, one of each type: 66 lessons, 264 exercises in all
+- [x] A sort exercise in every lesson (74)
+- [x] Every lesson has 4 exercises, one of each type: 74 lessons, 296 exercises in all
 - [x] Content review: balanced A/B answers, no length or wording tells, accuracy and link checks, explanations that cover every wrong option
 
 ## Visual polish
 - [x] Icons and animated scenes for the heuristics path, lesson tiles, small UI motion
-- [x] Icons and scenes for every lesson in all 8 paths (66), plus path icons
+- [x] Icons and scenes for every lesson in all 9 paths (74), plus path icons
 - [x] Lesson codes (H1, A3...) removed from the UI
 - [x] Sound effects for right and wrong answers and lesson completion, with a header toggle
 - [x] Home page shows a card per learning path; each path has its own page with its lessons
@@ -38,7 +39,7 @@
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
-- [x] Skill map across paths (10 skills, #/skills)
+- [x] Skill map across paths (11 skills, #/skills)
 - [x] Progress export/import as a file (account page; loading combines with existing progress)
 
 ## Motivation

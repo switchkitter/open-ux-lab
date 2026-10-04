@@ -15,6 +15,7 @@ const loaders: Record<string, () => Promise<LearningPath>> = {
   "visual-design": () => import("./paths/visual-design").then((m) => m.visualDesignPath),
   "ux-writing": () => import("./paths/ux-writing").then((m) => m.uxWritingPath),
   "interaction-design": () => import("./paths/interaction-design").then((m) => m.interactionDesignPath),
+  "information-architecture": () => import("./paths/information-architecture").then((m) => m.informationArchitecturePath),
 };
 
 export const loadablePathIds = Object.keys(loaders);

@@ -7,6 +7,7 @@ import { researchScenes } from "./scenes-research";
 import { visualScenes } from "./scenes-visual";
 import { writingScenes } from "./scenes-writing";
 import { interactionScenes } from "./scenes-interaction";
+import { iaScenes } from "./scenes-ia";
 
 export { lessonIcons, pathIcons } from "./icons";
 export { pathHeroes } from "./path-heroes";
@@ -21,4 +22,5 @@ export const lessonScenes: Record<string, ReactNode> = {
   ...visualScenes,
   ...writingScenes,
   ...interactionScenes,
+  ...iaScenes,
 };

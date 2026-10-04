@@ -1951,5 +1951,245 @@ export const manifest: PathMeta[] = [
         ]
       }
     ]
+  },
+  {
+    "id": "information-architecture",
+    "title": "Information architecture",
+    "description": "Organizing and labeling content, breadth and depth, wayfinding, search and filters, and testing structures with card sorts and tree tests.",
+    "status": "live",
+    "lessons": [
+      {
+        "id": "ia1",
+        "code": "IA1",
+        "title": "What information architecture is",
+        "subtitle": "Structure that matches how people think",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "effort"
+        ],
+        "exercises": [
+          {
+            "id": "ia1-intranet-nav",
+            "type": "compare"
+          },
+          {
+            "id": "ia1-wrong-section",
+            "type": "choice"
+          },
+          {
+            "id": "ia1-spot-team-name",
+            "type": "spot"
+          },
+          {
+            "id": "ia1-sort-basis",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia2",
+        "code": "IA2",
+        "title": "Organization schemes",
+        "subtitle": "Choose how to group things",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "effort"
+        ],
+        "exercises": [
+          {
+            "id": "ia2-directory",
+            "type": "compare"
+          },
+          {
+            "id": "ia2-recipes",
+            "type": "choice"
+          },
+          {
+            "id": "ia2-spot-mixed",
+            "type": "spot"
+          },
+          {
+            "id": "ia2-sort-scheme",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia3",
+        "code": "IA3",
+        "title": "Labels people understand",
+        "subtitle": "Name things in your users' words",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "language"
+        ],
+        "exercises": [
+          {
+            "id": "ia3-vague-labels",
+            "type": "compare"
+          },
+          {
+            "id": "ia3-heading-match",
+            "type": "choice"
+          },
+          {
+            "id": "ia3-spot-jargon",
+            "type": "spot"
+          },
+          {
+            "id": "ia3-sort-labels",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia4",
+        "code": "IA4",
+        "title": "Breadth and depth",
+        "subtitle": "Shape the hierarchy",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "effort"
+        ],
+        "exercises": [
+          {
+            "id": "ia4-returns-policy",
+            "type": "compare"
+          },
+          {
+            "id": "ia4-long-menu",
+            "type": "choice"
+          },
+          {
+            "id": "ia4-spot-catchall",
+            "type": "spot"
+          },
+          {
+            "id": "ia4-sort-shape",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia5",
+        "code": "IA5",
+        "title": "Wayfinding",
+        "subtitle": "Show people where they are",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "conventions"
+        ],
+        "exercises": [
+          {
+            "id": "ia5-landing",
+            "type": "compare"
+          },
+          {
+            "id": "ia5-breadcrumbs",
+            "type": "choice"
+          },
+          {
+            "id": "ia5-spot-history",
+            "type": "spot"
+          },
+          {
+            "id": "ia5-sort-wayfinding",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia6",
+        "code": "IA6",
+        "title": "Search and filters",
+        "subtitle": "Help people narrow things down",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "effort"
+        ],
+        "exercises": [
+          {
+            "id": "ia6-active-filters",
+            "type": "compare"
+          },
+          {
+            "id": "ia6-search-log",
+            "type": "choice"
+          },
+          {
+            "id": "ia6-spot-no-results",
+            "type": "spot"
+          },
+          {
+            "id": "ia6-sort-browse-search",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia7",
+        "code": "IA7",
+        "title": "Card sorting",
+        "subtitle": "Learn how people group things",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "research"
+        ],
+        "exercises": [
+          {
+            "id": "ia7-card-wording",
+            "type": "compare"
+          },
+          {
+            "id": "ia7-closed",
+            "type": "choice"
+          },
+          {
+            "id": "ia7-spot-plan",
+            "type": "spot"
+          },
+          {
+            "id": "ia7-sort-type",
+            "type": "sort"
+          }
+        ]
+      },
+      {
+        "id": "ia8",
+        "code": "IA8",
+        "title": "Tree testing",
+        "subtitle": "Test the structure before the screens",
+        "minutes": 5,
+        "skills": [
+          "ia",
+          "research"
+        ],
+        "exercises": [
+          {
+            "id": "ia8-task-wording",
+            "type": "compare"
+          },
+          {
+            "id": "ia8-directness",
+            "type": "choice"
+          },
+          {
+            "id": "ia8-spot-plan",
+            "type": "spot"
+          },
+          {
+            "id": "ia8-sort-method",
+            "type": "sort"
+          }
+        ]
+      }
+    ]
   }
 ];
