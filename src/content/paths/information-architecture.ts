@@ -96,7 +96,7 @@ const lessons: Lesson[] = [
         groups: ["Sound basis", "Poor basis"],
         items: [
           { id: "tasks", text: "The tasks customers come to do", group: 0 },
-          { id: "cardsort", text: "Groups customers made in a card sort", group: 0 },
+          { id: "cardsort", text: "How customers grouped your topics when asked to sort them", group: 0 },
           { id: "interviews", text: "How customers describe their needs in interviews", group: 0 },
           { id: "owner", text: "Which department owns each page", group: 1 },
           { id: "built", text: "The order the features were built in", group: 1 },
