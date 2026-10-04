@@ -1,29 +1,31 @@
 # Roadmap
 
 ## 0.1 — Foundation
-- [x] Heuristics path: 10 lessons, 20 exercises
+- [x] Heuristics path: 10 lessons, 40 exercises
 - [x] XP, daily streak, review pile
 - [x] Progress logic separated from storage
 - [x] Verify install, typecheck, tests and build on a real machine
 - [x] Deploy a preview (GitHub Pages, via `.github/workflows/deploy.yml`)
 
 ## 0.2 — More content
-- [x] Accessibility basics path (W3C WAI): 8 lessons, 16 exercises
-- [x] Laws of UX path: 8 lessons, 16 exercises
-- [x] Form design path (GOV.UK, USWDS): 8 lessons, 16 exercises
-- [x] UX research methods path (GOV.UK Service Manual, NN/g, Pew): 8 lessons, 24 exercises, new User research skill
+- [x] Accessibility basics path (W3C WAI): 8 lessons, 32 exercises
+- [x] Laws of UX path: 8 lessons, 32 exercises
+- [x] Form design path (GOV.UK, USWDS): 8 lessons, 32 exercises
+- [x] UX research methods path (GOV.UK Service Manual, NN/g, Pew): 8 lessons, 32 exercises, new User research skill
 - [x] Interaction design path (NN/g, WCAG, GOV.UK, USWDS, Material): 8 lessons, 32 exercises
-- [x] UX writing and microcopy path (GOV.UK, USWDS, NN/g, WCAG, Material, Digital.gov): 8 lessons, 24 exercises
-- [x] Visual design basics path (GOV.UK, USWDS, WCAG, NN/g, Material): 8 lessons, 24 exercises
+- [x] UX writing and microcopy path (GOV.UK, USWDS, NN/g, WCAG, Material, Digital.gov): 8 lessons, 32 exercises
+- [x] Visual design basics path (GOV.UK, USWDS, WCAG, NN/g, Material): 8 lessons, 32 exercises
 - [x] Third exercise type: "spot the problem" (8 exercises, keyboard and screen reader accessible)
-- [x] A spot-the-problem exercise in every lesson (34)
+- [x] A spot-the-problem exercise in every lesson (66)
 - [x] Shuffle option order in choice exercises
 - [x] Fourth exercise type: sort into groups (7 exercises, one per path; radio buttons, works with keyboard and screen readers)
-- [x] A sort exercise in every lesson (58)
+- [x] A sort exercise in every lesson (66)
+- [x] Every lesson has 4 exercises, one of each type: 66 lessons, 264 exercises in all
+- [x] Content review: balanced A/B answers, no length or wording tells, accuracy and link checks, explanations that cover every wrong option
 
 ## Visual polish
 - [x] Icons and animated scenes for the heuristics path, lesson tiles, small UI motion
-- [x] Icons and scenes for Accessibility, Form design and Laws of UX (all 34 lessons)
+- [x] Icons and scenes for every lesson in all 8 paths (66), plus path icons
 - [x] Lesson codes (H1, A3...) removed from the UI
 - [x] Sound effects for right and wrong answers and lesson completion, with a header toggle
 - [x] Home page shows a card per learning path; each path has its own page with its lessons
@@ -36,17 +38,17 @@
 
 ## 0.3 — Learning that sticks
 - [x] Spaced repetition with due dates (missed items return after 1, 3 and 7 days, then clear)
-- [x] Skill map across paths (9 skills, #/skills)
+- [x] Skill map across paths (10 skills, #/skills)
 - [x] Progress export/import as a file (account page; loading combines with existing progress)
 
 ## Motivation
-- [x] Levels (Intern to UX legend), each earning a streak freeze; achievements (17 badges); daily XP goal; streak freezes. Nothing is locked behind XP.
+- [x] Levels (Intern to UX legend), each earning a streak freeze; achievements (18 badges); daily XP goal; streak freezes. Nothing is locked behind XP.
 - [x] Path certificates: link-only (no server storage), saved image, Add to LinkedIn
 - [ ] Cosmetic unlocks (accent color themes by level)
 
 ## Practice
 - [x] Daily practice: 5 mixed exercises a day from finished lessons
-- [x] Path challenge: 10 questions, pass with 8 to unlock the path's certificate
+- [x] Path challenge: 10 questions, pass with 8 to unlock the path's certificate; a path counts as completed only once its challenge is passed
 
 ## 0.4 — Ready to share
 - [x] Privacy notice (#/privacy) and self-service account deletion
