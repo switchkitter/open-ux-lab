@@ -51,7 +51,7 @@ export default function AccountPage({ status, syncNow, progress, update }: Props
           />
         )}
         {(status.state === "off" || status.state === "signed-out") && <ProgressBackup progress={progress} update={update} />}
-        {status.state !== "checking" && <Appearance />}
+        {status.state !== "checking" && <Appearance xp={progress.xp} />}
         <p className="footnote">
           <a href={hrefFor({ name: "privacy" })}>How we handle your data</a>
         </p>

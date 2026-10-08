@@ -145,7 +145,7 @@ export default function PrivacyPage() {
 
           <h2>Data stored in your browser</h2>
           <p>
-            The app stores your progress and settings (such as whether sound effects are on, light or dark theme, whether to send usage counts, or the name you last put on a certificate) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
+            The app stores your progress and settings (such as whether sound effects are on, light or dark theme and accent color, whether to send usage counts, or the name you last put on a certificate) in your browser, a copy of the app's own files so it works offline, and, if you sign in, the details that keep you signed in. Both are
             needed for the app to work, so there's no cookie banner. Clearing this site's data in your browser removes them.
           </p>
 

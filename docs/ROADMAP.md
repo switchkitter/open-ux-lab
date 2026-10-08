@@ -45,7 +45,7 @@
 ## Motivation
 - [x] Levels (Intern to UX legend), each earning a streak freeze; achievements (18 badges); daily XP goal; streak freezes. Nothing is locked behind XP.
 - [x] Path certificates: link-only (no server storage), saved image, Add to LinkedIn
-- [ ] Cosmetic unlocks (accent color themes by level)
+- [x] Cosmetic unlocks: accent colors by level (Ocean at 2, Violet at 4, Plum at 6, Graphite at 8), chosen on the account page
 
 ## Practice
 - [x] Daily practice: 5 mixed exercises a day from finished lessons

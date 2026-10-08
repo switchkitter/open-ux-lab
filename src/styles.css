@@ -65,6 +65,26 @@
   color-scheme: dark;
 }
 
+/* Accent colors unlocked by level (src/lib/accent.ts), set as data-accent on <html>. The same rules color the
+   swatches in the accent picker, which carry data-accent themselves. accent.test.ts checks AA contrast for each. */
+[data-accent="indigo"] { --accent: #2f45c9; --accent-ink: #ffffff; --accent-soft: #e2e6fa; }
+[data-accent="ocean"] { --accent: #0a5c91; --accent-ink: #ffffff; --accent-soft: #dcecf7; }
+[data-accent="violet"] { --accent: #6639bd; --accent-ink: #ffffff; --accent-soft: #ebe3fa; }
+[data-accent="plum"] { --accent: #8c2b83; --accent-ink: #ffffff; --accent-soft: #f6e1f2; }
+[data-accent="graphite"] { --accent: #38463f; --accent-ink: #ffffff; --accent-soft: #e0e6e1; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-accent="indigo"], :root:not([data-theme="light"]) [data-accent="indigo"] { --accent: #8e9dff; --accent-ink: #0e1330; --accent-soft: #232a4e; }
+  :root:not([data-theme="light"])[data-accent="ocean"], :root:not([data-theme="light"]) [data-accent="ocean"] { --accent: #6cb6ef; --accent-ink: #06243a; --accent-soft: #16314a; }
+  :root:not([data-theme="light"])[data-accent="violet"], :root:not([data-theme="light"]) [data-accent="violet"] { --accent: #b59cff; --accent-ink: #1f0f45; --accent-soft: #2d2450; }
+  :root:not([data-theme="light"])[data-accent="plum"], :root:not([data-theme="light"]) [data-accent="plum"] { --accent: #e79ad9; --accent-ink: #3a0c33; --accent-soft: #3b1f38; }
+  :root:not([data-theme="light"])[data-accent="graphite"], :root:not([data-theme="light"]) [data-accent="graphite"] { --accent: #c9d3ce; --accent-ink: #141a17; --accent-soft: #2a332f; }
+}
+:root[data-theme="dark"][data-accent="indigo"], :root[data-theme="dark"] [data-accent="indigo"] { --accent: #8e9dff; --accent-ink: #0e1330; --accent-soft: #232a4e; }
+:root[data-theme="dark"][data-accent="ocean"], :root[data-theme="dark"] [data-accent="ocean"] { --accent: #6cb6ef; --accent-ink: #06243a; --accent-soft: #16314a; }
+:root[data-theme="dark"][data-accent="violet"], :root[data-theme="dark"] [data-accent="violet"] { --accent: #b59cff; --accent-ink: #1f0f45; --accent-soft: #2d2450; }
+:root[data-theme="dark"][data-accent="plum"], :root[data-theme="dark"] [data-accent="plum"] { --accent: #e79ad9; --accent-ink: #3a0c33; --accent-soft: #3b1f38; }
+:root[data-theme="dark"][data-accent="graphite"], :root[data-theme="dark"] [data-accent="graphite"] { --accent: #c9d3ce; --accent-ink: #141a17; --accent-soft: #2a332f; }
+
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -334,6 +354,16 @@ html { scroll-padding-top: 88px; }
 .confirm h3:focus { outline: none; }
 .check { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
 .check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); flex: none; }
+/* Locked accent colors: a separate list, not disabled radios, with a lock, a hatched swatch and the XP still needed. */
+.locked-accents { display: grid; gap: 8px; }
+.locked-accents h3 { font-family: var(--f-body); font-size: 16px; font-weight: 700; }
+.locked-accents ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.locked-accents li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); }
+.locked-accents strong { color: var(--fg); }
+.locked-accents .swatch { background-image: repeating-linear-gradient(135deg, transparent 0 3px, var(--surface) 3px 5px); }
+.lock-icon { flex: none; margin-top: 1px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Accent picker swatch: data-accent on the swatch gives it that accent's tokens (see the accent rules at the top). */
+.swatch { flex: none; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--accent); box-shadow: inset 0 0 0 5px var(--accent-soft); border: 1px solid var(--accent); }
 .btn.danger { background: var(--bad); border-color: var(--bad); color: var(--bg); }
 .btn.ghost.danger { background: transparent; color: var(--bad); border-color: var(--bad); }
 .privacy .prose h2 { font-size: 22px; margin: 26px 0 8px; }

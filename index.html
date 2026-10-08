@@ -27,11 +27,13 @@
     <meta name="theme-color" content="#eef1ec" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#111614" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-title" content="UX Lab" />
-    <!-- Apply a saved light or dark theme before the page draws (see src/lib/theme.ts). -->
+    <!-- Apply a saved light or dark theme and accent color before the page draws (see src/lib/theme.ts and accent.ts). -->
     <script>
       try {
         var theme = localStorage.getItem("open-ux-lab:theme");
         if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+        var accent = localStorage.getItem("open-ux-lab:accent");
+        if (accent && /^[a-z]+$/.test(accent)) document.documentElement.dataset.accent = accent;
       } catch (e) {}
     </script>
     <meta name="mobile-web-app-capable" content="yes" />

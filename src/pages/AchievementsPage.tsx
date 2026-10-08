@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BadgeIcon from "../components/BadgeIcon";
 import { DAILY_GOALS, MAX_FREEZES, setGoal, type Progress } from "../lib/progress";
+import { accentUnlockedAt } from "../lib/accent";
 import { BADGES, LEVELS, levelFor } from "../lib/rewards";
 import { hrefFor } from "../lib/route";
 import type { UpdateProgress } from "../lib/useProgress";
@@ -26,8 +27,8 @@ export default function AchievementsPage({ progress, update }: Props) {
         <div className="eyebrow">{`Level ${lv.level} · ${progress.xp} XP`}</div>
         <h1 className="page-title">Your achievements</h1>
         <p className="lede">
-          XP builds your level, and each new level earns a streak freeze. Every lesson is always open: rewards never lock
-          anything.
+          XP builds your level. Each new level earns a streak freeze, and some bring a new accent color for the app. Every
+          lesson is always open: rewards never lock any learning.
         </p>
       </section>
 
@@ -35,10 +36,11 @@ export default function AchievementsPage({ progress, update }: Props) {
         <h2 id="levels-heading">Levels</h2>
         <ol className="levels">
           {LEVELS.map((l) => {
+            const accent = accentUnlockedAt(l.level);
             const state = l.level < lv.level ? "Reached" : l.level === lv.level ? "Your level" : `${l.minXp - progress.xp} XP to go`;
             return (
               <li key={l.level} className={l.level === lv.level ? "current" : l.level < lv.level ? "reached" : ""}>
-                <span className="levels-name">{`${l.level}. ${l.title}`}</span>
+                <span className="levels-name">{`${l.level}. ${l.title}${accent ? ` (${accent.name} accent color)` : ""}`}</span>
                 <span className="levels-state">{`${l.minXp} XP · ${state}`}</span>
               </li>
             );

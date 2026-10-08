@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { findLesson, paths, totalLessons } from "./content/catalog";
+import { setAccentLevel } from "./lib/accent";
 import { count } from "./lib/analytics";
 import { announceScreen } from "./lib/focus";
 import { useCloudSync } from "./lib/useCloudSync";
@@ -11,6 +12,7 @@ import AchievementsPage from "./pages/AchievementsPage";
 import CertificatePage from "./pages/CertificatePage";
 import ChallengePage from "./pages/ChallengePage";
 import { readCertificate } from "./lib/certificate";
+import { levelFor } from "./lib/rewards";
 import CreditsPage from "./pages/CreditsPage";
 import HomePage from "./pages/HomePage";
 import LessonPage from "./pages/LessonPage";
@@ -24,6 +26,10 @@ export default function App() {
   const [progress, update] = useProgress();
   const { status: syncStatus, syncNow } = useCloudSync(progress, update);
   const route = useRoute();
+
+  // Accent colors unlock by level; a saved accent above the current level falls back to the default.
+  const level = levelFor(progress.xp).level;
+  useEffect(() => setAccentLevel(level), [level]);
 
   // One anonymous "visit" count per app load (see lib/analytics.ts).
   useEffect(() => count("visit"), []);

@@ -1,3 +1,4 @@
+import { accentUnlockedAt } from "../lib/accent";
 import type { Progress } from "../lib/progress";
 import { rewardsBetween } from "../lib/rewards";
 import { hrefFor } from "../lib/route";
@@ -9,6 +10,8 @@ export default function RewardsList({ before, after }: { before: Progress; after
   const r = rewardsBetween(before, after, new Date());
   const items: { key: string; lead: string; detail: string; badge?: boolean }[] = [];
   if (r.levelUp) items.push({ key: "level", lead: `Level up: ${r.levelUp.title}.`, detail: `You've reached level ${r.levelUp.level}.` });
+  const accent = r.levelUp && accentUnlockedAt(r.levelUp.level);
+  if (accent) items.push({ key: "accent", lead: `New accent color: ${accent.name}.`, detail: "Choose it under Appearance on your account page." });
   if (r.freezesEarned)
     items.push({ key: "freeze", lead: r.freezesEarned === 1 ? "Streak freeze earned." : `${r.freezesEarned} streak freezes earned.`, detail: "Each one covers a day you miss." });
   if (r.freezesUsed)
